@@ -8,7 +8,8 @@ namespace DataAPI.Interfaces
 {
     public interface IDataService
     {
-        Task<string> GetCompetitionAsync();
-        string GetCompetition();
+        IList<Models.Competition> GetCompetition();
+        IList<Models.Team> GetTeams(int LeagueId);
+        IList<Models.Team> GetTeams(string LeagueName);
     }
 }

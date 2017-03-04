@@ -5,37 +5,32 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DataAPI.Models;
 
 namespace DataAPI.Implementations
 {
     public class DataService: IDataService
     {
 
-        private readonly string competition = "http://api.football-data.org/v1/competitions/?season=2015";
-
-        public string GetCompetition()
+        public IList<Competition> GetCompetition()
         {
             var comp = new CompetitionAPI();
-            var l = comp.GetCompetitions();
-            return "";
+            var l = comp.Get();
+            return l;
         }
 
-        public async Task<string> GetCompetitionAsync()
+        public IList<Team> GetTeams(string LeagueName)
         {
-            using (var wc = new HttpClient())
-            {
-                var response = await wc.GetAsync(competition);
-                if(response.IsSuccessStatusCode)
-                {
-                    var data = await response.Content.ReadAsStringAsync();
-                    return data;
-                }
-                else
-                {
-                    return "";
-                }
-            }
+            var teamApi = new TeamAPI();
+            var teams = teamApi.Get(LeagueName);
+            return teams;
         }
 
+        public IList<Team> GetTeams(int LeagueId)
+        {
+            var teamApi = new TeamAPI();
+            var teams = teamApi.Get(LeagueId);
+            return teams;
+        }
     }
 }

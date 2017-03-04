@@ -18,9 +18,10 @@ namespace CalledThat.Controllers
         public JsonResult ApiTest()
         {
             var data = new DataService();
-            var task = data.GetCompetition();
-            var result = task;
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var comps = data.GetCompetition();
+            var league = comps.Where(c => c.League == "PL").FirstOrDefault();
+            var teams = data.GetTeams(league.Id);
+            return Json(teams, JsonRequestBehavior.AllowGet);
         }
     }
 }

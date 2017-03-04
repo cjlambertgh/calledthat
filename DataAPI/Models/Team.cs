@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAPI.Models
 {
-    public class Team
+    public class Team : IModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

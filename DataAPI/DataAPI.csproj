@@ -47,9 +47,12 @@
     <Compile Include="Implementations\CompetitionAPI.cs" />
     <Compile Include="Implementations\DataService.cs" />
     <Compile Include="Implementations\RestApi.cs" />
+    <Compile Include="Implementations\TeamAPI.cs" />
+    <Compile Include="Interfaces\IApi.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Team.cs" />

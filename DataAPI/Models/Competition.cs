@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAPI.Models
 {
-    public class Competition
+    public class Competition : IModel
     {
         public int Id { get; set; }
         public string Caption { get; set; }

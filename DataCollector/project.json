@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "DataCollector Class Library",
+  "authors": [ "Administrator" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": {
+      "dependencies": {
+        "System.Net.Http": "4.0.1-beta-23516"
+      }
+    } 
+
+  }
+}

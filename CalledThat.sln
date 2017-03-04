@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalledThat", "CalledThat\CalledThat.csproj", "{48038ACE-1602-4DDC-9E78-EBD46A601DB6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{437D1358-489E-4399-9D6F-0C3035D93ADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAPI", "DataAPI\DataAPI.csproj", "{58353A34-021E-4459-8CE2-07D5E044DECB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{48038ACE-1602-4DDC-9E78-EBD46A601DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48038ACE-1602-4DDC-9E78-EBD46A601DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48038ACE-1602-4DDC-9E78-EBD46A601DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58353A34-021E-4459-8CE2-07D5E044DECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58353A34-021E-4459-8CE2-07D5E044DECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58353A34-021E-4459-8CE2-07D5E044DECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58353A34-021E-4459-8CE2-07D5E044DECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{58353A34-021E-4459-8CE2-07D5E044DECB} = {437D1358-489E-4399-9D6F-0C3035D93ADE}
 	EndGlobalSection
 EndGlobal

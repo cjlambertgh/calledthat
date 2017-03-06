@@ -10,7 +10,5 @@ namespace DataAPI.Interfaces
     public interface IApi<T> where T: IModel
     {
         List<T> Get();
-        List<T> Get(int id);
-        List<T> Get(string name);
     }
 }

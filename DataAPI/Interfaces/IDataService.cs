@@ -10,8 +10,8 @@ namespace DataAPI.Interfaces
     public interface IDataService
     {
         IList<Competition> GetCompetition();
-        IList<Team> GetTeams(int LeagueId);
-        IList<Team> GetTeams(string LeagueName);
+        IList<Team> GetTeams(int competitionId);
         IList<League> GetLeagues(int competitionId);
+        IList<Fixture> GetMatchdayFixtures(int competitionId, int matchDay);
     }
 }

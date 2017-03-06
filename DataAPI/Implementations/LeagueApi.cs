@@ -12,7 +12,7 @@ namespace DataAPI.Implementations
     public class LeagueApi : IApi<League>
     {
         private static readonly string Uri = "http://api.football-data.org/v1/competitions/{0}/leagueTable";
-        private int _competitionId;
+        private readonly int _competitionId;
 
         public LeagueApi(int competitionId)
         {
@@ -27,14 +27,5 @@ namespace DataAPI.Implementations
             return list;
         }
 
-        public List<League> Get(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<League> Get(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

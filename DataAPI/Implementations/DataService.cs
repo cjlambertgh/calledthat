@@ -15,28 +15,29 @@ namespace DataAPI.Implementations
         public IList<Competition> GetCompetition()
         {
             var api = new CompetitionAPI();
-            var l = api.Get();
-            return l;
+            var data = api.Get();
+            return data;
         }
 
         public IList<League> GetLeagues(int competitionId)
         {
             var api = new LeagueApi(competitionId);
-            return api.Get();
+            var data = api.Get();
+            return data;
         }
 
-        public IList<Team> GetTeams(string LeagueName)
+        public IList<Fixture> GetMatchdayFixtures(int competitionId, int matchDay)
         {
-            var teamApi = new TeamAPI();
-            var teams = teamApi.Get(LeagueName);
-            return teams;
+            var api = new MatchdayFixtureApi(competitionId, matchDay);
+            var data = api.Get();
+            return data;
         }
 
-        public IList<Team> GetTeams(int LeagueId)
+        public IList<Team> GetTeams(int competitionId)
         {
-            var teamApi = new TeamAPI();
-            var teams = teamApi.Get(LeagueId);
-            return teams;
+            var api = new TeamAPI(competitionId);
+            var data = api.Get();
+            return data;
         }
     }
 }

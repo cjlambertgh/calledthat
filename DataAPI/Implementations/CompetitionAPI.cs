@@ -19,14 +19,5 @@ namespace DataAPI.Implementations
             return list;
         }
 
-        public List<Competition> Get(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Competition> Get(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

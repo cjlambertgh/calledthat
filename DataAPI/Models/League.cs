@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ namespace DataAPI.Models
 {
     public class League : IModel
     {
-        public string Name { get; set; }
+        public string LeagueCaption { get; set; }
         public int MatchDay { get; set; }
+        [JsonProperty("standing")]
         public List<Standing> Standings { get; set; }
     }
 

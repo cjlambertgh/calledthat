@@ -23,8 +23,8 @@ namespace DataAPI.Implementations
         {
             var api = new RestApi(string.Format(Uri, _competitionId));
             var data = api.Get();
-            var list = JsonConvert.DeserializeObject<List<League>>(data);
-            return list;
+            var list = JsonConvert.DeserializeObject<League>(data);
+            return new List<League>() { list };
         }
 
     }

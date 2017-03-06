@@ -19,8 +19,10 @@ namespace CalledThat.Controllers
         {
             var data = new DataService();
             var comps = data.GetCompetition();
-            var league = comps.Where(c => c.League == "PL").FirstOrDefault();
-            var teams = data.GetTeams(league.Id);
+            var competition = comps.Where(c => c.League == "PL").FirstOrDefault();
+            var league = data.GetLeagues(competition.Id).FirstOrDefault();
+            var fixtures = data.GetMatchdayFixtures(competition.Id, league.MatchDay);
+            var teams = data.GetTeams(competition.Id);
             return Json(teams, JsonRequestBehavior.AllowGet);
         }
     }

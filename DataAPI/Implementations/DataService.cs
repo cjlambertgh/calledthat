@@ -14,9 +14,15 @@ namespace DataAPI.Implementations
 
         public IList<Competition> GetCompetition()
         {
-            var comp = new CompetitionAPI();
-            var l = comp.Get();
+            var api = new CompetitionAPI();
+            var l = api.Get();
             return l;
+        }
+
+        public IList<League> GetLeagues(int competitionId)
+        {
+            var api = new LeagueApi(competitionId);
+            return api.Get();
         }
 
         public IList<Team> GetTeams(string LeagueName)

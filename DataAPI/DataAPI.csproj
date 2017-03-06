@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Implementations\CompetitionAPI.cs" />
     <Compile Include="Implementations\DataService.cs" />
+    <Compile Include="Implementations\LeagueApi.cs" />
     <Compile Include="Implementations\RestApi.cs" />
     <Compile Include="Implementations\TeamAPI.cs" />
     <Compile Include="Interfaces\IApi.cs" />

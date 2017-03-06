@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAPI.Models
 {
-    public class League
+    public class League : IModel
     {
         public string Name { get; set; }
         public int MatchDay { get; set; }

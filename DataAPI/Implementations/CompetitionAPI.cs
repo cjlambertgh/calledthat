@@ -9,13 +9,11 @@ namespace DataAPI.Implementations
 {
     public class CompetitionAPI : IApi<Competition>
     {
-        private static readonly string Uri = "http://api.football-data.org/v1/competitions/?season={0}";
-        private static readonly string SeasonYear = "2016";
+        private static readonly string Uri = "http://api.football-data.org/v1/competitions";
 
         public List<Competition> Get()
         {
-            var uri = string.Format(Uri, SeasonYear);
-            var api = new RestApi(uri);
+            var api = new RestApi(Uri);
             var data = api.Get();
             var list = JsonConvert.DeserializeObject<List<Competition>>(data);
             return list;

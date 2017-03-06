@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ namespace DataAPI.Interfaces
 {
     public interface IDataService
     {
-        IList<Models.Competition> GetCompetition();
-        IList<Models.Team> GetTeams(int LeagueId);
-        IList<Models.Team> GetTeams(string LeagueName);
+        IList<Competition> GetCompetition();
+        IList<Team> GetTeams(int LeagueId);
+        IList<Team> GetTeams(string LeagueName);
+        IList<League> GetLeagues(int competitionId);
     }
 }

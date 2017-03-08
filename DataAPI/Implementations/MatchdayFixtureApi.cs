@@ -28,8 +28,8 @@ namespace DataAPI.Implementations
             var uri = $"{Uri}?{string.Format(FilterMatchday, _matchDay) }";
             var api = new RestApi(string.Format(Uri, _competitionId));
             var data = api.Get();
-            var list = JsonConvert.DeserializeObject<List<Fixture>>(data);
-            return list;
+            var wrapper = JsonConvert.DeserializeObject<FixtureWrapper>(data);
+            return wrapper.Fixtures;
         }
 
     }

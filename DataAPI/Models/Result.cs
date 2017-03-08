@@ -8,7 +8,7 @@ namespace DataAPI.Models
 {
     public class Result
     {
-        public int GoalsHomeTeam { get; set; }
-        public int GoalsAwayTeam { get; set; }
+        public int? GoalsHomeTeam { get; set; }
+        public int? GoalsAwayTeam { get; set; }
     }
 }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DataAPI.Models
 {
+    public class FixtureWrapper : IModel
+    {
+        public List<Fixture> Fixtures { get; set; }
+    }
     public class Fixture: IModel
     {
         public int Id { get; set; }

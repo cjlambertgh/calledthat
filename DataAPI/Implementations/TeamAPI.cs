@@ -25,8 +25,8 @@ namespace DataAPI.Implementations
             var uri = string.Format(Uri, _competitionId);
             var api = new RestApi(uri);
             var data = api.Get();
-            var list = JsonConvert.DeserializeObject<List<Team>>(data);
-            return list;
+            var wrapper = JsonConvert.DeserializeObject<TeamWrapper>(data);
+            return wrapper.Teams;
         }
 
     }

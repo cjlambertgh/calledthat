@@ -14,4 +14,9 @@ namespace DataAPI.Models
         public string MarketValue { get; set; }
         public string BadgeUrl { get; set; }
     }
+
+    public class TeamWrapper
+    {
+        public List<Team> Teams { get; set; }
+    }
 }

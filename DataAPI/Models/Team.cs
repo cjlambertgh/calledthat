@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace DataAPI.Models
         public string Name { get; set; }
         public string ShortName { get; set; }
         public string MarketValue { get; set; }
+
+        [JsonProperty("crestUrl")]
         public string BadgeUrl { get; set; }
     }
 

@@ -104,7 +104,21 @@
     <Compile Include="Migrations\201703091309188_add-identity.Designer.cs">
       <DependentUpon>201703091309188_add-identity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703101234478_add-season-competition.cs" />
+    <Compile Include="Migrations\201703101234478_add-season-competition.Designer.cs">
+      <DependentUpon>201703101234478_add-season-competition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101238431_remove-team-season.cs" />
+    <Compile Include="Migrations\201703101238431_remove-team-season.Designer.cs">
+      <DependentUpon>201703101238431_remove-team-season.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101240117_remove-team-season-2.cs" />
+    <Compile Include="Migrations\201703101240117_remove-team-season-2.Designer.cs">
+      <DependentUpon>201703101240117_remove-team-season-2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,6 +132,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703091309188_add-identity.resx">
       <DependentUpon>201703091309188_add-identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101234478_add-season-competition.resx">
+      <DependentUpon>201703101234478_add-season-competition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101238431_remove-team-season.resx">
+      <DependentUpon>201703101238431_remove-team-season.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101240117_remove-team-season-2.resx">
+      <DependentUpon>201703101240117_remove-team-season-2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

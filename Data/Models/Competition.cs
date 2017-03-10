@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Team : IModel
+    public class Competition : IModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string BadgeUrl { get; set; }
 
-        public Guid CompetitionId { get; set; }
+        public Guid SeasonId { get; set; }
 
-        [ForeignKey("CompetitionId")]
-        public virtual Competition Competition { get; set; }
+        [ForeignKey("SeasonId")]
+        public virtual Season Season { get; set; }
+
+        public virtual ICollection<Team> Teams { get; set; }
+
     }
-    
 }

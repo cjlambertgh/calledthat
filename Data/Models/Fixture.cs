@@ -1,5 +1,6 @@
 ﻿using Data.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
@@ -24,5 +25,7 @@ namespace Data.Models
         public virtual GameWeek GameWeek { get; set; }
 
         public DateTime KickOffDateTime { get; set; }
+
+        public virtual ICollection<Result> Results { get; set; }
     }
 }

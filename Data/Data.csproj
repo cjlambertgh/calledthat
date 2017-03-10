@@ -132,12 +132,22 @@
     <Compile Include="Migrations\201703101304589_add-league.Designer.cs">
       <DependentUpon>201703101304589_add-league.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703101312045_add-playerleagues.cs" />
+    <Compile Include="Migrations\201703101312045_add-playerleagues.Designer.cs">
+      <DependentUpon>201703101312045_add-playerleagues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101315371_add-leagueowners.cs" />
+    <Compile Include="Migrations\201703101315371_add-leagueowners.Designer.cs">
+      <DependentUpon>201703101315371_add-leagueowners.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
     <Compile Include="Models\GameWeek.cs" />
     <Compile Include="Models\League.cs" />
+    <Compile Include="Models\LeagueOwners.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerLeagues.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Team.cs" />
@@ -174,6 +184,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703101304589_add-league.resx">
       <DependentUpon>201703101304589_add-league.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101312045_add-playerleagues.resx">
+      <DependentUpon>201703101312045_add-playerleagues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101315371_add-leagueowners.resx">
+      <DependentUpon>201703101315371_add-leagueowners.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

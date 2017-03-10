@@ -116,8 +116,19 @@
     <Compile Include="Migrations\201703101240117_remove-team-season-2.Designer.cs">
       <DependentUpon>201703101240117_remove-team-season-2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703101246407_add-player.cs" />
+    <Compile Include="Migrations\201703101246407_add-player.Designer.cs">
+      <DependentUpon>201703101246407_add-player.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703101255313_add-fixture-gameweek.cs" />
+    <Compile Include="Migrations\201703101255313_add-fixture-gameweek.Designer.cs">
+      <DependentUpon>201703101255313_add-fixture-gameweek.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Fixture.cs" />
+    <Compile Include="Models\GameWeek.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +152,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703101240117_remove-team-season-2.resx">
       <DependentUpon>201703101240117_remove-team-season-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101246407_add-player.resx">
+      <DependentUpon>201703101246407_add-player.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703101255313_add-fixture-gameweek.resx">
+      <DependentUpon>201703101255313_add-fixture-gameweek.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

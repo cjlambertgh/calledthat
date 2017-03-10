@@ -20,5 +20,7 @@ namespace Data.Models
 
         public virtual ICollection<Team> Teams { get; set; }
 
+        public virtual ICollection<GameWeek> GameWeeks { get; set; }
+
     }
 }

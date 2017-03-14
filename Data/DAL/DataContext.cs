@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Data.DAL.Identity;
+using Data.Interfaces;
+using System.Linq;
 
 namespace Data
 {
@@ -20,6 +22,19 @@ namespace Data
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+        }
+
+        public override int SaveChanges()
+        {
+            ChangeTracker.Entries<IModel>().Where(x => x.State == EntityState.Added).ToList().ForEach(item =>
+            {
+                if (item.Entity.Id == null || item.Entity.Id == Guid.Empty)
+                {
+                    item.Entity.Id = Guid.NewGuid();
+                }                
+            });
+
+            return base.SaveChanges();
         }
 
         public DbSet<Team> Teams { get; set; }

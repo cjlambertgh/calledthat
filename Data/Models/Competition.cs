@@ -10,7 +10,6 @@ namespace Data.Models
 {
     public class Competition : IModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public string Name { get; set; }

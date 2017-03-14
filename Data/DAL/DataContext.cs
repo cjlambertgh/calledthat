@@ -22,6 +22,15 @@ namespace Data
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
 
-        DbSet<Team> Teams { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Competition> Competitions { get; set; }
+        public DbSet<Fixture> Fixtures { get; set; }
+        public DbSet<GameWeek> GameWeeks { get; set; }
+        public DbSet<League> Leagues { get; set; }
+        public DbSet<LeagueOwners> LeagueOwners { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<PlayerLeagues> PlayerLeagues { get; set; }
+        public DbSet<Result> Results { get; set; }
+        public DbSet<Season> Seasons { get; set; }
     }
 }

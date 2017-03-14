@@ -7,6 +7,7 @@ namespace Data.Models
 {
     public class Fixture : IModel
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public Guid HomeTeamId { get; set; }

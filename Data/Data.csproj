@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BAL\Admin.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\DataInitializer.cs" />
@@ -139,6 +140,10 @@
     <Compile Include="Migrations\201703101315371_add-leagueowners.cs" />
     <Compile Include="Migrations\201703101315371_add-leagueowners.Designer.cs">
       <DependentUpon>201703101315371_add-leagueowners.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703121258526_add-identity-pks.cs" />
+    <Compile Include="Migrations\201703121258526_add-identity-pks.Designer.cs">
+      <DependentUpon>201703121258526_add-identity-pks.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
@@ -191,6 +196,15 @@
     <EmbeddedResource Include="Migrations\201703101315371_add-leagueowners.resx">
       <DependentUpon>201703101315371_add-leagueowners.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703121258526_add-identity-pks.resx">
+      <DependentUpon>201703121258526_add-identity-pks.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAPI\DataAPI.csproj">
+      <Project>{58353a34-021e-4459-8ce2-07d5e044decb}</Project>
+      <Name>DataAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

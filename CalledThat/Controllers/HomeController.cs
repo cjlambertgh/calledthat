@@ -1,4 +1,5 @@
-﻿using DataAPI.Implementations;
+﻿using Data.BAL;
+using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,13 @@ namespace CalledThat.Controllers
             var fixtures = data.GetMatchdayFixtures(competition.Id, league.MatchDay);
             var teams = data.GetTeams(competition.Id);
             return Json(teams, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AdminInit()
+        {
+            var admin = new Admin();
+            admin.Initialise();
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
     }
 }

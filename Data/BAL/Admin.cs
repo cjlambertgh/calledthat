@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Repository;
 using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,53 @@ namespace Data.BAL
                             CurrentSeasonYear = year,
                             StartDate = new DateTime(year, 8, 1),
                             EndDate = new DateTime(year+1, 7, 31)
+                        };
+                        db.Seasons.Add(season);
+
+                        var competition = new Competition
+                        {
+                            Season = season,
+                            Name = prem.Caption
+                        };
+                        db.Competitions.Add(competition);
+
+                        db.SaveChanges();
+
+                        var teamApi = new TeamAPI(prem.Id);
+                        var teams = teamApi.Get();
+                        teams.ForEach(t =>
+                        {
+                            db.Teams.Add(new Team
+                            {
+                                Name = t.Name,
+                                BadgeUrl = t.BadgeUrl,
+                                Competition = competition
+                            });
+                        });
+
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void Test()
+        {
+            using (var db = new UnitOfWork())
+            {
+                if(!db.Competitions.Any())
+                {
+                    var api = new CompetitionAPI();
+                    var comps = api.Get();
+                    var prem = comps.Single(c => c.League == Competition);
+                    if (prem != null)
+                    {
+                        var year = int.Parse(prem.Year);
+                        var season = new Season
+                        {
+                            CurrentSeasonYear = year,
+                            StartDate = new DateTime(year, 8, 1),
+                            EndDate = new DateTime(year + 1, 7, 31)
                         };
                         db.Seasons.Add(season);
 

@@ -1,4 +1,5 @@
 ﻿using Data.BAL;
+using Data.Repository;
 using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,13 @@ namespace CalledThat.Controllers
 {
     public class HomeController : AsyncController
     {
+        private readonly IUnitOfWork _db;
+
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            _db = unitOfWork;
+        }
+
         // GET: Home
         public ActionResult Index()
         {
@@ -32,6 +40,11 @@ namespace CalledThat.Controllers
             var admin = new Admin();
             admin.Initialise();
             return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UnityTest()
+        {
+            _db.
         }
     }
 }

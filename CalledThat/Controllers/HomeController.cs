@@ -44,7 +44,8 @@ namespace CalledThat.Controllers
 
         public JsonResult UnityTest()
         {
-            _db.
+            var teams = _db.Teams.Get();
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
     }
 }

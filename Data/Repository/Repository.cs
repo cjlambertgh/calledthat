@@ -25,7 +25,7 @@ namespace Data.Repository
         {
             IQueryable<TEntity> query = _dbSet;
 
-            if(query != null)
+            if(query != null && filter != null)
             {
                 query.Where(filter);
             }

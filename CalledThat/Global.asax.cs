@@ -14,7 +14,6 @@ namespace CalledThat
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            UnityConfig.Register();
         }
     }
 }

@@ -91,10 +91,12 @@
   <ItemGroup>
     <Compile Include="BAL\Admin.cs" />
     <Compile Include="DAL\DataContext.cs" />
+    <Compile Include="DAL\DataContextConnection.cs" />
     <Compile Include="DAL\DataInitializer.cs" />
     <Compile Include="DAL\Identity\AppRole.cs" />
     <Compile Include="DAL\Identity\AppUser.cs" />
     <Compile Include="DAL\Identity\IdentityConfig.cs" />
+    <Compile Include="Interfaces\IDataContextConnection.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Migrations\201703081826562_initial.cs" />
     <Compile Include="Migrations\201703081826562_initial.Designer.cs">

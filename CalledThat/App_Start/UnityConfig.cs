@@ -2,6 +2,8 @@
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Data.Repository;
+using Data.Interfaces;
+using Data.DAL;
 
 namespace CalledThat.App_Start
 {
@@ -37,7 +39,7 @@ namespace CalledThat.App_Start
             // container.LoadConfiguration();
 
             // TODO: Register your types here
-             container.RegisterType<IUnitOfWork, UnitOfWork>();
+             container.RegisterType<IDataContextConnection, DataContextConnection>();
         }
     }
 }

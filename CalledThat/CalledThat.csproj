@@ -207,6 +207,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -214,6 +215,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\Tutorial.jsx" />
     <Content Include="Views\Home\ApiTest.cshtml" />
+    <Content Include="Views\Home\UnityTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

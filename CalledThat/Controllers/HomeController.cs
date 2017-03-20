@@ -1,4 +1,6 @@
-﻿using Data.BAL;
+﻿using CalledThat.ViewModels;
+using Data.BAL;
+using Data.Interfaces;
 using Data.Repository;
 using DataAPI.Implementations;
 using System;
@@ -11,9 +13,9 @@ namespace CalledThat.Controllers
 {
     public class HomeController : AsyncController
     {
-        private readonly IUnitOfWork _db;
+        private readonly IDataContextConnection _db;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController(IDataContextConnection unitOfWork)
         {
             _db = unitOfWork;
         }
@@ -42,10 +44,14 @@ namespace CalledThat.Controllers
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UnityTest()
+        public ActionResult UnityTest()
         {
-            var teams = _db.Teams.Get();
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            var db = _db.Database;
+            var teams = db.Teams.Get();
+            var viewModel = teams.Select(x => new TeamViewModel { TeamName = x.Name, BadgeUrl = x.BadgeUrl }).ToList();
+
+
+            return View(viewModel);
         }
     }
 }

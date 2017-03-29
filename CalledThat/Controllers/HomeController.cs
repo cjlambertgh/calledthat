@@ -39,7 +39,7 @@ namespace CalledThat.Controllers
 
         public JsonResult AdminInit()
         {
-            var admin = new Admin();
+            var admin = new Admin(_db);
             admin.Initialise();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }

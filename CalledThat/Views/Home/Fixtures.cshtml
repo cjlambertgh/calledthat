@@ -1,1 +1,42 @@
 ﻿
+@{
+    Layout = null;
+
+}
+
+@model IEnumerable<Data.Models.Fixture>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UnityTest</title>
+</head>
+<body>
+    <div>
+        <table style="text-align: center; width:100%">
+            @foreach (var item in Model.OrderBy(itm => itm.KickOffDateTime))
+            {
+                <tr>
+                    <td style="width:20%"><img src="@item.HomeTeam.BadgeUrl" width="50" height="50" /></td>
+                    <td style="width:20%">@item.HomeTeam.Name</td>
+                    @if (@item.Results.Any())
+                    {
+                        var result = item.Results.Single();
+                        <td style="width:20%">@result.HomeScore - @result.AwayScore</td>
+                    }
+                    else
+                    {
+                        <td style="width:20%">@item.KickOffDateTime</td>
+                    }
+                    <td style="width:20%">@item.AwayTeam.Name</td>
+                    <td style="width:20%"><img src="@item.AwayTeam.BadgeUrl" width="50" height="50" /></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
+

@@ -40,7 +40,9 @@ namespace GameService
                     var competition = new Competition
                     {
                         Season = season,
-                        Name = prem.Caption
+                        Name = prem.Caption,
+                        CurrentGameWeekNumber = 0,
+                        LeagueApiLink = Competition
                     };
                     _db.Database.Competitions.Add(competition);
 
@@ -76,10 +78,11 @@ namespace GameService
             using (var db = _db.Database)
             {
                 var season = db.Seasons.SingleOrDefault(s => s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now);
-                var comp = season.Competitions.Single();
+                var comp = season.Competitions.Single(c => c.LeagueApiLink == Competition);
 
                 var compApi = new CompetitionAPI();
                 var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
+                comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
                 if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
                 {
                     comp.GameWeeks.Add(new GameWeek
@@ -159,6 +162,13 @@ namespace GameService
         private void UpdateDatabase()
         {
 
+        }
+
+        public IEnumerable<Fixture> GetGameWeekFixtures()
+        {
+            var comp = _db.Database.Competitions.SingleOrDefault(c => c.LeagueApiLink == Competition);
+            var gameWeek = comp.GameWeeks.Single(gw => gw.Number == comp.CurrentGameWeekNumber);
+            return gameWeek.Fixtures.ToList();
         }
     }
 }

@@ -19,6 +19,10 @@ namespace Data.Models
         [ForeignKey("SeasonId")]
         public virtual Season Season { get; set; }
 
+        public int CurrentGameWeekNumber { get; set; }
+
+        public string LeagueApiLink { get; set; }
+
         public virtual ICollection<Team> Teams { get; set; }
 
         public virtual ICollection<GameWeek> GameWeeks { get; set; }

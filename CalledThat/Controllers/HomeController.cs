@@ -64,7 +64,8 @@ namespace CalledThat.Controllers
 
         public ActionResult Fixtures()
         {
-
+            var fixtures = _gameService.GetGameWeekFixtures();
+            return View(fixtures);
         }
     }
 }

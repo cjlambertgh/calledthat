@@ -1,5 +1,4 @@
 ﻿using CalledThat.ViewModels;
-using Data.BAL;
 using Data.Interfaces;
 using Data.Repository;
 using DataAPI.Implementations;
@@ -39,8 +38,8 @@ namespace CalledThat.Controllers
 
         public JsonResult AdminInit()
         {
-            var admin = new Admin(_db);
-            admin.Initialise();
+            //var admin = new Admin(_db);
+            //admin.Initialise();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 

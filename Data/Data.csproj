@@ -89,7 +89,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BAL\Admin.cs" />
     <Compile Include="DAL\DataContext.cs" />
     <Compile Include="DAL\DataContextConnection.cs" />
     <Compile Include="DAL\DataInitializer.cs" />

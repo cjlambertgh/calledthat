@@ -61,5 +61,10 @@ namespace CalledThat.Controllers
             _gameService.UpdateAll();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Fixtures()
+        {
+
+        }
     }
 }

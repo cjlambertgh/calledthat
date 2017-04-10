@@ -216,6 +216,7 @@
     <Content Include="Scripts\Tutorial.jsx" />
     <Content Include="Views\Home\ApiTest.cshtml" />
     <Content Include="Views\Home\UnityTest.cshtml" />
+    <Content Include="Views\Home\Fixtures.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

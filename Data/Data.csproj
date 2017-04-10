@@ -149,6 +149,10 @@
     <Compile Include="Migrations\201703141315491_remove-identity-autogenerate-pks.Designer.cs">
       <DependentUpon>201703141315491_remove-identity-autogenerate-pks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704101207445_correct-fixture-id.cs" />
+    <Compile Include="Migrations\201704101207445_correct-fixture-id.Designer.cs">
+      <DependentUpon>201704101207445_correct-fixture-id.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -208,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703141315491_remove-identity-autogenerate-pks.resx">
       <DependentUpon>201703141315491_remove-identity-autogenerate-pks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704101207445_correct-fixture-id.resx">
+      <DependentUpon>201704101207445_correct-fixture-id.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

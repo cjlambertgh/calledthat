@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\FixtureHelper.cs" />
     <Compile Include="Implementations\CompetitionAPI.cs" />
     <Compile Include="Implementations\DataService.cs" />
     <Compile Include="Implementations\MatchdayFixtureApi.cs" />

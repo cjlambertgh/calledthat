@@ -1,5 +1,6 @@
 ﻿using Data.Interfaces;
 using Data.Models;
+using DataAPI.Helpers;
 using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
@@ -64,8 +65,13 @@ namespace GameService
 
             
         }
-
         public void UpdateAll()
+        {
+            UpdateApiData();
+            UpdateDatabase();
+        }
+
+        private void UpdateApiData()
         {
             var season = _db.Database.Seasons.SingleOrDefault(s => s.StartDate > DateTime.Now && s.EndDate <= DateTime.Now);
             var comp = season.Competitions.Single();
@@ -82,20 +88,50 @@ namespace GameService
             }
 
             var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
-            if (!gameWeek.Fixtures.Any())
+
+            var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
+            var fixtures = fixtureApi.Get();
+                           
+            foreach (var fix in fixtures)
             {
-                var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
-                var fixtures = fixtureApi.Get();
-                foreach (var fix in fixtures)
+                if (!gameWeek.Fixtures.Any(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName))
                 {
                     gameWeek.Fixtures.Add(new Fixture
                     {
                         HomeTeam = _db.Database.Teams.FirstOrDefault(t => t.Name == fix.HomeTeamName),
                         AwayTeam = _db.Database.Teams.FirstOrDefault(t => t.Name == fix.AwayTeamName),
                     });
+
                 }
 
-            }
+                var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName);
+
+                if (FixtureHelper.IsFixtureInFinished(fix))
+                {
+                    if(!gameweekFixture.Results.Any())
+                    {
+                        if (fix.Result != null && fix.Result.GoalsAwayTeam != null && fix.Result.GoalsHomeTeam != null)
+                        {
+                            var result = new Result
+                            {
+                                HomeScore = (int)(fix.Result.GoalsHomeTeam),
+                                AwayScore = (int)(fix.Result.GoalsAwayTeam)
+                            };
+
+                            gameweekFixture.Results.Add(result);
+                        }
+                        else
+                        {
+                            //TODO: completed fixture but result or scores null!?
+                        }
+                    }
+                }                    
+            }            
+        }
+
+        private void UpdateDatabase()
+        {
+
         }
     }
 }

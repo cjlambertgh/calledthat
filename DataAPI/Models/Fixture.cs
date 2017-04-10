@@ -21,6 +21,18 @@ namespace DataAPI.Models
         public string AwayTeamName { get; set; }
         public int AwayTeamId { get; set; }
         public Result Result { get; set; }
+        public string Status { get; set; }
+        public FixtureStatus FixtureStatus => (FixtureStatus)Enum.Parse(typeof(FixtureStatus), Status, true);
+    }
+
+    public enum FixtureStatus
+    {
+        Scheduled,
+        Timed,
+        InPlay,
+        Postponed,
+        Canceled,
+        Finished
     }
 
 }

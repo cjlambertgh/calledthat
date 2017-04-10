@@ -24,5 +24,10 @@ namespace Data.Models
         public DateTime PickCloseDateTime { get; set; }
 
         public virtual ICollection<Fixture> Fixtures { get; set; }
+
+        public GameWeek()
+        {
+            Fixtures = new List<Fixture>();
+        }
     }
 }

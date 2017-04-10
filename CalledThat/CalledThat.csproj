@@ -236,6 +236,10 @@
       <Project>{F148B20A-BE7F-4090-981C-BB24A2BC0DCA}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameService\GameService.csproj">
+      <Project>{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}</Project>
+      <Name>GameService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

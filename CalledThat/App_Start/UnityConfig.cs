@@ -4,6 +4,7 @@ using Microsoft.Practices.Unity.Configuration;
 using Data.Repository;
 using Data.Interfaces;
 using Data.DAL;
+using GameService;
 
 namespace CalledThat.App_Start
 {
@@ -38,8 +39,8 @@ namespace CalledThat.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your types here
-             container.RegisterType<IDataContextConnection, DataContextConnection>();
+            container.RegisterType<IDataContextConnection, DataContextConnection>();
+            container.RegisterType<IGameService, GameService.GameService>();
         }
     }
 }

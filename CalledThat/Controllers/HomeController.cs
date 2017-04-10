@@ -2,6 +2,7 @@
 using Data.Interfaces;
 using Data.Repository;
 using DataAPI.Implementations;
+using GameService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace CalledThat.Controllers
     public class HomeController : AsyncController
     {
         private readonly IDataContextConnection _db;
+        private readonly IGameService _gameService;
 
-        public HomeController(IDataContextConnection unitOfWork)
+        public HomeController(IDataContextConnection unitOfWork, IGameService gameService)
         {
             _db = unitOfWork;
+            _gameService = gameService;
         }
 
         // GET: Home
@@ -51,6 +54,12 @@ namespace CalledThat.Controllers
 
 
             return View(viewModel);
+        }
+
+        public JsonResult GameServiceTest()
+        {
+            _gameService.UpdateAll();
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
     }
 }

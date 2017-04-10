@@ -28,5 +28,10 @@ namespace Data.Models
         public DateTime KickOffDateTime { get; set; }
 
         public virtual ICollection<Result> Results { get; set; }
+
+        public Fixture()
+        {
+            Results = new List<Result>();
+        }
     }
 }

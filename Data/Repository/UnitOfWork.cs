@@ -43,6 +43,12 @@ namespace Data.Repository
         private Repository<Result> _results;
         public Repository<Result> Results => _results ?? (_results = new Repository<Result>(context));
 
+        private Repository<Pick> _picks;
+        public Repository<Pick> Picks => _picks ?? (_picks = new Repository<Pick>(context));
+
+        private Repository<PickResult> _pickResults;
+        public Repository<PickResult> PickResults => _pickResults ?? (_pickResults = new Repository<PickResult>(context));
+
         public void SaveChanges()
         {
             context.SaveChanges();

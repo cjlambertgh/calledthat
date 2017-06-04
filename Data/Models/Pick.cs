@@ -19,7 +19,7 @@ namespace Data.Models
 
         public Guid FixtureId { get; set; }
 
-        [ForeignKey("FixtureID")]
+        [ForeignKey("FixtureId")]
         public Fixture Fixture { get; set; }
 
         public int HomeScore { get; set; }

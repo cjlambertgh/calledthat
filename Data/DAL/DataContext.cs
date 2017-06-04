@@ -47,5 +47,7 @@ namespace Data
         public DbSet<PlayerLeagues> PlayerLeagues { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<Season> Seasons { get; set; }
+        public DbSet<Pick> Picks { get; set; }
+        public DbSet<PickResult> PickResults { get; set; }
     }
 }

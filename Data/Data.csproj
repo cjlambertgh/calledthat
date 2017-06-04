@@ -161,6 +161,10 @@
     <Compile Include="Migrations\201704101234431_add-apileague-to-competition.Designer.cs">
       <DependentUpon>201704101234431_add-apileague-to-competition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706041433563_add-pick-pickresult.cs" />
+    <Compile Include="Migrations\201706041433563_add-pick-pickresult.Designer.cs">
+      <DependentUpon>201706041433563_add-pick-pickresult.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -231,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704101234431_add-apileague-to-competition.resx">
       <DependentUpon>201704101234431_add-apileague-to-competition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706041433563_add-pick-pickresult.resx">
+      <DependentUpon>201706041433563_add-pick-pickresult.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

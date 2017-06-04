@@ -167,6 +167,8 @@
     <Compile Include="Models\GameWeek.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\LeagueOwners.cs" />
+    <Compile Include="Models\Pick.cs" />
+    <Compile Include="Models\PickResult.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerLeagues.cs" />
     <Compile Include="Models\Result.cs" />

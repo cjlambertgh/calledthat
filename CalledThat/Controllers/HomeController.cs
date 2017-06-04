@@ -67,5 +67,46 @@ namespace CalledThat.Controllers
             var fixtures = _gameService.GetGameWeekFixtures();
             return View(fixtures);
         }
+
+        [HttpGet]
+        public ActionResult AddPicks()
+        {
+            var fixtures = _gameService.GetGameWeekFixtures();
+            var playerId = Guid.Empty;
+            var viewModel = new AddPicksViewModel
+            {
+                PlayerId = playerId
+            };
+
+            foreach(var fixture in fixtures)
+            {
+                viewModel.PickItems.Add(new PickItem
+                {
+                    HomeTeamName = fixture.HomeTeam.Name,
+                    HomeTeamBadgeUrl = fixture.HomeTeam.BadgeUrl,
+                    AwayTeamName = fixture.AwayTeam.Name,
+                    AwayTeamBadgeUrl = fixture.AwayTeam.BadgeUrl,
+                    KickOffTime = fixture.KickOffDateTime
+                });
+            }
+            
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddPicks(AddPicksViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            viewModel.PickItems.ForEach(item =>
+            {
+                _gameService.AddPick(viewModel.PlayerId, item.FixtureId, int.Parse(item.HomeScore), int.Parse(item.AwayScore), item.Banker, item.Double);
+            });
+
+            return View(viewModel);
+        }
     }
 }

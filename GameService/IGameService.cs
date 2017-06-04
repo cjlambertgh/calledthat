@@ -11,6 +11,10 @@ namespace GameService
     {
         void Initialise();
         void UpdateAll();
+
         IEnumerable<Fixture> GetGameWeekFixtures();
+        IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
+
+        void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);
     }
 }

@@ -70,7 +70,6 @@ namespace GameService
         public void UpdateAll()
         {
             UpdateApiData();
-            UpdateDatabase();
         }
 
         private void UpdateApiData()
@@ -159,16 +158,37 @@ namespace GameService
             return currentGameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
         }
 
-        private void UpdateDatabase()
-        {
-
-        }
-
         public IEnumerable<Fixture> GetGameWeekFixtures()
         {
             var comp = _db.Database.Competitions.SingleOrDefault(c => c.LeagueApiLink == Competition);
             var gameWeek = comp.GameWeeks.Single(gw => gw.Number == comp.CurrentGameWeekNumber);
             return gameWeek.Fixtures.ToList();
+        }
+
+        public IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek)
+        {
+            if (playerId == null) throw new ArgumentNullException(nameof(playerId));
+
+            return _db.Database.Picks.Get(pp => pp.PlayerId == playerId && pp.Fixture.GameWeek.Number == gameweek).ToList();
+        }
+
+        public void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore)
+        {
+            if (playerId == null) throw new ArgumentNullException(nameof(playerId));
+            if (fixtureId == null) throw new ArgumentNullException(nameof(fixtureId));
+
+            var pick = new Pick
+            {
+                FixtureId = fixtureId,
+                PlayerId = playerId,
+                HomeScore = homeScore,
+                AwayScore = awayScore,
+                Banker = banker,
+                Double = doubleScore
+            };
+
+            _db.Database.Picks.Add(pick);
+            _db.Database.SaveChanges();
         }
     }
 }

@@ -71,6 +71,7 @@ namespace CalledThat.Controllers
         [HttpGet]
         public ActionResult AddPicks()
         {
+            //TODO load picks if exist for current week
             var fixtures = _gameService.GetGameWeekFixtures();
             var playerId = Guid.Empty;
             var viewModel = new AddPicksViewModel
@@ -86,7 +87,8 @@ namespace CalledThat.Controllers
                     HomeTeamBadgeUrl = fixture.HomeTeam.BadgeUrl,
                     AwayTeamName = fixture.AwayTeam.Name,
                     AwayTeamBadgeUrl = fixture.AwayTeam.BadgeUrl,
-                    KickOffTime = fixture.KickOffDateTime
+                    KickOffTime = fixture.KickOffDateTime,
+                    FixtureId = fixture.Id
                 });
             }
             
@@ -98,6 +100,7 @@ namespace CalledThat.Controllers
         {
             if(!ModelState.IsValid)
             {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
                 return View(viewModel);
             }
 

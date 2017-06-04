@@ -177,6 +177,14 @@ namespace GameService
             if (playerId == null) throw new ArgumentNullException(nameof(playerId));
             if (fixtureId == null) throw new ArgumentNullException(nameof(fixtureId));
 
+            if(!_db.Database.Players.Any(p => p.Id == playerId))
+            {
+                _db.Database.Players.Add(new Player
+                {
+                    Id = playerId
+                });
+            }
+
             var pick = new Pick
             {
                 FixtureId = fixtureId,

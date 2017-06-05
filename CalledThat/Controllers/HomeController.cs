@@ -1,12 +1,9 @@
 ﻿using CalledThat.ViewModels;
 using Data.Interfaces;
-using Data.Repository;
 using DataAPI.Implementations;
 using GameService;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CalledThat.Controllers

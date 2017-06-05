@@ -1,5 +1,6 @@
 ﻿using Data.Interfaces;
 using Data.Models;
+using Data.Repository;
 using DataAPI.Helpers;
 using DataAPI.Implementations;
 using System;
@@ -14,11 +15,18 @@ namespace GameService
     {
         private readonly string Competition = "PL";
         private readonly IDataContextConnection _db;
+        private readonly IUnitOfWork db;
 
         public GameService(IDataContextConnection db)
         {
             _db = db;
         }
+
+        //public GameService(IUnitOfWork db)
+        //{
+        //    this.db = db;
+        //}
+
         public void Initialise()
         {
             if (!_db.Database.Competitions.Any())

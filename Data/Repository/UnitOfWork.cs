@@ -46,11 +46,6 @@ namespace Data.Repository
         private Repository<PickResult> _pickResults;
         public Repository<PickResult> PickResults => _pickResults ?? (_pickResults = new Repository<PickResult>(context));
 
-        public UnitOfWork()
-        {
-
-        }
-
         public void SaveChanges()
         {
             context.SaveChanges();

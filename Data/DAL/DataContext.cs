@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Data
 {
-    public class DataContext: IdentityDbContext<AppUser>
+    public class DataContext : IdentityDbContext<AppUser>, IDataContext
     {
         public DataContext() : base("DataContext")
         {

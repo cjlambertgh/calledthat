@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class Repository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal DataContext _context;
         internal DbSet<TEntity> _dbSet;
@@ -79,6 +79,11 @@ namespace Data.Repository
             }
 
             _dbSet.Remove(entity);
+        }
+
+        public int Count(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return _dbSet.Count(filter);
         }
     }
 }

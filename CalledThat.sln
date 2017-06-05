@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalledThat", "CalledThat\CalledThat.csproj", "{48038ACE-1602-4DDC-9E78-EBD46A601DB6}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F148B20A-BE7F-4090-981C-BB24A2BC0DCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameService", "GameService\GameService.csproj", "{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77176596-D584-403E-9C92-E960323017E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F685D015-ACBC-4D73-BBB0-9F3C59D7D41E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServiceTests", "GameServiceTests\GameServiceTests.csproj", "{DF5FBFBF-3324-47B6-9BA3-B790090696B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,10 @@ Global
 		{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5FBFBF-3324-47B6-9BA3-B790090696B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5FBFBF-3324-47B6-9BA3-B790090696B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5FBFBF-3324-47B6-9BA3-B790090696B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5FBFBF-3324-47B6-9BA3-B790090696B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +52,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{58353A34-021E-4459-8CE2-07D5E044DECB} = {437D1358-489E-4399-9D6F-0C3035D93ADE}
 		{A9AA049C-1B2A-4AAC-96BC-05EFD802609A} = {437D1358-489E-4399-9D6F-0C3035D93ADE}
+		{F685D015-ACBC-4D73-BBB0-9F3C59D7D41E} = {77176596-D584-403E-9C92-E960323017E1}
+		{DF5FBFBF-3324-47B6-9BA3-B790090696B9} = {F685D015-ACBC-4D73-BBB0-9F3C59D7D41E}
 	EndGlobalSection
 EndGlobal

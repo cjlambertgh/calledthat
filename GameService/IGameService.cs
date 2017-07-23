@@ -9,12 +9,18 @@ namespace GameService
 {
     public interface IGameService
     {
+
+        #region AdminMethods
         void Initialise();
-        void UpdateAll();
+        void UpdateApiData();
+        void UpdateResults();
+        #endregion
 
         IEnumerable<Fixture> GetGameWeekFixtures();
-        IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
 
+        IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
         void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);
+
+        
     }
 }

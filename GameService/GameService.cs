@@ -14,22 +14,16 @@ namespace GameService
     public class GameService : IGameService
     {
         private readonly string Competition = "PL";
-        private readonly IDataContextConnection _db;
-        private readonly IUnitOfWork db;
+        private readonly IUnitOfWork _db;
 
         public GameService(IDataContextConnection db)
         {
-            _db = db;
+            _db = db.Database;
         }
-
-        //public GameService(IUnitOfWork db)
-        //{
-        //    this.db = db;
-        //}
 
         public void Initialise()
         {
-            if (!_db.Database.Competitions.Any())
+            if (!_db.Competitions.Any())
             {
                 var api = new CompetitionAPI();
                 var comps = api.Get();
@@ -43,7 +37,7 @@ namespace GameService
                         StartDate = new DateTime(year, 8, 1),
                         EndDate = new DateTime(year + 1, 7, 31)
                     };
-                    _db.Database.Seasons.Add(season);
+                    _db.Seasons.Add(season);
 
                     var competition = new Competition
                     {
@@ -52,15 +46,15 @@ namespace GameService
                         CurrentGameWeekNumber = 0,
                         LeagueApiLink = Competition
                     };
-                    _db.Database.Competitions.Add(competition);
+                    _db.Competitions.Add(competition);
 
-                    _db.Database.SaveChanges();
+                    _db.SaveChanges();
 
                     var teamApi = new TeamAPI(prem.Id);
                     var teams = teamApi.Get();
                     teams.ForEach(t =>
                     {
-                        _db.Database.Teams.Add(new Team
+                        _db.Teams.Add(new Team
                         {
                             Name = t.Name,
                             BadgeUrl = t.BadgeUrl,
@@ -70,84 +64,150 @@ namespace GameService
 
                 }
 
-                _db.Database.SaveChanges();
+                _db.SaveChanges();
             }
 
             
         }
-        public void UpdateAll()
+
+        /// <summary>
+        /// Update score by adding PickResult entries for every pick that doesn't have a result.
+        /// </summary>
+        public void UpdateResults()
         {
-            UpdateApiData();
+            var picksToUpdate = _db.Picks.Where(p => !_db.PickResults.Any(pr => pr.PickId == p.Id)).ToList();
+            var fixtureIds = picksToUpdate.Select(p => p.FixtureId).ToList();
+            var results = _db.Results.Get(r => fixtureIds.Contains(r.FixtureId)).ToList();
+
+            foreach(var pick in picksToUpdate)
+            {
+                if (_db.PickResults.Any(pr => pr.PickId == pick.Id))
+                {
+                    var result = results.Single(r => r.FixtureId == pick.FixtureId);
+                    var score = CalulcateScore(result, pick);
+                    _db.PickResults.Add(new PickResult
+                    {
+                        PickId = pick.Id,
+                        Points = score
+                    });
+                }
+            }
+
+            _db.SaveChanges();
         }
 
-        private void UpdateApiData()
+        private int CalulcateScore(Result result, Pick pick)
         {
-            using (var db = _db.Database)
-            {
-                var season = db.Seasons.SingleOrDefault(s => s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now);
-                var comp = season.Competitions.Single(c => c.LeagueApiLink == Competition);
+            var score = 0;
 
-                var compApi = new CompetitionAPI();
-                var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
-                comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
-                if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
+            //correct pick
+            if(result.AwayScore == pick.AwayScore && result.HomeScore == pick.HomeScore)
+            {
+                score = 3;
+            }
+            //home win predicted
+            else if(result.HomeScore > result.AwayScore && pick.HomeScore > pick.AwayScore )
+            {
+                score = 1;
+            }
+            //away win predicted
+            else if (result.HomeScore < result.AwayScore && pick.HomeScore < pick.AwayScore)
+            {
+                score = 1;
+            }
+            //draw predicted
+            else if (result.HomeScore == result.AwayScore && pick.HomeScore == pick.AwayScore)
+            {
+                score = 1;
+            }
+            //incorrect result
+            else
+            {
+                //banker limits loss to zero
+                if (pick.Banker)
                 {
-                    comp.GameWeeks.Add(new GameWeek
+                    score = 0;
+                }
+                else
+                {
+                    score = -1;
+                }
+            }
+
+            if(pick.Double)
+            {
+                score *= 2;
+            }
+
+            return score;
+        }
+
+        public void UpdateApiData()
+        {
+            var season = _db.Seasons.SingleOrDefault(s => s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now);
+            var comp = season.Competitions.Single(c => c.LeagueApiLink == Competition);
+
+            var compApi = new CompetitionAPI();
+            var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
+            comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
+            if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
+            {
+                comp.GameWeeks.Add(new GameWeek
+                {
+                    Number = currentSeasonComp.CurrentMatchDay,
+                    Competition = comp
+                });
+            }
+
+            var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
+
+            var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
+            var fixtures = fixtureApi.Get().Where(f => f.MatchDay == currentSeasonComp.CurrentMatchDay);
+
+            foreach (var fix in fixtures)
+            {
+                if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName))
+                {
+                    gameWeek.Fixtures.Add(new Fixture
                     {
-                        Number = currentSeasonComp.CurrentMatchDay,
-                        Competition = comp
+                        HomeTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeamName),
+                        AwayTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeamName),
+                        KickOffDateTime = DateTime.Parse(fix.Date)
                     });
                 }
 
-                var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
+                var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName);
 
-                var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
-                var fixtures = fixtureApi.Get().Where(f => f.MatchDay == currentSeasonComp.CurrentMatchDay);
-
-                foreach (var fix in fixtures)
+                if (FixtureHelper.IsFixtureInFinished(fix))
                 {
-                    if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName))
+                    if (!gameweekFixture.Results.Any())
                     {
-                        gameWeek.Fixtures.Add(new Fixture
+                        if (fix.Result != null && fix.Result.GoalsAwayTeam != null && fix.Result.GoalsHomeTeam != null)
                         {
-                            HomeTeam = db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeamName),
-                            AwayTeam = db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeamName),
-                            KickOffDateTime = DateTime.Parse(fix.Date)
-                        });
-                    }
+                            var result = new Result
+                            {
+                                HomeScore = (int)(fix.Result.GoalsHomeTeam),
+                                AwayScore = (int)(fix.Result.GoalsAwayTeam)
+                            };
 
-                    var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName);
-
-                    if (FixtureHelper.IsFixtureInFinished(fix))
-                    {
-                        if (!gameweekFixture.Results.Any())
+                            gameweekFixture.Results.Add(result);
+                        }
+                        else
                         {
-                            if (fix.Result != null && fix.Result.GoalsAwayTeam != null && fix.Result.GoalsHomeTeam != null)
-                            {
-                                var result = new Result
-                                {
-                                    HomeScore = (int)(fix.Result.GoalsHomeTeam),
-                                    AwayScore = (int)(fix.Result.GoalsAwayTeam)
-                                };
-
-                                gameweekFixture.Results.Add(result);
-                            }
-                            else
-                            {
-                                //TODO: completed fixture but result or scores null!?
-                            }
+                            //TODO: completed fixture but result or scores null!?
                         }
                     }
                 }
+            }
 
-                if(gameWeek.PickOpenDateTime == DateTime.MinValue || gameWeek.PickCloseDateTime == DateTime.MinValue)
-                {
-                    gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
-                    gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
-                }
+            if(gameWeek.PickOpenDateTime == DateTime.MinValue || gameWeek.PickCloseDateTime == DateTime.MinValue)
+            {
+                gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
+                gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
+            }
 
-                db.SaveChanges();
-            }          
+            _db.SaveChanges();
+                     
         }
 
         private static DateTime GetPreviousGameweekCloseDateTime(Competition comp, GameWeek currentGameWeek)
@@ -168,7 +228,7 @@ namespace GameService
 
         public IEnumerable<Fixture> GetGameWeekFixtures()
         {
-            var comp = _db.Database.Competitions.SingleOrDefault(c => c.LeagueApiLink == Competition);
+            var comp = _db.Competitions.SingleOrDefault(c => c.LeagueApiLink == Competition);
             var gameWeek = comp.GameWeeks.Single(gw => gw.Number == comp.CurrentGameWeekNumber);
             return gameWeek.Fixtures.ToList();
         }
@@ -177,7 +237,7 @@ namespace GameService
         {
             if (playerId == null) throw new ArgumentNullException(nameof(playerId));
 
-            return _db.Database.Picks.Get(pp => pp.PlayerId == playerId && pp.Fixture.GameWeek.Number == gameweek).ToList();
+            return _db.Picks.Get(pp => pp.PlayerId == playerId && pp.Fixture.GameWeek.Number == gameweek).ToList();
         }
 
         public void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore)
@@ -185,9 +245,9 @@ namespace GameService
             if (playerId == null) throw new ArgumentNullException(nameof(playerId));
             if (fixtureId == null) throw new ArgumentNullException(nameof(fixtureId));
 
-            if(!_db.Database.Players.Any(p => p.Id == playerId))
+            if(!_db.Players.Any(p => p.Id == playerId))
             {
-                _db.Database.Players.Add(new Player
+                _db.Players.Add(new Player
                 {
                     Id = playerId
                 });
@@ -203,8 +263,10 @@ namespace GameService
                 Double = doubleScore
             };
 
-            _db.Database.Picks.Add(pick);
-            _db.Database.SaveChanges();
+            _db.Picks.Add(pick);
+            _db.SaveChanges();
         }
+
+        
     }
 }

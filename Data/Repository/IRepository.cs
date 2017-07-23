@@ -16,5 +16,6 @@ namespace Data.Repository
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderby = null);
         TEntity GetById(object id);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> filter = null);
+        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> filter);
     }
 }

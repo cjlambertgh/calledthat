@@ -84,5 +84,10 @@ namespace Data.Repository
         {
             return _dbSet.Count(filter);
         }
+
+        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> filter)
+        {
+            return _dbSet.Where(filter);
+        }
     }
 }

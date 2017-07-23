@@ -55,7 +55,7 @@ namespace CalledThat.Controllers
 
         public JsonResult GameServiceTest()
         {
-            _gameService.UpdateAll();
+            _gameService.UpdateApiData();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 

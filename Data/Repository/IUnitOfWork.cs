@@ -20,6 +20,7 @@ namespace Data.Repository
         Repository<Result> Results { get; }
         Repository<Pick> Picks { get; }
         Repository<PickResult> PickResults { get; }
+        Repository<Competition> Competitions { get; }
 
         void SaveChanges();
         Task<int> SaveChangesAsync();

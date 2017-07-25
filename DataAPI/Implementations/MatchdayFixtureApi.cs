@@ -11,7 +11,7 @@ namespace DataAPI.Implementations
 {
     public class MatchdayFixtureApi : IApi<Fixture>
     {
-        private static readonly string Uri = "http://api.football-data.org/v1/competitions/426/fixtures";
+        private static readonly string Uri = "http://api.football-data.org/v1/competitions/445/fixtures";
         private static readonly string FilterMatchday = "matchday={0}";
 
         private readonly int _competitionId;

@@ -142,7 +142,7 @@ namespace GameService
 
         public void UpdateApiData()
         {
-            var season = _db.Seasons.SingleOrDefault(s => s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now);
+            var season = _db.Seasons.SingleOrDefault(s => (s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now || s.CurrentSeasonYear == DateTime.Now.Year));
             var comp = season.Competitions.Single(c => c.LeagueApiLink == Competition);
 
             var compApi = new CompetitionAPI();
@@ -164,7 +164,7 @@ namespace GameService
 
             foreach (var fix in fixtures)
             {
-                if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName))
+                if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw?.HomeTeam?.Name == fix.HomeTeamName && gw?.AwayTeam?.Name == fix.AwayTeamName))
                 {
                     gameWeek.Fixtures.Add(new Fixture
                     {
@@ -194,6 +194,8 @@ namespace GameService
                         {
                             //TODO: completed fixture but result or scores null!?
                         }
+
+                        _db.SaveChanges();
                     }
                 }
             }

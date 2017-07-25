@@ -40,6 +40,8 @@ namespace CalledThat.Controllers
         {
             //var admin = new Admin(_db);
             //admin.Initialise();
+
+            _gameService.Initialise();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 

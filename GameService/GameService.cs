@@ -6,8 +6,6 @@ using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameService
 {
@@ -81,7 +79,7 @@ namespace GameService
 
             foreach(var pick in picksToUpdate)
             {
-                if (_db.PickResults.Any(pr => pr.PickId == pick.Id))
+                if (!_db.PickResults.Any(pr => pr.PickId == pick.Id))
                 {
                     var result = results.Single(r => r.FixtureId == pick.FixtureId);
                     var score = CalulcateScore(result, pick);

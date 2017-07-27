@@ -194,7 +194,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTable\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTable\dataTables.responsive.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\metisMenu.min.css" />
+    <Content Include="Content\morris.css" />
+    <Content Include="Content\startmin.css" />
+    <Content Include="Content\timeline.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\startmin-javascript\bootstrap.min.js" />
+    <Content Include="Scripts\startmin-javascript\dataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\startmin-javascript\dataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\startmin-javascript\flot-data.js" />
+    <Content Include="Scripts\startmin-javascript\flot\excanvas.min.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.colorhelpers.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.canvas.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.categories.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.crosshair.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.errorbars.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.fillbetween.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.image.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.navigate.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.selection.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.stack.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.symbol.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.threshold.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.time.js" />
+    <Content Include="Scripts\startmin-javascript\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\startmin-javascript\jquery.min.js" />
+    <Content Include="Scripts\startmin-javascript\metisMenu.min.js" />
+    <Content Include="Scripts\startmin-javascript\morris-data.js" />
+    <Content Include="Scripts\startmin-javascript\morris.min.js" />
+    <Content Include="Scripts\startmin-javascript\raphael.min.js" />
+    <Content Include="Scripts\startmin-javascript\startmin.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +261,15 @@
     <Content Include="Views\Home\AddPicks.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Content\Fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Fonts\FontAwesome.otf" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

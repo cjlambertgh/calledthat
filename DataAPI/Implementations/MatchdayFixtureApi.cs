@@ -11,7 +11,7 @@ namespace DataAPI.Implementations
 {
     public class MatchdayFixtureApi : IApi<Fixture>
     {
-        private static readonly string Uri = "http://api.football-data.org/v1/competitions/445/fixtures";
+        private static readonly string Uri = "http://api.football-data.org/v1/competitions/{0}/fixtures";
         private static readonly string FilterMatchday = "matchday={0}";
 
         private readonly int _competitionId;
@@ -25,8 +25,8 @@ namespace DataAPI.Implementations
 
         public List<Fixture> Get()
         {
-            var uri = $"{Uri}?{string.Format(FilterMatchday, _matchDay) }";
-            var api = new RestApi(string.Format(Uri, _competitionId));
+            var uri = $"{string.Format(Uri, _competitionId)}?{string.Format(FilterMatchday, _matchDay) }";
+            var api = new RestApi(uri);
             var data = api.Get();
             var wrapper = JsonConvert.DeserializeObject<FixtureWrapper>(data);
             return wrapper.Fixtures;

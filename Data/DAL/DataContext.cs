@@ -16,6 +16,11 @@ namespace Data
         {
         }
 
+        public static DataContext Create()
+        {
+            return new DataContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

@@ -36,7 +36,7 @@
                     <div class="panel-body">
                         @using (Html.BeginForm("Register", "Account", FormMethod.Post))
                         {
-
+                            @Html.AntiForgeryToken()
                             <fieldset>
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Email, new { @class="control-label"})

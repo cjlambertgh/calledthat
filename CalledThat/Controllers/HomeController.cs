@@ -20,6 +20,7 @@ namespace CalledThat.Controllers
         }
 
         // GET: Home
+        [Authorize]
         public ActionResult Index()
         {
             return View();

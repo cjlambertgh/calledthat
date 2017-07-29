@@ -5,6 +5,12 @@ using Data.Repository;
 using Data.Interfaces;
 using Data.DAL;
 using GameService;
+using Microsoft.AspNet.Identity;
+using Data.DAL.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using CalledThat.Controllers;
+using System.Data.Entity;
+using Data;
 
 namespace CalledThat.App_Start
 {
@@ -41,6 +47,12 @@ namespace CalledThat.App_Start
 
             container.RegisterType<IDataContextConnection, DataContextConnection>();
             container.RegisterType<IGameService, GameService.GameService>();
+            container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>();
+
+            container.RegisterType<DbContext, DataContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<UserManager<AppUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<AccountController>(new InjectionConstructor());
         }
     }
 }

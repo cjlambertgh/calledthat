@@ -20,6 +20,7 @@ namespace Data.DAL.Identity
                 new RoleManager<AppRole>(
                     new RoleStore<AppRole>(context.Get<DataContext>())));
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

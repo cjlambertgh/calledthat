@@ -12,6 +12,8 @@ using CalledThat.Controllers;
 using System.Data.Entity;
 using Data;
 using AppServices;
+using System.Web.Mvc;
+using Microsoft.Practices.Unity.Mvc;
 
 namespace CalledThat.App_Start
 {
@@ -54,7 +56,9 @@ namespace CalledThat.App_Start
             container.RegisterType<DbContext, DataContext>(new HierarchicalLifetimeManager());
             container.RegisterType<UserManager<AppUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>(new HierarchicalLifetimeManager());
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            //container.RegisterType<AccountController>(new InjectionConstructor());
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

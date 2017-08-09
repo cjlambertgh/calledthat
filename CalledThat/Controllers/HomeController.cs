@@ -1,4 +1,5 @@
-﻿using CalledThat.ViewModels;
+﻿using AppServices;
+using CalledThat.ViewModels;
 using Data.Interfaces;
 using DataAPI.Implementations;
 using GameService;
@@ -8,20 +9,23 @@ using System.Web.Mvc;
 
 namespace CalledThat.Controllers
 {
-    public class HomeController : AsyncController
+    public class HomeController : BaseController//AsyncController
     {
         private readonly IDataContextConnection _db;
         private readonly IGameService _gameService;
+        private readonly IUserService _userService;
 
-        public HomeController(IDataContextConnection unitOfWork, IGameService gameService)
+        public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService)
         {
             _db = unitOfWork;
             _gameService = gameService;
+            _userService = userService;
         }
 
         // GET: Home
         public ActionResult Index()
         {
+            var player = _userService.GetPlayerByUserId("test");
             return View();
         }
 

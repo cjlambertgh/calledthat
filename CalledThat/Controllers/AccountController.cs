@@ -21,15 +21,15 @@ namespace CalledThat.Controllers
         private readonly IUserService _userService;
 
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{
+        //}
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, 
+        public AccountController(/*ApplicationUserManager userManager, ApplicationSignInManager signInManager,*/ 
             IUserService userService)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            //UserManager = userManager;
+            //SignInManager = signInManager;
             _userService = userService;
         }
 
@@ -126,7 +126,7 @@ namespace CalledThat.Controllers
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    _userService.CreatePlayer(user, model.Name);
+                    _userService.CreatePlayer(user.Id, model.Name);
                     SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

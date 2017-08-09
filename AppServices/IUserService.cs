@@ -10,7 +10,7 @@ namespace AppServices
 {
     public interface IUserService
     {
-        void CreatePlayer(AppUser user, string name);
+        void CreatePlayer(string userId, string name);
         void UpdatePlayerName(Guid playerID, string newName);
         Player GetPlayerByUserId(string userId);
     }

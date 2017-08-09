@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Data.DAL.Identity;
 using Data.Interfaces;
 using System.Linq;
+using System.Data.Entity.Validation;
 
 namespace Data
 {
@@ -39,7 +40,26 @@ namespace Data
                 }                
             });
 
-            return base.SaveChanges();
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var res = "";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    res += string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        res += string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                var r = res;
+                throw;
+            }
         }
 
         public DbSet<Team> Teams { get; set; }

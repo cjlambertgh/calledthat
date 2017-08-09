@@ -17,13 +17,13 @@ namespace AppServices
         {
             context = new DataContextConnection();
         }
-        public void CreatePlayer(AppUser user, string name)
+        public void CreatePlayer(string userId, string name)
         {
             using (var db = context.Database)
             {
                 db.Players.Add(new Player
                 {
-                    AppUser = user,
+                    UserId = userId,
                     Name = name
                 });
                 db.SaveChanges();

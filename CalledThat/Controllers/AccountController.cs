@@ -1,4 +1,5 @@
-﻿using CalledThat.App_Start;
+﻿using AppServices;
+using CalledThat.App_Start;
 using CalledThat.ViewModels.Account;
 using Data.DAL.Identity;
 using Data.Interfaces;
@@ -17,17 +18,19 @@ namespace CalledThat.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly IDataContextConnection _db;
+        private readonly IUserService _userService;
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IDataContextConnection unitOfWork)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, 
+            IUserService userService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            _db = unitOfWork;
+            _userService = userService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -90,6 +93,10 @@ namespace CalledThat.Controllers
             {
                 case SignInStatus.Success:
                     Session["user"] = model.Email;
+                    var user = UserManager.FindByEmail(model.Email);
+                    var userid = user.Id;
+                    Session["userId"] = userid;
+                    Session["playerName"] = _userService.GetPlayerByUserId(userid)?.Name;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -119,6 +126,7 @@ namespace CalledThat.Controllers
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
+                    _userService.CreatePlayer(user, model.Name);
                     SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

@@ -321,6 +321,10 @@
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppServices\AppServices.csproj">
+      <Project>{A64E7727-9FC5-4D80-842C-B0EDA16EA147}</Project>
+      <Name>AppServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAPI\DataAPI.csproj">
       <Project>{58353a34-021e-4459-8ce2-07d5e044decb}</Project>
       <Name>DataAPI</Name>

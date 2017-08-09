@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using CalledThat.Controllers;
 using System.Data.Entity;
 using Data;
+using AppServices;
 
 namespace CalledThat.App_Start
 {
@@ -47,6 +48,7 @@ namespace CalledThat.App_Start
 
             container.RegisterType<IDataContextConnection, DataContextConnection>();
             container.RegisterType<IGameService, GameService.GameService>();
+            container.RegisterType<IUserService, UserService>();
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>();
 
             container.RegisterType<DbContext, DataContext>(new HierarchicalLifetimeManager());

@@ -166,6 +166,10 @@
     <Compile Include="Migrations\201706041433563_add-pick-pickresult.Designer.cs">
       <DependentUpon>201706041433563_add-pick-pickresult.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708091732301_add-name-to-players.cs" />
+    <Compile Include="Migrations\201708091732301_add-name-to-players.Designer.cs">
+      <DependentUpon>201708091732301_add-name-to-players.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -240,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706041433563_add-pick-pickresult.resx">
       <DependentUpon>201706041433563_add-pick-pickresult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708091732301_add-name-to-players.resx">
+      <DependentUpon>201708091732301_add-name-to-players.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

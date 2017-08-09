@@ -2,6 +2,7 @@
 using Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Models
@@ -14,6 +15,9 @@ namespace Data.Models
 
         [ForeignKey("UserId")]
         public virtual AppUser AppUser { get; set; }
+
+        [MaxLength(100)]
+        public string Name { get; set; }
 
         public int TotalScore { get; set; }
 

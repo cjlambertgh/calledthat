@@ -41,11 +41,12 @@
 
         <!-- Navigation -->
         @Html.Partial("_HeaderBar")
-        @RenderBody()
+        
 
         <div id="page-wrapper">
-
-           
+            <div class="row">
+                @RenderBody()
+            </div>
         </div>
         <!-- /#page-wrapper -->
 

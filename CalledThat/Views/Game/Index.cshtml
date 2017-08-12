@@ -5,8 +5,11 @@
 }
 
 @model CalledThat.ViewModels.AddPicksViewModel
+    <div class="col-lg-12">
+        <h1 class="page-header">Pick scores</h1>
+    </div>
 
-@using (Html.BeginForm("AddPicks", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Game", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.PlayerId)
@@ -25,8 +28,8 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    @*<td></td>
+                    <td></td>*@
                     <td></td>
                     <td></td>
                     <td></td>
@@ -37,25 +40,26 @@
 
             <tr>
                 <td style="width:10%"><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
-                <td style="width:10%">@item.HomeTeamName</td>
+                @*<td style="width:10%">@item.HomeTeamName</td>*@
                 <td style="width:10%">
                     @Html.TextBoxFor(m => m.PickItems[i].HomeScore)
                 <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
             </td>
-
-            <td style="width:10%">@item.KickOffTime</td>
+                <td>vs</td>
+            @*<td style="width:10%">@item.KickOffTime.ToString("dd-MMM-yyyy hh:mm")</td>*@
 
             <td style="width:10%">
                 @Html.TextBoxFor(m => m.PickItems[i].AwayScore)
             <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
         </td>
-        <td style="width:10%">@item.AwayTeamName</td>
+        @*<td style="width:10%">@item.AwayTeamName</td>*@
         <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
         <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false)</td>
         <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true) @Html.RadioButtonFor(m => m.PickItems[i].Double, false)</td>
     </tr>
         }
     </table>
-    <input type="submit" name="submit" value="Submit" />
+    <br />
+    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" />
 }
 

@@ -9,17 +9,16 @@ using System.Web.Mvc;
 
 namespace CalledThat.Controllers
 {
-    public class HomeController : BaseController//AsyncController
+    public class HomeController : BaseController
     {
         private readonly IDataContextConnection _db;
         private readonly IGameService _gameService;
-        private readonly IUserService _userService;
 
         public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService)
+            :base(userService)
         {
             _db = unitOfWork;
             _gameService = gameService;
-            _userService = userService;
         }
 
         // GET: Home

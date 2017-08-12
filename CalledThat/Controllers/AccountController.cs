@@ -18,19 +18,11 @@ namespace CalledThat.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly IUserService _userService;
+        //private readonly IUserService _userService;
 
-
-        //public AccountController()
-        //{
-        //}
-
-        public AccountController(/*ApplicationUserManager userManager, ApplicationSignInManager signInManager,*/ 
-            IUserService userService)
+        public AccountController(IUserService userService): base(userService)
         {
-            //UserManager = userManager;
-            //SignInManager = signInManager;
-            _userService = userService;
+            //_userService = userService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -92,7 +84,7 @@ namespace CalledThat.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    Session["user"] = model.Email;
+                    Session["useremail"] = model.Email;
                     var user = UserManager.FindByEmail(model.Email);
                     var userid = user.Id;
                     Session["userId"] = userid;

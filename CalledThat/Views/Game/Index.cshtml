@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model CalledThat.ViewModels.AddPicksViewModel
+
+@using (Html.BeginForm("AddPicks", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PlayerId)
+
+    <table style="text-align: center; width:100%">
+        @for (var i = 0; i < Model.PickItems.Count; i++)
+        {
+            @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
+            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamBadgeUrl)
+            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamBadgeUrl)
+            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamName)
+            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamName)
+            var item = Model.PickItems[i];
+            if (i == 0)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Banker</td>
+                    <td>Double</td>
+                </tr>
+            }
+
+            <tr>
+                <td style="width:10%"><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
+                <td style="width:10%">@item.HomeTeamName</td>
+                <td style="width:10%">
+                    @Html.TextBoxFor(m => m.PickItems[i].HomeScore)
+                <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
+            </td>
+
+            <td style="width:10%">@item.KickOffTime</td>
+
+            <td style="width:10%">
+                @Html.TextBoxFor(m => m.PickItems[i].AwayScore)
+            <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
+        </td>
+        <td style="width:10%">@item.AwayTeamName</td>
+        <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
+        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false)</td>
+        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true) @Html.RadioButtonFor(m => m.PickItems[i].Double, false)</td>
+    </tr>
+        }
+    </table>
+    <input type="submit" name="submit" value="Submit" />
+}
+

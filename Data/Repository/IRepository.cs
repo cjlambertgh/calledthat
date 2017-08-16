@@ -17,5 +17,6 @@ namespace Data.Repository
         TEntity GetById(object id);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> filter = null);
         IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> filter);
+        IQueryable<TEntity> All();
     }
 }

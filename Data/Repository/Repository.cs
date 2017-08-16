@@ -41,8 +41,8 @@ namespace Data.Repository
 
         public virtual bool Any(Expression<Func<TEntity, bool>> filter = null)
         {
-            return _dbSet.Any();
-            //return _dbSet.Any(filter);
+            //return _dbSet.Any();
+            return _dbSet.Any(filter);
         }
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
@@ -86,9 +86,14 @@ namespace Data.Repository
             return _dbSet.Count(filter);
         }
 
-        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> filter)
+        public virtual IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> filter)
         {
             return _dbSet.Where(filter);
+        }
+
+        public virtual IQueryable<TEntity> All()
+        {
+            return _dbSet;
         }
     }
 }

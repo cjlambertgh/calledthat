@@ -73,7 +73,8 @@ namespace GameService
         /// </summary>
         public void UpdateResults()
         {
-            var picksToUpdate = _db.Picks.Where(p => !_db.PickResults.Any(pr => pr.PickId == p.Id)).ToList();
+            var pickResults = _db.PickResults.All().Select(pr => pr.PickId);
+            var picksToUpdate = _db.Picks.Where(p => !pickResults.Contains(p.Id)).ToList();
             var fixtureIds = picksToUpdate.Select(p => p.FixtureId).ToList();
             var results = _db.Results.Get(r => fixtureIds.Contains(r.FixtureId)).ToList();
 
@@ -147,6 +148,9 @@ namespace GameService
 
             var compApi = new CompetitionAPI();
             var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
+
+            UpdateExistingFixtureResults(currentSeasonComp.Id);
+
             comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
             if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
             {
@@ -208,6 +212,39 @@ namespace GameService
 
             _db.SaveChanges();
                      
+        }
+
+        private void UpdateExistingFixtureResults(int apiCompetitionId)
+        {
+            var resultIds = _db.Results.All().Select(res => res.FixtureId);
+            var fixturesToUpdate = _db.Fixtures.Where(fix => !resultIds.Contains(fix.Id)).ToList();
+            if(fixturesToUpdate.Any())
+            {
+                var gameWeeksRequired = fixturesToUpdate.GroupBy(fix => fix.GameWeekId).Select(g => g.First()).Select(f => f.GameWeek.Number);
+                foreach(var gameWeekNumber in gameWeeksRequired)
+                {
+                    var fixtureApi = new MatchdayFixtureApi(apiCompetitionId, gameWeekNumber);
+                    var apiFixtures = fixtureApi.Get();
+                    foreach(var fixture in fixturesToUpdate)
+                    {
+                        var apiFixture = apiFixtures.SingleOrDefault(api => fixture.HomeTeam.Name == api.HomeTeamName && fixture.AwayTeam.Name == api.AwayTeamName);
+                        if(apiFixture != null && FixtureHelper.IsFixtureInFinished(apiFixture))
+                        {
+                            if (apiFixture.Result != null
+                                && apiFixture.Result.GoalsHomeTeam != null
+                                && apiFixture.Result.GoalsAwayTeam != null)
+                                _db.Results.Add(new Result
+                                {
+                                    FixtureId = fixture.Id,
+                                    HomeScore = (int)apiFixture.Result.GoalsHomeTeam,
+                                    AwayScore = (int)apiFixture.Result.GoalsAwayTeam
+                                });
+                        }
+                    }
+                }
+
+                _db.SaveChanges();
+            }
         }
 
         private static DateTime GetPreviousGameweekCloseDateTime(Competition comp, GameWeek currentGameWeek)

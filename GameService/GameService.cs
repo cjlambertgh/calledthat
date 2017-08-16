@@ -5,6 +5,7 @@ using DataAPI.Helpers;
 using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace GameService
@@ -102,22 +103,22 @@ namespace GameService
             //correct pick
             if(result.AwayScore == pick.AwayScore && result.HomeScore == pick.HomeScore)
             {
-                score = 3;
+                score = int.Parse(ConfigurationManager.AppSettings["Game.CorrectScorePoints"]);
             }
             //home win predicted
             else if(result.HomeScore > result.AwayScore && pick.HomeScore > pick.AwayScore )
             {
-                score = 1;
+                score = int.Parse(ConfigurationManager.AppSettings["Game.CorrectResultPoints"]);
             }
             //away win predicted
             else if (result.HomeScore < result.AwayScore && pick.HomeScore < pick.AwayScore)
             {
-                score = 1;
+                score = int.Parse(ConfigurationManager.AppSettings["Game.CorrectResultPoints"]);
             }
             //draw predicted
             else if (result.HomeScore == result.AwayScore && pick.HomeScore == pick.AwayScore)
             {
-                score = 1;
+                score = int.Parse(ConfigurationManager.AppSettings["Game.CorrectResultPoints"]);
             }
             //incorrect result
             else
@@ -125,17 +126,17 @@ namespace GameService
                 //banker limits loss to zero
                 if (pick.Banker)
                 {
-                    score = 0;
+                    score = int.Parse(ConfigurationManager.AppSettings["Game.BankerScore"]);
                 }
                 else
                 {
-                    score = -1;
+                    score = int.Parse(ConfigurationManager.AppSettings["Game.InCorrectResultPoints"]);
                 }
             }
 
             if(pick.Double)
             {
-                score *= 2;
+                score *= int.Parse(ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"]);
             }
 
             return score;

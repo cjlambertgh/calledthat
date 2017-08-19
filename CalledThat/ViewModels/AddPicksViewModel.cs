@@ -11,6 +11,8 @@ namespace CalledThat.ViewModels
         public Guid PlayerId { get; set; }
 
         public List<PickItem> PickItems { get; set; } = new List<PickItem>();
+
+        public bool ReadOnly { get; set; }
     }
 
     public class PickItem
@@ -38,5 +40,7 @@ namespace CalledThat.ViewModels
         public bool Banker { get; set; }
 
         public bool Double { get; set; }
+
+        
     }
 }

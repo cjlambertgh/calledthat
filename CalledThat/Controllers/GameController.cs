@@ -24,12 +24,17 @@ namespace CalledThat.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var fixtures = _gameService.GetGameWeekFixtures();
-            var playerId = Guid.Empty;
-            var viewModel = new AddPicksViewModel
+            var playerId = CurrentUser.Players.FirstOrDefault()?.Id;
+
+            if (playerId == null)
             {
-                PlayerId = playerId
-            };
+                throw new ArgumentNullException(nameof(playerId));
+            }
+
+            var viewModel = new AddPicksViewModel();
+            var currentGameweek = _gameService.GetCurrentGameweek();
+
+            var fixtures = _gameService.GetGameWeekFixtures();
 
             foreach (var fixture in fixtures)
             {
@@ -43,6 +48,24 @@ namespace CalledThat.Controllers
                     FixtureId = fixture.Id
                 });
             }
+
+            var picks = _gameService.GetPlayerPicks((Guid)playerId, currentGameweek);
+            if (picks.Any())
+            {
+                foreach (var pick in picks)
+                {
+                    var pickitem = viewModel.PickItems.Where(pi => pi.FixtureId == pick.FixtureId).SingleOrDefault();
+                    if(pickitem != null)
+                    {
+                        pickitem.HomeScore = pick.HomeScore.ToString();
+                        pickitem.AwayScore = pick.AwayScore.ToString();
+                        pickitem.Banker = pick.Banker;
+                        pickitem.Double = pick.Double;
+                    }
+                }
+            }
+
+            viewModel.ReadOnly = !_gameService.IsGameweekOpen(currentGameweek);            
 
             return View(viewModel);
         }
@@ -63,6 +86,8 @@ namespace CalledThat.Controllers
             {
                 throw new ArgumentNullException(nameof(playerId));
             }
+
+            
 
             model.PickItems.ForEach(item =>
             {

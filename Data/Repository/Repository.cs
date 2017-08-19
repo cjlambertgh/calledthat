@@ -26,7 +26,7 @@ namespace Data.Repository
 
             if(query != null && filter != null)
             {
-                query.Where(filter);
+                query = query.Where(filter);
             }
 
             if(orderby != null)
@@ -47,12 +47,26 @@ namespace Data.Repository
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
         {
-            return _dbSet.FirstOrDefault(filter);
+            if (filter == null)
+            {
+                return _dbSet.FirstOrDefault();
+            }
+            else
+            {
+                return _dbSet.FirstOrDefault(filter);
+            }
         }
 
         public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> filter = null)
         {
-            return _dbSet.SingleOrDefault(filter);
+            if (filter == null)
+            {
+                return _dbSet.SingleOrDefault();
+            }
+            else
+            {
+                return _dbSet.SingleOrDefault(filter);
+            }
         }
 
         public virtual TEntity GetById(object id)

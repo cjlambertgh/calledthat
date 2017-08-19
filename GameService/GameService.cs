@@ -305,6 +305,26 @@ namespace GameService
             _db.SaveChanges();
         }
 
-        
+        public int GetCurrentGameweek()
+        {
+            return _db.Competitions.FirstOrDefault().CurrentGameWeekNumber;
+        }
+
+        public bool IsGameweekOpen(int gameweekNumber)
+        {
+            var gameWeek = _db.GameWeeks.SingleOrDefault(gw => gw.Number == gameweekNumber);
+            return IsGameweekOpen(gameWeek);
+        }
+
+        public bool IsCurrentGameweekOpen()
+        {
+            var gameWeekNumber = GetCurrentGameweek();
+            return IsGameweekOpen(gameWeekNumber);
+        }
+
+        private static bool IsGameweekOpen(GameWeek gameWeek)
+        {
+            return (DateTime.Now > gameWeek.PickOpenDateTime && DateTime.Now < gameWeek.PickCloseDateTime);
+        }
     }
 }

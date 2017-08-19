@@ -17,6 +17,9 @@ namespace GameService
         #endregion
 
         IEnumerable<Fixture> GetGameWeekFixtures();
+        int GetCurrentGameweek();
+        bool IsGameweekOpen(int gameweekNumber);
+        bool IsCurrentGameweekOpen();
 
         IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
         void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);

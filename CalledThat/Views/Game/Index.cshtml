@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var inputAttributes = Model.ReadOnly ? (object)new { disabled="disabled", @readonly="readonly" } : (object)new {};
 }
 
 @model CalledThat.ViewModels.AddPicksViewModel
@@ -14,7 +15,7 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.PlayerId)
 
-    <table style="text-align: center; width:100%">
+    <table class="table" @*style="text-align: center; width:100%"*@>
         @for (var i = 0; i < Model.PickItems.Count; i++)
         {
             @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
@@ -42,24 +43,31 @@
                 <td style="width:10%"><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
                 @*<td style="width:10%">@item.HomeTeamName</td>*@
                 <td style="width:10%">
-                    @Html.TextBoxFor(m => m.PickItems[i].HomeScore)
+                    @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
                 <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
             </td>
                 <td>vs</td>
             @*<td style="width:10%">@item.KickOffTime.ToString("dd-MMM-yyyy hh:mm")</td>*@
 
             <td style="width:10%">
-                @Html.TextBoxFor(m => m.PickItems[i].AwayScore)
+                @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
             <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
         </td>
         @*<td style="width:10%">@item.AwayTeamName</td>*@
         <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
-        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false)</td>
-        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true) @Html.RadioButtonFor(m => m.PickItems[i].Double, false)</td>
+        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true, inputAttributes) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false, inputAttributes)</td>
+        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true, inputAttributes) @Html.RadioButtonFor(m => m.PickItems[i].Double, false, inputAttributes)</td>
     </tr>
         }
     </table>
     <br />
-    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" />
+    if (Model.ReadOnly)
+    {
+        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" disabled readonly />
+    }
+    else
+    {
+        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" />
+    }
 }
 

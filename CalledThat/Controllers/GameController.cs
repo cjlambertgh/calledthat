@@ -101,5 +101,20 @@ namespace CalledThat.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Results(int? week = null)
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Stats()
+        {
+            return View();
+        }
     }
 }

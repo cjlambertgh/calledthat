@@ -75,10 +75,13 @@
                     <a href="@Url.Action("Index", "Game")" class="active"><i class="fa fa-futbol-o fa-fw"></i> Game</a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="@Url.Action("Index", "Game")"><i class="fa fa-pencil fa-fw"></i>My Picks</a>
+                            <a href="@Url.Action("Index", "Game")"><i class="fa fa-pencil fa-fw"></i> Picks</a>
                         </li>
                         <li>
-                            <a href="flot.html"><i class="fa fa-bar-chart-o fa-fw"></i>My Stats</a>
+                            <a href="@Url.Action("Results", "Game")"><i class="fa fa-pencil fa-fw"></i> Results</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Stats", "Game")"><i class="fa fa-bar-chart-o fa-fw"></i> Stats</a>
                         </li>
                     </ul>
                         
@@ -99,10 +102,19 @@
                     <a href="tables.html"><i class="fa fa-table fa-fw"></i> Leagues</a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="flot.html">League 1</a>
+                            <a href="flot.html">Join/Create</a>
                         </li>
                         <li>
-                            <a href="morris.html">League 2</a>
+                            
+                            <a href="#">My Leagues<span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a href="#">League 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">League 2</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

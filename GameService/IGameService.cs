@@ -20,6 +20,7 @@ namespace GameService
         int GetCurrentGameweek();
         bool IsGameweekOpen(int gameweekNumber);
         bool IsCurrentGameweekOpen();
+        void PopulatePickOpenCloseDates(out DateTime openDate, out DateTime closeDate);
 
         IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
         void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);

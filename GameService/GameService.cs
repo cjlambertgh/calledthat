@@ -152,6 +152,8 @@ namespace GameService
 
             UpdateExistingFixtureResults(currentSeasonComp.Id);
 
+            var gameweekAdded = false;
+
             comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
             if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
             {
@@ -160,7 +162,11 @@ namespace GameService
                     Number = currentSeasonComp.CurrentMatchDay,
                     Competition = comp
                 });
+
+                gameweekAdded = true;
             }
+
+            
 
             var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
 
@@ -200,12 +206,12 @@ namespace GameService
                             //TODO: completed fixture but result or scores null!?
                         }
 
-                        _db.SaveChanges();
+                        //_db.SaveChanges();
                     }
                 }
             }
 
-            if(gameWeek.PickOpenDateTime == DateTime.MinValue || gameWeek.PickCloseDateTime == DateTime.MinValue)
+            if(gameweekAdded)
             {
                 gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
                 gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
@@ -325,6 +331,14 @@ namespace GameService
         private static bool IsGameweekOpen(GameWeek gameWeek)
         {
             return (DateTime.Now > gameWeek.PickOpenDateTime && DateTime.Now < gameWeek.PickCloseDateTime);
+        }
+
+        public void PopulatePickOpenCloseDates(out DateTime openDate, out DateTime closeDate)
+        {
+            var currentGameweek = GetCurrentGameweek();
+            var gameweek = _db.GameWeeks.FirstOrDefault(gw => gw.Number == currentGameweek);
+            openDate = gameweek.PickOpenDateTime;
+            closeDate = gameweek.PickCloseDateTime;
         }
     }
 }

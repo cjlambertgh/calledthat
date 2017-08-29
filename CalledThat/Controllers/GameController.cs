@@ -33,6 +33,11 @@ namespace CalledThat.Controllers
 
             var viewModel = new AddPicksViewModel();
             var currentGameweek = _gameService.GetCurrentGameweek();
+            viewModel.Gameweek = currentGameweek;
+            DateTime openDate, closeDate;
+            _gameService.PopulatePickOpenCloseDates(out openDate, out closeDate);
+            viewModel.OpenDateTime = openDate;
+            viewModel.CloseDateTime = closeDate;
 
             var fixtures = _gameService.GetGameWeekFixtures();
 

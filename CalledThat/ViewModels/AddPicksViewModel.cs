@@ -13,6 +13,12 @@ namespace CalledThat.ViewModels
         public List<PickItem> PickItems { get; set; } = new List<PickItem>();
 
         public bool ReadOnly { get; set; }
+
+        public int Gameweek { get; set; }
+
+        public DateTime OpenDateTime { get; set; }
+
+        public DateTime CloseDateTime { get; set; }
     }
 
     public class PickItem

@@ -11,7 +11,7 @@
     </button>
 
     <ul class="nav navbar-nav navbar-left navbar-top-links">
-        <li><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
+        <li><a href="@Url.Action("Home", "Index")"><i class="fa fa-home fa-fw"></i> Home</a></li>
     </ul>
 
     <ul class="nav navbar-right navbar-top-links">
@@ -25,6 +25,9 @@
                 <ul class="dropdown-menu dropdown-user">
                     <li>
                         <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Home", "GameServiceTest")"><i class="fa fa-gear fa-fw"></i> Update</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
@@ -69,9 +72,18 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="index.html" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                </li>
-                <li>
+                    <a href="@Url.Action("Index", "Game")" class="active"><i class="fa fa-futbol-o fa-fw"></i> Game</a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Index", "Game")"><i class="fa fa-pencil fa-fw"></i>My Picks</a>
+                        </li>
+                        <li>
+                            <a href="flot.html"><i class="fa fa-bar-chart-o fa-fw"></i>My Stats</a>
+                        </li>
+                    </ul>
+                        
+
+                @*<li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -81,12 +93,21 @@
                             <a href="morris.html">Morris.js Charts</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
                 </li>
+                    *@
                 <li>
-                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Leagues</a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="flot.html">League 1</a>
+                        </li>
+                        <li>
+                            <a href="morris.html">League 2</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
+
+                @*<li>
                     <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                 </li>
                 <li>
@@ -111,7 +132,6 @@
                             <a href="grid.html">Grid</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
@@ -138,10 +158,8 @@
                                     <a href="#">Third Level Item</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-third-level -->
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
@@ -153,8 +171,7 @@
                             <a href="login.html">Login Page</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                </li>*@
             </ul>
         </div>
     </div>

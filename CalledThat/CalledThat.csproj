@@ -283,6 +283,7 @@
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\AddPicksViewModel.cs" />
+    <Compile Include="ViewModels\Game\ResultsViewModel.cs" />
     <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace Data.Repository
 
         private DataContext context = new DataContext();
 
-        public List<T> SqlQuery<T>(string query, IEnumerable<object> param)
+        public List<T> SqlQuery<T>(string query, params object[] param)
         {
             return context.SqlQuery<T>(query, param);
         }

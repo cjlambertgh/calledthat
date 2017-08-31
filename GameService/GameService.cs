@@ -343,7 +343,7 @@ namespace GameService
 
         public IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = default(int?))
         {
-            var res = _db.SqlQuery<PlayerResults>("uspGetPlayerResults @playerId", new[] { new SqlParameter("@playerId", playerId.ToString()) });
+            var res = _db.SqlQuery<PlayerResults>("uspGetPlayerResults @playerId", new SqlParameter("@playerId", playerId));
             if(gameWeek != null)
             {
                 return res.Where(item => item.GameweekNumber == gameWeek);

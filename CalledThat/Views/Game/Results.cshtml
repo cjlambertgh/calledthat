@@ -30,7 +30,42 @@
             </div>
             <div class="panel-body">
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-default-1">Gameweek 1</div>
+                    <div class="tab-pane fade in active" id="tab-default-1">
+                        <h2>Points @Model.PlayerResults.Where(r => r.GameweekNumber == 1).Sum(res => res.Points) </h2>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Home</th>
+                                        <th>Score</th>
+                                        <th>(Prediction)</th>
+                                        <th>Away</th>
+                                        <th>Double</th>
+                                        <th>Banker</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in Model.PlayerResults)
+                                    {
+                                        if(item.GameweekNumber == 1)
+                                        {
+                                            <tr>
+                                                <td>@item.HomeTeam</td>
+                                                <td>@item.HomeScore (@item.HomeScorePick)</td>
+                                                <td>@item.AwayScore (@item.AwayScorePick)</td>
+                                                <td>@item.AwayTeam</td>
+                                                <td>@item.Double</td>
+                                                <td>@item.Banker</td>
+                                                <td>@item.Points</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
                     <div class="tab-pane fade" id="tab-default-2">Gameweek 2</div>
                     <div class="tab-pane fade" id="tab-default-3">Gameweek 3</div>
                     <div class="tab-pane fade" id="tab-default-4">Gameweek 4</div>

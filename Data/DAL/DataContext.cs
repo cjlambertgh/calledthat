@@ -8,6 +8,7 @@ using Data.DAL.Identity;
 using Data.Interfaces;
 using System.Linq;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 
 namespace Data
 {
@@ -60,6 +61,12 @@ namespace Data
                 var r = res;
                 throw;
             }
+        }
+
+        public List<T> SqlQuery<T>(string query, params object[] param)
+        {
+            List<T> result = Database.SqlQuery<T>(query, param).ToList();
+            return result;
         }
 
         public DbSet<Team> Teams { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Data.Repository
@@ -9,6 +10,11 @@ namespace Data.Repository
         private bool disposed;
 
         private DataContext context = new DataContext();
+
+        public List<T> SqlQuery<T>(string query, IEnumerable<object> param)
+        {
+            return context.SqlQuery<T>(query, param);
+        }
 
         private Repository<Competition> _competitions;
         public Repository<Competition> Competitions => _competitions ?? (_competitions = new Repository<Competition>(context));

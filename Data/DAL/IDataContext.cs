@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
 using Data.Models;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Data
 {
@@ -17,6 +19,7 @@ namespace Data
         DbSet<Result> Results { get; set; }
         DbSet<Season> Seasons { get; set; }
         DbSet<Team> Teams { get; set; }
+        //List<T> SqlQuery<T>(string query, IEnumerable<SqlParameter> param);
 
         int SaveChanges();
     }

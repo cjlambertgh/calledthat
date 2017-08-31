@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.Procs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,6 @@ namespace GameService
         IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
         void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);
 
-        
+        IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = null);
     }
 }

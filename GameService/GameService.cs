@@ -1,11 +1,13 @@
 ﻿using Data.Interfaces;
 using Data.Models;
+using Data.Models.Procs;
 using Data.Repository;
 using DataAPI.Helpers;
 using DataAPI.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace GameService
@@ -164,9 +166,7 @@ namespace GameService
                 });
 
                 gameweekAdded = true;
-            }
-
-            
+            }            
 
             var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
 
@@ -339,6 +339,16 @@ namespace GameService
             var gameweek = _db.GameWeeks.FirstOrDefault(gw => gw.Number == currentGameweek);
             openDate = gameweek.PickOpenDateTime;
             closeDate = gameweek.PickCloseDateTime;
+        }
+
+        public IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = default(int?))
+        {
+            var res = _db.SqlQuery<PlayerResults>("uspGetPlayerResults @playerId", new[] { new SqlParameter("@playerId", playerId.ToString()) });
+            if(gameWeek != null)
+            {
+                return res.Where(item => item.GameweekNumber == gameWeek);
+            }
+            return res;
         }
     }
 }

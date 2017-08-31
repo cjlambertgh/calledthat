@@ -22,6 +22,8 @@ namespace Data.Repository
         Repository<PickResult> PickResults { get; }
         Repository<Competition> Competitions { get; }
 
+        List<T> SqlQuery<T>(string query, IEnumerable<object> param);
+
         void SaveChanges();
         Task<int> SaveChangesAsync();
     }

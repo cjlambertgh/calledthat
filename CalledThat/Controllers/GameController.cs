@@ -1,5 +1,6 @@
 ﻿using AppServices;
 using CalledThat.ViewModels;
+using CalledThat.ViewModels.Game;
 using GameService;
 using System;
 using System.Collections.Generic;
@@ -106,8 +107,18 @@ namespace CalledThat.Controllers
         [Authorize]
         public ActionResult Results(int? week = null)
         {
+            var player = CurrentUser.Players.FirstOrDefault();
 
-            return View();
+            if (player == null)
+            {
+                throw new ArgumentNullException(nameof(player));
+            }
+            var results = _gameService.GetPlayerResults(player.Id, week);
+            var viewModel = new ResultsViewModel
+            {
+                PlayerResults = results.ToList()
+            };
+            return View(viewModel);
         }
 
         [HttpGet]

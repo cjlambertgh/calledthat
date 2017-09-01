@@ -105,6 +105,7 @@ namespace CalledThat.Controllers
 
         [HttpGet]
         [Authorize]
+        [Route("game/results/{week?}")]
         public ActionResult Results(int? week = null)
         {
             var player = CurrentUser.Players.FirstOrDefault();
@@ -113,10 +114,16 @@ namespace CalledThat.Controllers
             {
                 throw new ArgumentNullException(nameof(player));
             }
+
+            if(week == null)
+            {
+                week = _gameService.GetCurrentGameweek();
+            }
             var results = _gameService.GetPlayerResults(player.Id, week);
             var viewModel = new ResultsViewModel
             {
-                PlayerResults = results.ToList()
+                PlayerResults = results.ToList(),
+                Gameweek = week ?? results.First().GameweekNumber
             };
             return View(viewModel);
         }

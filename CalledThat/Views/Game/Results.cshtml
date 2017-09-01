@@ -10,69 +10,62 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <div class="panel tabbed-panel panel-default">
-            <div class="panel-heading clearfix">
-                <div class="panel-title pull-left">Tabbed Panel Default</div>
-                <div class="pull-right">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-default-1" data-toggle="tab">Gameweek 1</a></li>
-                        <li><a href="#tab-default-2" data-toggle="tab">Gameweek 2</a></li>
-                        <li><a href="#tab-default-3" data-toggle="tab">Gameweek 3</a></li>
-                        <li class="dropdown">
-                            <a href="#" data-toggle="dropdown">More <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#tab-default-4" data-toggle="tab">Gameweek 4</a></li>
-                                <li><a href="#tab-default-5" data-toggle="tab">Gameweek 5</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Gameweek results
             </div>
             <div class="panel-body">
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-default-1">
-                        <h2>Points @Model.PlayerResults.Where(r => r.GameweekNumber == 1).Sum(res => res.Points) </h2>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Home</th>
-                                        <th>Score</th>
-                                        <th>(Prediction)</th>
-                                        <th>Away</th>
-                                        <th>Double</th>
-                                        <th>Banker</th>
-                                        <th>Points</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach(var item in Model.PlayerResults)
-                                    {
-                                        if(item.GameweekNumber == 1)
-                                        {
-                                            <tr>
-                                                <td>@item.HomeTeam</td>
-                                                <td>@item.HomeScore (@item.HomeScorePick)</td>
-                                                <td>@item.AwayScore (@item.AwayScorePick)</td>
-                                                <td>@item.AwayTeam</td>
-                                                <td>@item.Double</td>
-                                                <td>@item.Banker</td>
-                                                <td>@item.Points</td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                    </div>
-                    <div class="tab-pane fade" id="tab-default-2">Gameweek 2</div>
-                    <div class="tab-pane fade" id="tab-default-3">Gameweek 3</div>
-                    <div class="tab-pane fade" id="tab-default-4">Gameweek 4</div>
-                    <div class="tab-pane fade" id="tab-default-5">Gameweek 5</div>
+                <p class="demo demo2"></p>
+                <h2>Points @Model.PlayerResults.Sum(res => res.Points) </h2>
+                <div class="table-responsive content2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Home</th>
+                                <th>Score</th>
+                                <th>(Prediction)</th>
+                                <th>Away</th>
+                                <th>Double</th>
+                                <th>Banker</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.PlayerResults)
+                            {
+                                <tr>
+                                    <td>@item.HomeTeam</td>
+                                    <td>@item.HomeScore (@item.HomeScorePick)</td>
+                                    <td>@item.AwayScore (@item.AwayScorePick)</td>
+                                    <td>@item.AwayTeam</td>
+                                    <td>@item.Double</td>
+                                    <td>@item.Banker</td>
+                                    <td>@item.Points</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
+            <div class="panel-footer">
+                
+            </div>           
+
+            </div>
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
     </div>
-    </div>
+<script type="text/javascript">
+    $(function () {
+        $('.demo2').bootpag({
+            total: 23,
+            page: @Model.Gameweek,
+            maxVisible: 10
+        }).on('page', function (event, num) {
+            window.location = "/game/results/" + num;
+            //$(".content2").html("Page " + num); // or some ajax content loading...
+        });
+    });
+    
+</script>

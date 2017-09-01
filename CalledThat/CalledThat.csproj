@@ -254,6 +254,7 @@
     <Content Include="Scripts\startmin-javascript\flot\jquery.flot.threshold.js" />
     <Content Include="Scripts\startmin-javascript\flot\jquery.flot.time.js" />
     <Content Include="Scripts\startmin-javascript\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Scripts\startmin-javascript\jquery-bootpag.min.js" />
     <Content Include="Scripts\startmin-javascript\jquery.min.js" />
     <Content Include="Scripts\startmin-javascript\metisMenu.min.js" />
     <Content Include="Scripts\startmin-javascript\morris-data.js" />

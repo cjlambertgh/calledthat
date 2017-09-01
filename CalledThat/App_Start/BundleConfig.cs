@@ -11,10 +11,16 @@ namespace CalledThat.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             var jsDir = "~/Scripts/startmin-javascript/";
-            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+            var mainBundle = new ScriptBundle("~/bundles/main").Include(
                 $"{jsDir}jquery.min.js",
-                $"{jsDir}bootstrap.min.js"
-                ));
+                $"{jsDir}bootstrap.min.js",
+                $"{jsDir}metisMenu.min.js",
+                $"{jsDir}startmin.js",
+                $"{jsDir}jquery-bootpag.min.js"
+                );
+
+            mainBundle.Orderer = new AsIsBundleOrderer();
+            bundles.Add(mainBundle);
             bundles.Add(new ScriptBundle("~/bundles/menutheme").Include(
                 $"{jsDir}metisMenu.min.js",
                 $"{jsDir}startmin.js"
@@ -29,6 +35,14 @@ namespace CalledThat.App_Start
                 "~/Content/font-awesome.min.css"
                 ));
 
+        }
+    }
+
+    class AsIsBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace CalledThat.Controllers
     public class GameController : BaseController
     {
         private readonly IGameService _gameService;
+        private const string GameweekResultPartial = "~/Views/Game/Partials/_GameweekREsults.cshtml";
 
         public GameController(IGameService gameService, IUserService userService)
             :base(userService)
@@ -114,17 +115,22 @@ namespace CalledThat.Controllers
             {
                 throw new ArgumentNullException(nameof(player));
             }
-
-            if(week == null)
+            var currentGameweek = _gameService.GetCurrentGameweek();
+            if (week == null)
             {
-                week = _gameService.GetCurrentGameweek();
+                week = currentGameweek;
             }
             var results = _gameService.GetPlayerResults(player.Id, week);
             var viewModel = new ResultsViewModel
             {
                 PlayerResults = results.ToList(),
-                Gameweek = week ?? results.First().GameweekNumber
+                Gameweek = (int)week,
+                TotalGameweeks = currentGameweek
             };
+            if(Request.IsAjaxRequest())
+            {
+                return PartialView(GameweekResultPartial, viewModel);
+            }
             return View(viewModel);
         }
 

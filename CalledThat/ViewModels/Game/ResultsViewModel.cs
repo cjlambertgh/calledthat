@@ -12,6 +12,7 @@ namespace CalledThat.ViewModels.Game
         public Dictionary<int, ResultItem> ResultItems { get; set; }
         public int Gameweek { get; set; }
         public int GameweekPoints { get; set; }
+        public int TotalGameweeks { get; set; }
 
         public ResultsViewModel()
         {

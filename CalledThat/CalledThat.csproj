@@ -314,6 +314,7 @@
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Game\Stats.cshtml" />
     <Content Include="Views\Game\Results.cshtml" />
+    <Content Include="Views\Game\Partials\_GameweekResults.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -104,26 +104,31 @@ namespace CalledThat.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("game/results/{week?}")]
-        public ActionResult Results(int? week = null)
+        [Route("game/results/{week?}/{playerId?}")]
+        [OutputCache(Duration = 300, VaryByParam = "week;playerId")]
+        public ActionResult Results(int? week = null, Guid? playerId = null)
         {
-            var player = CurrentUser.Players.FirstOrDefault();
-
-            if (player == null)
+            if (playerId == null)
             {
-                throw new ArgumentNullException(nameof(player));
+                var player = CurrentUser.Players.FirstOrDefault();                
+                if (player == null)
+                {
+                    throw new ArgumentNullException(nameof(player));
+                }
+                playerId = player.Id;
             }
             var currentGameweek = _gameService.GetCurrentGameweek();
             if (week == null)
             {
                 week = currentGameweek;
             }
-            var results = _gameService.GetPlayerResults(player.Id, week);
+            var results = _gameService.GetPlayerResults((Guid)playerId, week);
             var viewModel = new ResultsViewModel
             {
                 PlayerResults = results.ToList(),
                 Gameweek = (int)week,
-                TotalGameweeks = currentGameweek
+                TotalGameweeks = currentGameweek,
+                PlayerId = (Guid)playerId
             };
             if(Request.IsAjaxRequest())
             {

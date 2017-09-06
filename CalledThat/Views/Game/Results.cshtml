@@ -20,14 +20,12 @@
                     @Html.Partial("~/Views/Game/Partials/_GameweekResults.cshtml")
                 </div>
             </div>
-            <div class="panel-footer">
-                
+            <div class="panel-footer">                
             </div>           
-
             </div>
-            <!-- /.panel -->
         </div>
     </div>
+@section scripts {
 <script type="text/javascript">
     $(function () {
         $('.demo2').bootpag({
@@ -37,14 +35,13 @@
         }).on('page', function (event, num) {
             $.ajax({
                 url: "@Url.Action("Results","Game")",
-                data: {week: num},
+                data: {week: num, playerId: "@Model.PlayerId"},
                 success: function(data) {
                     $('#results-container').html(data);
                 }
             });
-            //window.location = "/game/results/" + num;
-            //$(".content2").html("Page " + num); // or some ajax content loading...
         });
     });
     
 </script>
+}

@@ -41,10 +41,15 @@
                 </td>
                 <td style="width:10%">@item.AwayTeamName</td>
                 <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
-                <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false)</td>
+                <td style="width:10%"><input type="checkbox" name="@item.Banker" class="toggle"></td>
+                @*<td style="width:10%">  @Html.RadioButtonFor(m => m.PickItems[i].Banker, true) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false)</td>*@
                 <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true) @Html.RadioButtonFor(m => m.PickItems[i].Double, false)</td>
             </tr>
         }
     </table>
 <input type="submit" name="submit" value="Submit" />
 }
+
+<script>
+    $(".toggle").bootstrapSwitch();
+</script>

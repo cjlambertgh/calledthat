@@ -10,23 +10,7 @@
 
     <title>@ViewBag.Title</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="~/Content/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link href="~/Content/timeline.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="~/Content/startmin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="~/Content/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    @Styles.Render("~/bundles/styles")
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +20,7 @@
     <![endif]-->
 </head>
 <body>
-    @Scripts.Render("~/bundles/main")
+    
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -48,29 +32,9 @@
                 @RenderBody()
             </div>
         </div>
-        <!-- /#page-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    @*<script src="~/Scripts/startmin-javascript/jquery.min.js"></script>*@
-
-    <!-- Bootstrap Core JavaScript -->
-    @*<script src="~/Scripts/startmin-javascript/bootstrap.min.js"></script>*@
-
-    <!-- Metis Menu Plugin JavaScript -->
-    @*<script src="~/Scripts/startmin-javascript/metisMenu.min.js"></script>*@
-
-    <!-- Morris Charts JavaScript -->
-    @*<script src="~/Scripts/startmin-javascript/raphael.min.js"></script>
-    <script src="~/Scripts/startmin-javascript/morris.min.js"></script>
-    <script src="~/Scripts/startmin-javascript/morris-data.js"></script>*@
-
-    <!-- Custom Theme JavaScript -->
-    @*<script src="~/Scripts/startmin-javascript/startmin.js"></script>*@
-
-    
-
+    @Scripts.Render("~/bundles/main")
+    @RenderSection("scripts", false)
 </body>
 </html>
 

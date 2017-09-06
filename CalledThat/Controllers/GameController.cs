@@ -92,9 +92,7 @@ namespace CalledThat.Controllers
             if(playerId == null)
             {
                 throw new ArgumentNullException(nameof(playerId));
-            }
-
-            
+            }            
 
             model.PickItems.ForEach(item =>
             {

@@ -297,17 +297,28 @@ namespace GameService
                 });
             }
 
-            var pick = new Pick
+            var existing = _db.Picks.FirstOrDefault(p => p.FixtureId == fixtureId && p.PlayerId == playerId);
+            if (existing == null)
             {
-                FixtureId = fixtureId,
-                PlayerId = playerId,
-                HomeScore = homeScore,
-                AwayScore = awayScore,
-                Banker = banker,
-                Double = doubleScore
-            };
+                var pick = new Pick
+                {
+                    FixtureId = fixtureId,
+                    PlayerId = playerId,
+                    HomeScore = homeScore,
+                    AwayScore = awayScore,
+                    Banker = banker,
+                    Double = doubleScore
+                };
 
-            _db.Picks.Add(pick);
+                _db.Picks.Add(pick);
+            }
+            else
+            {
+                existing.HomeScore = homeScore;
+                existing.AwayScore = awayScore;
+                existing.Banker = banker;
+                existing.Double = doubleScore;
+            }
             _db.SaveChanges();
         }
 

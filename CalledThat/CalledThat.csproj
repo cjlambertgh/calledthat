@@ -220,6 +220,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTable\dataTables.bootstrap.css" />
@@ -232,6 +236,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\startmin-javascript\bootstrap.min.js" />
     <Content Include="Scripts\startmin-javascript\dataTables\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\startmin-javascript\dataTables\jquery.dataTables.min.js" />

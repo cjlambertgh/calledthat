@@ -16,7 +16,8 @@ namespace CalledThat.App_Start
                 $"{jsDir}bootstrap.min.js",
                 $"{jsDir}metisMenu.min.js",
                 $"{jsDir}startmin.js",
-                $"{jsDir}jquery-bootpag.min.js"
+                $"{jsDir}jquery-bootpag.min.js",
+                "~/Scripts/bootstrap-switch.min.js"
                 );
 
             mainBundle.Orderer = new AsIsBundleOrderer();
@@ -28,11 +29,14 @@ namespace CalledThat.App_Start
 
             bundles.Add(new StyleBundle("~/bundles/styles").Include(
                 "~/Content/bootstrap.min.css",
+                "~/Content/bootstrap-social.css",
+                "~/Content/bootstrap-theme.min.css",
                 "~/Content/metisMenu.min.css",
-                "~/Content/timeline.min.css",
-                "~/Content/startmin.min.css",
-                "~/Content/morris.min.css",
-                "~/Content/font-awesome.min.css"
+                "~/Content/timeline.css",
+                "~/Content/startmin.css",
+                "~/Content/morris.css",
+                "~/Content/font-awesome.min.css",
+                "~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.min.css"
                 ));
 
         }

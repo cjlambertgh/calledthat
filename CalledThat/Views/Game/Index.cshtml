@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var inputAttributes = Model.ReadOnly ? (object)new { disabled="disabled", @readonly="readonly" } : (object)new {};
+    var checkboxAttributes = Model.ReadOnly ? (object)new { @class = "toggle", disabled = "disabled", @readonly = "readonly" } : (object)new { @class = "toggle" };
 }
 
 @model CalledThat.ViewModels.AddPicksViewModel
@@ -16,7 +17,7 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.PlayerId)
 
-    <table class="table" @*style="text-align: center; width:100%"*@>
+    <table class="table">
         @for (var i = 0; i < Model.PickItems.Count; i++)
         {
             @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
@@ -41,21 +42,22 @@
 
             <tr>
                 <td style="width:10%"><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
-                @*<td style="width:10%">@item.HomeTeamName</td>*@
                 <td style="width:10%">
                     @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
                 <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
             </td>
-            @*<td style="width:10%">@item.KickOffTime.ToString("dd-MMM-yyyy hh:mm")</td>*@
 
             <td style="width:10%">
                 @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
             <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
         </td>
-        @*<td style="width:10%">@item.AwayTeamName</td>*@
         <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
-        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Banker, true, inputAttributes) @Html.RadioButtonFor(m => m.PickItems[i].Banker, false, inputAttributes)</td>
-        <td style="width:10%">@Html.RadioButtonFor(m => m.PickItems[i].Double, true, inputAttributes) @Html.RadioButtonFor(m => m.PickItems[i].Double, false, inputAttributes)</td>
+        <td style="width:10%">
+            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributes)
+        </td>
+        <td style="width:10%">
+            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributes)
+        </td>
     </tr>
         }
     </table>
@@ -70,3 +72,8 @@
     }
 }
 
+@section scripts {
+    <script>
+        $(".toggle").bootstrapSwitch();
+    </script>
+}

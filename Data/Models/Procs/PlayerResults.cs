@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Models.Procs
 {
@@ -19,10 +15,5 @@ namespace Data.Models.Procs
         public int Points { get; set; }
         public bool Banker { get; set; }
         public bool Double { get; set; }
-
-        /*
-         * gw.Number, f.KickOffDateTime, home.name HomeTeam, away.name AwayTeam, 
-r.HomeScore, r.AwayScore, p.HomeScore HomeScorePick, p.AwayScore AwayScorePick, pr.Points
-         * */
     }
 }

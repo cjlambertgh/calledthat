@@ -51,15 +51,17 @@ namespace CalledThat.Controllers
 
         // GET: Account
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View("Login");
         }
 
         // GET: Account
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View("Login");
         }
 

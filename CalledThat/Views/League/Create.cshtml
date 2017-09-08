@@ -12,22 +12,26 @@
     <p class="text-muted">Create your own private league and invite friends</p>
 </div>
 
-<div class="panel pabel-default">
-    <div class="panel-heading">League details</div>
-    <div class="panel-body">
-        @using (Html.BeginForm())
-        {
-            <div class="form-group">
-                @Html.LabelFor(m => m.LeagueName)
-                @Html.TextBoxFor(m => m.LeagueName, formControlClass)
-                @Html.ValidationMessageFor(m => m.LeagueName, null, new { @class = "help-block" })
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel pabel-default">
+            <div class="panel-heading">League details</div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "League", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LeagueName)
+                        @Html.TextBoxFor(m => m.LeagueName, formControlClass)
+                        @Html.ValidationMessageFor(m => m.LeagueName, null, new { @class = "help-block" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SelectedCompetitionId)
+                        @Html.DropDownListFor(m => m.SelectedCompetitionId, new SelectList(Model.Competitions, "Key", "Value"), formControlClass)
+                        @Html.ValidationMessageFor(m => m.SelectedCompetitionId, null, new { @class = "help-block" })
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Create League" />
+                }
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.SelectedCompetitionId)
-                @Html.DropDownListFor(m => m.SelectedCompetitionId, new SelectList(Model.Competitions, "Key", "Value"), formControlClass)
-                @Html.ValidationMessageFor(m => m.SelectedCompetitionId, null, new { @class = "help-block" })
-            </div>
-        }
+        </div>
     </div>
-
 </div>

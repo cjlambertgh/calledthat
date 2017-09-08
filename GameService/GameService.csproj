@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="GameService.cs" />
     <Compile Include="IGameService.cs" />
+    <Compile Include="ILeagueService.cs" />
+    <Compile Include="LeagueService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

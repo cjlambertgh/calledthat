@@ -50,6 +50,7 @@ namespace CalledThat.App_Start
 
             container.RegisterType<IDataContextConnection, DataContextConnection>();
             container.RegisterType<IGameService, GameService.GameService>();
+            container.RegisterType<ILeagueService, LeagueService>();
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>();
 

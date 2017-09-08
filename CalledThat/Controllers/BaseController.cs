@@ -37,6 +37,8 @@ namespace CalledThat.Controllers
             }
         }
 
+        public Guid CurrentPlayerId => CurrentUser.Players.Single().Id;
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (CurrentUser != null && Session["user"] == null)

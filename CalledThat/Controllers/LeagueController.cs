@@ -13,5 +13,15 @@ namespace CalledThat.Controllers
         {
             return View();
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Join()
+        {
+            return View();
+        }
     }
 }

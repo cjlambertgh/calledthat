@@ -293,6 +293,7 @@
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\AddPicksViewModel.cs" />
     <Compile Include="ViewModels\Game\ResultsViewModel.cs" />
+    <Compile Include="ViewModels\League\CreateLeagueViewModel.cs" />
     <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +325,8 @@
     <Content Include="Views\Game\Results.cshtml" />
     <Content Include="Views\Game\Partials\_GameweekResults.cshtml" />
     <Content Include="Views\League\Index.cshtml" />
+    <Content Include="Views\League\Create.cshtml" />
+    <Content Include="Views\League\Join.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

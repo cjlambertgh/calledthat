@@ -297,6 +297,7 @@
     <Compile Include="ViewModels\League\CreateLeagueViewModel.cs" />
     <Compile Include="ViewModels\League\JoinLeagueViewModel.cs" />
     <Compile Include="ViewModels\League\ViewLeaguesViewModel.cs" />
+    <Compile Include="ViewModels\League\ViewSingleLeagueViewModel.cs" />
     <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +332,7 @@
     <Content Include="Views\League\Create.cshtml" />
     <Content Include="Views\League\Join.cshtml" />
     <Content Include="Views\Shared\_NotificationBar.cshtml" />
+    <Content Include="Views\League\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

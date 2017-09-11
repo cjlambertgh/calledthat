@@ -54,6 +54,11 @@ namespace GameService
             return _db.Competitions.Get(c => c.Season.CurrentSeasonYear == currentSeasonYear);
         }
 
+        public League GetLeague(Guid leagueId)
+        {
+            return _db.Leagues.FirstOrDefault(l => l.Id == leagueId);
+        }
+
         public IEnumerable<League> GetPlayerLeagues(Guid playerId)
         {
             return _db.Leagues.Where(l => l.PlayerLeagues.Any(pl => pl.PlayerId == playerId)).ToList();

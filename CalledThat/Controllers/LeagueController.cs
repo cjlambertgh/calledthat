@@ -90,7 +90,18 @@ namespace CalledThat.Controllers
 
         public ActionResult View(Guid leagueId)
         {
+            var league = _leagueService.GetLeague(leagueId);
+            if(league == null)
+            {
+                AddError("Error opening league details");
+                RedirectToAction("Index");
+            }
 
+            var model = new ViewSingleLeagueViewModel
+            {
+                LeagueName = league.Name
+            };
+            return View()
         }
     }
 }

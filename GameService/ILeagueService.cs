@@ -14,5 +14,6 @@ namespace GameService
         IEnumerable<League> GetPlayerLeagues(Guid playerId);
         void JoinLeague(Guid playerId, string inviteCode);
         bool IsInviteCodeValid(Guid playerId, string code);
+        League GetLeague(Guid leagueId);
     }
 }

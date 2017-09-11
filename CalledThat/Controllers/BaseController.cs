@@ -39,6 +39,16 @@ namespace CalledThat.Controllers
 
         public Guid CurrentPlayerId => CurrentUser.Players.Single().Id;
 
+        protected void AddError(string message)
+        {
+            TempData["ErrorMessage"] = message;
+        }
+
+        protected void AddSuccess(string message)
+        {
+            TempData["SuccessMessage"] = message;
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (CurrentUser != null && Session["user"] == null)

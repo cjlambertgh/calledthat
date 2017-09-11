@@ -36,7 +36,8 @@ namespace CalledThat.App_Start
                 "~/Content/startmin.css",
                 "~/Content/morris.css",
                 "~/Content/font-awesome.min.css",
-                "~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.min.css"
+                "~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.min.css",
+                "~/Content/custom-styles.css"
                 ));
 
         }

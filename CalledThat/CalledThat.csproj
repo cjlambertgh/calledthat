@@ -227,6 +227,7 @@
     <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom-styles.css" />
     <Content Include="Content\DataTable\dataTables.bootstrap.css" />
     <Content Include="Content\DataTable\dataTables.responsive.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -329,6 +330,7 @@
     <Content Include="Views\League\Index.cshtml" />
     <Content Include="Views\League\Create.cshtml" />
     <Content Include="Views\League\Join.cshtml" />
+    <Content Include="Views\Shared\_NotificationBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

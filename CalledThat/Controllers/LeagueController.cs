@@ -77,12 +77,20 @@ namespace CalledThat.Controllers
 
             if (!_leagueService.IsInviteCodeValid(CurrentPlayerId, model.LeagueCode))
             {
+                AddError("Unable to join league. Ether league code is invalid, or you have already joined this league.");
                 return View(model);                
             }
 
             _leagueService.JoinLeague(CurrentPlayerId, model.LeagueCode);
 
+            AddSuccess("Successfully joined league");
+
             return RedirectToAction("Index");
+        }
+
+        public ActionResult View(Guid leagueId)
+        {
+
         }
     }
 }

@@ -1,0 +1,10 @@
+﻿.alert.alert-notification {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+.notification-inner {
+    margin: 0 auto;
+}

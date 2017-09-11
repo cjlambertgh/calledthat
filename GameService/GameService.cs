@@ -85,13 +85,16 @@ namespace GameService
             {
                 if (!_db.PickResults.Any(pr => pr.PickId == pick.Id))
                 {
-                    var result = results.Single(r => r.FixtureId == pick.FixtureId);
-                    var score = CalulcateScore(result, pick);
-                    _db.PickResults.Add(new PickResult
+                    var result = results.SingleOrDefault(r => r.FixtureId == pick.FixtureId);
+                    if (result != null)
                     {
-                        PickId = pick.Id,
-                        Points = score
-                    });
+                        var score = CalulcateScore(result, pick);
+                        _db.PickResults.Add(new PickResult
+                        {
+                            PickId = pick.Id,
+                            Points = score
+                        });
+                    }
                 }
             }
 

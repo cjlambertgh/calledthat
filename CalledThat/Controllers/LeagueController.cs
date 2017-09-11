@@ -59,9 +59,30 @@ namespace CalledThat.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Authorize]
         public ActionResult Join()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Join(JoinLeagueViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (!_leagueService.IsInviteCodeValid(CurrentPlayerId, model.LeagueCode))
+            {
+                return View(model);                
+            }
+
+            _leagueService.JoinLeague(CurrentPlayerId, model.LeagueCode);
+
+            return RedirectToAction("Index");
         }
     }
 }

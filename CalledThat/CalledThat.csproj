@@ -294,6 +294,7 @@
     <Compile Include="ViewModels\AddPicksViewModel.cs" />
     <Compile Include="ViewModels\Game\ResultsViewModel.cs" />
     <Compile Include="ViewModels\League\CreateLeagueViewModel.cs" />
+    <Compile Include="ViewModels\League\JoinLeagueViewModel.cs" />
     <Compile Include="ViewModels\League\ViewLeaguesViewModel.cs" />
     <Compile Include="ViewModels\TeamViewModel.cs" />
   </ItemGroup>

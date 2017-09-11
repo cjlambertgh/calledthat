@@ -59,6 +59,20 @@ namespace GameService
             return _db.Leagues.Where(l => l.PlayerLeagues.Any(pl => pl.PlayerId == playerId)).ToList();
         }
 
+        public bool IsInviteCodeValid(Guid playerId, string code)
+        {
+            var league = _db.Leagues.SingleOrDefault(l => l.InviteCode == code);
+            if(league != null)
+            {
+                var playerIdsInLeague = league.PlayerLeagues.Select(pl => pl.PlayerId);
+                if (!playerIdsInLeague.Contains(playerId))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void JoinLeague(Guid playerId, string inviteCode)
         {
             var league = _db.Leagues.FirstOrDefault(l => l.InviteCode == inviteCode);

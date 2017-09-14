@@ -269,6 +269,8 @@
     <Content Include="Scripts\startmin-javascript\morris.min.js" />
     <Content Include="Scripts\startmin-javascript\raphael.min.js" />
     <Content Include="Scripts\startmin-javascript\startmin.js" />
+    <Content Include="Scripts\Web\League\viewleague.js" />
+    <Content Include="Scripts\Web\Shared\common.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

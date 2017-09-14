@@ -21,15 +21,17 @@
                         <tr>
                             <th>League Name</th>
                             <th>Competition</th>
+                            <th>Players</th>
                             <th>Owner</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.LeagueItems)
+                        @foreach (var item in Model.LeagueItems.OrderBy(l => l.LeagueName))
                         {
-                            <tr>
+                            <tr class="get-action" data-url="@Url.Action("View", "League", new { item.LeagueId })">
                                 <td>@item.LeagueName</td>
                                 <td>@item.Competition</td>
+                                <td>@item.NumberOfPlayers</td>
                                 <td>@(item.LeagueOwner ? "Yes" : "No")</td>
                             </tr>
                         }                        

@@ -17,7 +17,8 @@ namespace CalledThat.App_Start
                 $"{jsDir}metisMenu.min.js",
                 $"{jsDir}startmin.js",
                 $"{jsDir}jquery-bootpag.min.js",
-                "~/Scripts/bootstrap-switch.min.js"
+                "~/Scripts/bootstrap-switch.min.js",
+                "~/Scripts/Web/Shared/common.js"
                 );
 
             mainBundle.Orderer = new AsIsBundleOrderer();

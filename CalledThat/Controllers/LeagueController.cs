@@ -28,6 +28,8 @@ namespace CalledThat.Controllers
             {
                 LeagueItems = playerLeagues.Select(l => new LeagueItem
                 {
+                    NumberOfPlayers = l.PlayerLeagues.Count,
+                    LeagueId = l.Id,
                     LeagueName = l.Name,
                     Competition = l.Competition.Name,
                     LeagueOwner = l.LeagueOwners.Any(lo => lo.PlayerId == CurrentPlayerId)
@@ -88,6 +90,8 @@ namespace CalledThat.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Authorize]
         public ActionResult View(Guid leagueId)
         {
             var league = _leagueService.GetLeague(leagueId);
@@ -97,11 +101,21 @@ namespace CalledThat.Controllers
                 RedirectToAction("Index");
             }
 
+            var leagueRows = _leagueService.GetLeagueTable(leagueId);
+
             var model = new ViewSingleLeagueViewModel
             {
-                LeagueName = league.Name
+                LeagueName = league.Name,
+                LeagueId = league.Id,
+                LeagueTableRows = leagueRows.Select(lr => new LeagueTableRow
+                {
+                    PlayerName = lr.PlayerName,
+                    GameweekPoints = lr.GameweekPoints,
+                    TotalPoints = lr.TotalPoints,
+                    PlayerId = lr.PlayerId
+                }).ToList()
             };
-            return View()
+            return View(model);
         }
     }
 }

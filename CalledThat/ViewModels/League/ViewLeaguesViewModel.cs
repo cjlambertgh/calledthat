@@ -17,8 +17,10 @@ namespace CalledThat.ViewModels.League
 
     public class LeagueItem
     {
+        public Guid LeagueId { get; set; }
         public string LeagueName { get; set; }
         public string Competition { get; set; }
         public bool LeagueOwner { get; set; }
+        public int NumberOfPlayers { get; set; }
     }
 }

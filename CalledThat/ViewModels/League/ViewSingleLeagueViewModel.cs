@@ -8,6 +8,7 @@ namespace CalledThat.ViewModels.League
     public class ViewSingleLeagueViewModel
     {
         public string LeagueName { get; set; }
+        public Guid LeagueId { get; set; }
         public List<LeagueTableRow> LeagueTableRows { get; set; }
 
         public ViewSingleLeagueViewModel()

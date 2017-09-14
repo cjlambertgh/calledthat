@@ -180,6 +180,7 @@
     <Compile Include="Models\PickResult.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerLeagues.cs" />
+    <Compile Include="Models\Procs\LeagueTable.cs" />
     <Compile Include="Models\Procs\PlayerResults.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Season.cs" />

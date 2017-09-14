@@ -3,10 +3,10 @@ using Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Data.Models;
 using System.Configuration;
+using Data.Models.Procs;
+using System.Data.SqlClient;
 
 namespace GameService
 {
@@ -57,6 +57,12 @@ namespace GameService
         public League GetLeague(Guid leagueId)
         {
             return _db.Leagues.FirstOrDefault(l => l.Id == leagueId);
+        }
+
+        public IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId)
+        {
+            var res = _db.SqlQuery<LeagueTable>("uspGetLeagueTable @leagueId", new SqlParameter("@leagueId", leagueId));
+            return res;
         }
 
         public IEnumerable<League> GetPlayerLeagues(Guid playerId)

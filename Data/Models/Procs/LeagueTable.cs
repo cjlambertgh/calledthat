@@ -9,7 +9,7 @@ namespace Data.Models.Procs
         public string LeagueName { get; set; }
         public int GameweekPoints { get; set; }
         public int TotalPoints { get; set; }
-        public Guid GameweekId { get; set; }
+        public int GameweekNumber { get; set; }
         public Guid LeagueId { get; set; }
     }
 }

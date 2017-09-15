@@ -15,5 +15,6 @@ namespace Data.Models.Procs
         public int Points { get; set; }
         public bool Banker { get; set; }
         public bool Double { get; set; }
+        public string PlayerName { get; set; }
     }
 }

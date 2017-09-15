@@ -29,7 +29,7 @@
                         @{ var postition = 1; }
                         @foreach (var item in Model.LeagueTableRows.OrderByDescending(item => item.TotalPoints))
                         {
-                            <tr>
+                            <tr class="get-action" data-url="@Url.Action("Results", "Game", new { week=item.GameWeek, playerId = item.PlayerId })">
                                 <td>@postition</td>
                                 <td>@item.PlayerName</td>
                                 <td>@item.GameweekPoints </td>

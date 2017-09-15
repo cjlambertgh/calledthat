@@ -14,6 +14,7 @@ namespace CalledThat.ViewModels.Game
         public int GameweekPoints { get; set; }
         public int TotalGameweeks { get; set; }
         public Guid PlayerId { get; set; }
+        public string PlayerName { get; set; }
 
         public ResultsViewModel()
         {

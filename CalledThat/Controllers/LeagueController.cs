@@ -112,7 +112,8 @@ namespace CalledThat.Controllers
                     PlayerName = lr.PlayerName,
                     GameweekPoints = lr.GameweekPoints,
                     TotalPoints = lr.TotalPoints,
-                    PlayerId = lr.PlayerId
+                    PlayerId = lr.PlayerId,
+                    GameWeek = lr.GameweekNumber
                 }).ToList()
             };
             return View(model);

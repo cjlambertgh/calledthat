@@ -99,13 +99,13 @@ namespace CalledThat.Controllers
                 _gameService.AddPick((Guid)playerId, item.FixtureId, int.Parse(item.HomeScore), int.Parse(item.AwayScore), item.Banker, item.Double);
             });
 
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         [Authorize]
         [Route("game/results/{week?}/{playerId?}")]
-        [OutputCache(Duration = 300, VaryByParam = "week;playerId")]
+        //[OutputCache(Duration = 300, VaryByParam = "week;playerId")]
         public ActionResult Results(int? week = null, Guid? playerId = null)
         {
             if (playerId == null)
@@ -122,13 +122,14 @@ namespace CalledThat.Controllers
             {
                 week = currentGameweek;
             }
-            var results = _gameService.GetPlayerResults((Guid)playerId, week);
+            var results = _gameService.GetPlayerResults((Guid)playerId, week).ToList();
             var viewModel = new ResultsViewModel
             {
-                PlayerResults = results.ToList(),
+                PlayerResults = results,
                 Gameweek = (int)week,
                 TotalGameweeks = currentGameweek,
-                PlayerId = (Guid)playerId
+                PlayerId = (Guid)playerId,
+                PlayerName = results.FirstOrDefault()?.PlayerName
             };
             if(Request.IsAjaxRequest())
             {

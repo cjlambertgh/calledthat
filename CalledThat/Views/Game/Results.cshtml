@@ -12,7 +12,7 @@
     <div class="col-lg-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Gameweek results
+                Gameweek results - Week <span id="gameweek-number">@Model.Gameweek</span>
             </div>
             <div class="panel-body">
                 <p class="demo demo2"></p>
@@ -34,10 +34,11 @@
             maxVisible: 10
         }).on('page', function (event, num) {
             $.ajax({
-                url: "@Url.Action("Results","Game")",
+                url: "/game/results",
                 data: {week: num, playerId: "@Model.PlayerId"},
                 success: function(data) {
                     $('#results-container').html(data);
+                    $('#gameweek-number').html(num);
                 }
             });
         });

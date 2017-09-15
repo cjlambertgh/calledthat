@@ -21,6 +21,7 @@ namespace CalledThat.ViewModels.League
     {
         public Guid PlayerId { get; set; }
         public string PlayerName { get; set; }
+        public int GameWeek { get; set; }
         public int  GameweekPoints { get; set; }
         public int TotalPoints { get; set; }
         public int LeaguePosition { get; set; }

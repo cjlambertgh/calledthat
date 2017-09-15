@@ -44,7 +44,9 @@
     <Compile Include="GameService.cs" />
     <Compile Include="IGameService.cs" />
     <Compile Include="ILeagueService.cs" />
+    <Compile Include="IPlayerService.cs" />
     <Compile Include="LeagueService.cs" />
+    <Compile Include="PlayerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

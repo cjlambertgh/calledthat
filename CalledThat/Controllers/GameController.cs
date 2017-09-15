@@ -13,12 +13,14 @@ namespace CalledThat.Controllers
     public class GameController : BaseController
     {
         private readonly IGameService _gameService;
+        private readonly IPlayerService _playerService;
         private const string GameweekResultPartial = "~/Views/Game/Partials/_GameweekREsults.cshtml";
 
-        public GameController(IGameService gameService, IUserService userService)
+        public GameController(IGameService gameService, IUserService userService, IPlayerService playerService)
             :base(userService)
         {
             _gameService = gameService;
+            _playerService = playerService;
         }
 
         // GET: Game
@@ -105,9 +107,10 @@ namespace CalledThat.Controllers
         [HttpGet]
         [Authorize]
         [Route("game/results/{week?}/{playerId?}")]
-        //[OutputCache(Duration = 300, VaryByParam = "week;playerId")]
+        [OutputCache(Duration = 300, VaryByParam = "week;playerId")]
         public ActionResult Results(int? week = null, Guid? playerId = null)
         {
+            string playerName;
             if (playerId == null)
             {
                 var player = CurrentUser.Players.FirstOrDefault();                
@@ -115,7 +118,12 @@ namespace CalledThat.Controllers
                 {
                     throw new ArgumentNullException(nameof(player));
                 }
+                playerName = player.Name;
                 playerId = player.Id;
+            }
+            else
+            {
+                playerName = _playerService.GetPlayerName((Guid)playerId);
             }
             var currentGameweek = _gameService.GetCurrentGameweek();
             if (week == null)
@@ -129,7 +137,7 @@ namespace CalledThat.Controllers
                 Gameweek = (int)week,
                 TotalGameweeks = currentGameweek,
                 PlayerId = (Guid)playerId,
-                PlayerName = results.FirstOrDefault()?.PlayerName
+                PlayerName = playerName
             };
             if(Request.IsAjaxRequest())
             {

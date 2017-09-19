@@ -125,6 +125,11 @@ namespace GameService
             {
                 score = int.Parse(ConfigurationManager.AppSettings["Game.CorrectResultPoints"]);
             }
+            //predicted a win and ended draw
+            else if (result.HomeScore == result.AwayScore && !(pick.HomeScore == pick.AwayScore))
+            {
+                score = int.Parse(ConfigurationManager.AppSettings["Game.IncorrectEndedInDraw"]);
+            }
             //incorrect result
             else
             {

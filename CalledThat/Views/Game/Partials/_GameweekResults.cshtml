@@ -22,8 +22,21 @@
                     <td>@item.HomeScore - @item.AwayScore </td>
                     <td>@item.HomeScorePick - @item.AwayScorePick</td>
                     <td>@item.AwayTeam</td>
-                    <td>@item.Double</td>
-                    <td>@item.Banker</td>
+                    <td>
+                        @if (item.Double)
+                        {
+                            <div class="text-center">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use check">&#xf00c</i>
+                            </div>
+                        }
+                    </td>
+                    <td>@if (item.Banker)
+                        {
+                            <div class="text-center">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use check">&#xf00c</i>
+                            </div>
+                        }
+                    </td>
                     <td>@item.Points</td>
                 </tr>
             }

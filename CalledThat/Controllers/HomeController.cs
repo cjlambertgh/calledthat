@@ -2,6 +2,7 @@
 using CalledThat.ViewModels;
 using Data.Interfaces;
 using DataAPI.Implementations;
+using EmailService;
 using GameService;
 using System;
 using System.Linq;
@@ -13,18 +14,20 @@ namespace CalledThat.Controllers
     {
         private readonly IDataContextConnection _db;
         private readonly IGameService _gameService;
+        private readonly IMailService _mailService;
 
-        public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService)
+        public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService, IMailService mailService)
             :base(userService)
         {
             _db = unitOfWork;
             _gameService = gameService;
+            _mailService = mailService;
         }
 
         // GET: Home
         public ActionResult Index()
         {
-            var player = _userService.GetPlayerByUserId("test");
+            _mailService.Send("cjlambert0@gmail.com", "test subject", "test body");
             return View();
         }
 

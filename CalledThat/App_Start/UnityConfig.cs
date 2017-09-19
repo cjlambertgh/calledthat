@@ -14,6 +14,7 @@ using Data;
 using AppServices;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity.Mvc;
+using EmailService;
 
 namespace CalledThat.App_Start
 {
@@ -53,6 +54,7 @@ namespace CalledThat.App_Start
             container.RegisterType<ILeagueService, LeagueService>();
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IPlayerService, PlayerService>();
+            container.RegisterType<IMailService, HttpMailService>();
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>();
 
             container.RegisterType<DbContext, DataContext>(new HierarchicalLifetimeManager());

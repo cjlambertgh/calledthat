@@ -8,6 +8,6 @@ namespace EmailService
 {
     public interface IMailService
     {
-        void Send(string subject, string body);
+        void Send(string recipient, string subject, string body);
     }
 }

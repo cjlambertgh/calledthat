@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using EmailService;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -112,7 +113,9 @@ namespace Data.DAL.Identity
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var mail = new SmtpMailService();
+            return Task.Run(() => mail.Send(message.Destination, message.Subject, message.Body));
+            //return Task.FromResult(0);
         }
     }
 

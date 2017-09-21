@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -79,6 +80,16 @@ namespace CalledThat.Controllers
                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                 Session.Clear();
             }
+            var user = UserManager.FindByName(model.Email);
+            if (user != null)
+            {
+                if (!UserManager.IsEmailConfirmed(user.Id))
+                {
+                    AddError("You must have a confirmed email to log on.");
+                    return View("Error");
+                }
+            }
+
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -87,7 +98,7 @@ namespace CalledThat.Controllers
             {
                 case SignInStatus.Success:
                     Session["useremail"] = model.Email;
-                    var user = UserManager.FindByEmail(model.Email);
+                    user = UserManager.FindByEmail(model.Email);
                     var userid = user.Id;
                     Session["userId"] = userid;
                     Session["playerName"] = _userService.GetPlayerByUserId(userid)?.Name;
@@ -112,7 +123,7 @@ namespace CalledThat.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -121,21 +132,46 @@ namespace CalledThat.Controllers
                 if (result.Succeeded)
                 {
                     _userService.CreatePlayer(user.Id, model.Name);
-                    SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
+                    var code = UserManager.GenerateEmailConfirmationToken(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    AddSuccess("Check your email and confirm your account, you must be confirmed before you can log in.");
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
+            var allErrors = ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage));
+            var errorMessage = string.Join("<br />", allErrors);
+            AddError(errorMessage);
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if(result.Succeeded)
+            {
+                AddSuccess("Email validation successful, you can now log in");
+            }
+            else
+            {
+                AddError("There was a problem validating your email");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: /Account/LogOff

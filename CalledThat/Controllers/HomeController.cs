@@ -27,7 +27,7 @@ namespace CalledThat.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            _mailService.Send("cjlambert0@gmail.com", "test subject", "test body");
+            //_mailService.Send("phateuk@gmail.com", "test subject", "test body");
             return View();
         }
 

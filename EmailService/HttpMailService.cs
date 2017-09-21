@@ -14,7 +14,7 @@ namespace EmailService
         public void Send(string recipient, string subject, string body)
         {
             var client = new RestClient();
-            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+            client.BaseUrl = new Uri(ConfigurationManager.AppSettings["Uri"]);
             client.Authenticator =
             new HttpBasicAuthenticator("api",
                                 ConfigurationManager.AppSettings["ApiKey"]);

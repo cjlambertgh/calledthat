@@ -54,7 +54,7 @@ namespace CalledThat.App_Start
             container.RegisterType<ILeagueService, LeagueService>();
             container.RegisterType<IUserService, UserService>();
             container.RegisterType<IPlayerService, PlayerService>();
-            container.RegisterType<IMailService, HttpMailService>();
+            container.RegisterType<IMailService, SmtpMailService>();
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>();
 
             container.RegisterType<DbContext, DataContext>(new HierarchicalLifetimeManager());

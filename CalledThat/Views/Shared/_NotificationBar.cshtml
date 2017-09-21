@@ -2,7 +2,7 @@
 {
             <div class="alert alert-danger alert-dismissable alert-notification text-center" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @TempData["ErrorMessage"]
+                @Html.Raw(TempData["ErrorMessage"])
             </div>
 }
 
@@ -12,7 +12,7 @@
         <div class="notification-inner">
             <div class="alert alert-success alert-dismissable alert-notification">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @TempData["SuccessMessage"]
+                @Html.Raw(TempData["SuccessMessage"])
             </div>
         </div>
     </div>

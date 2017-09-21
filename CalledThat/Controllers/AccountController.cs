@@ -68,7 +68,7 @@ namespace CalledThat.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -85,8 +85,12 @@ namespace CalledThat.Controllers
             {
                 if (!UserManager.IsEmailConfirmed(user.Id))
                 {
-                    AddError("You must have a confirmed email to log on.");
-                    return View("Error");
+                    AddError("You must have a confirmed email to log on.<br /> A new verification code has been sent to your email.");
+                    var code = UserManager.GenerateEmailConfirmationToken(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 

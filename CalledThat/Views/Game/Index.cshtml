@@ -3,7 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var inputAttributes = Model.ReadOnly ? (object)new { disabled="disabled", @readonly="readonly" } : (object)new {};
-    var checkboxAttributes = Model.ReadOnly ? (object)new { @class = "toggle", disabled = "disabled", @readonly = "readonly" } : (object)new { @class = "toggle" };
+    var checkboxAttributesBanker = Model.ReadOnly ? (object)new { @class = "toggle banker", disabled = "disabled", @readonly = "readonly" } : (object)new { @class = "toggle banker" };
+    var checkboxAttributesDouble = Model.ReadOnly ? (object)new { @class = "toggle double", disabled = "disabled", @readonly = "readonly" } : (object)new { @class = "toggle double" };
 }
 
 @model CalledThat.ViewModels.AddPicksViewModel
@@ -53,10 +54,10 @@
         </td>
         <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
         <td style="width:10%">
-            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributes)
+            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
         </td>
         <td style="width:10%">
-            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributes)
+            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
         </td>
     </tr>
         }
@@ -73,7 +74,5 @@
 }
 
 @section scripts {
-    <script>
-        $(".toggle").bootstrapSwitch();
-    </script>
+    @Scripts.Render("~/bundles/game")
 }

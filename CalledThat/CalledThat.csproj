@@ -269,6 +269,7 @@
     <Content Include="Scripts\startmin-javascript\morris.min.js" />
     <Content Include="Scripts\startmin-javascript\raphael.min.js" />
     <Content Include="Scripts\startmin-javascript\startmin.js" />
+    <Content Include="Scripts\Web\Game\addpicks.js" />
     <Content Include="Scripts\Web\League\viewleague.js" />
     <Content Include="Scripts\Web\Shared\common.js" />
     <Content Include="Web.config">
@@ -278,7 +279,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\IdentityEmail.cs" />
     <Compile Include="App_Start\ReactConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />

@@ -332,7 +332,7 @@ namespace GameService
 
         public int GetCurrentGameweek()
         {
-            return _db.Competitions.FirstOrDefault().CurrentGameWeekNumber;
+            return _db.Competitions.FirstOrDefault()?.CurrentGameWeekNumber ?? 1;
         }
 
         public bool IsGameweekOpen(int gameweekNumber)

@@ -42,7 +42,7 @@ namespace Data.Repository
         public virtual bool Any(Expression<Func<TEntity, bool>> filter = null)
         {
             //return _dbSet.Any();
-            return _dbSet.Any(filter);
+            return filter == null ? _dbSet.Any() : _dbSet.Any(filter);
         }
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter = null)

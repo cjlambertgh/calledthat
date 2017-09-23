@@ -37,7 +37,7 @@ namespace CalledThat.Controllers
             }
         }
 
-        public Guid CurrentPlayerId => CurrentUser.Players.Single().Id;
+        public Guid CurrentPlayerId => CurrentUser?.Players?.Single()?.Id ?? Guid.Empty;
 
         protected void AddError(string message)
         {

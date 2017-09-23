@@ -42,21 +42,21 @@
             }
 
             <tr>
-                <td style="width:10%"><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
-                <td style="width:10%">
+                <td><img src="@item.HomeTeamBadgeUrl" width="50" height="50" /></td>
+                <td>
                     @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
                 <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
             </td>
 
-            <td style="width:10%">
+            <td>
                 @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
             <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
         </td>
-        <td style="width:10%"><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
-        <td style="width:10%">
+        <td><img src="@item.AwayTeamBadgeUrl" width="50" height="50" /></td>
+        <td>
             @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
         </td>
-        <td style="width:10%">
+        <td>
             @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
         </td>
     </tr>

@@ -337,6 +337,7 @@
     <Content Include="Views\Shared\_NotificationBar.cshtml" />
     <Content Include="Views\League\View.cshtml" />
     <Content Include="privatesettings.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -23,7 +23,7 @@
                     <i class="fa fa-user fa-fw"></i> @Session["playerName"] <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li>
+                    @*<li>
                         <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li>
@@ -32,7 +32,7 @@
                     <li>
                         <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
-                    <li class="divider"></li>
+                    <li class="divider"></li>*@
                     <li>
                         <a href="@Url.Action("Logoff", "Account")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>

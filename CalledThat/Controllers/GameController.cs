@@ -101,6 +101,8 @@ namespace CalledThat.Controllers
                 _gameService.AddPick((Guid)playerId, item.FixtureId, int.Parse(item.HomeScore), int.Parse(item.AwayScore), item.Banker, item.Double);
             });
 
+            AddSuccess("Scores sucessfully updated");
+
             return RedirectToAction("Index");
         }
 

@@ -2,4 +2,12 @@
 @{
     ViewBag.Title = "Home";
 }
+@section metatags {
+    <meta property="og:site_name" content="You Know The Score">
+    <meta property="og:title" content="You Know The Score" />
+    <meta property="og:description" content="Predict football scores. Compete with others in private leagues" />
+    <meta property="og:image" itemprop="image" content="https://cdn.pixabay.com/photo/2012/04/15/18/52/soccer-34898_960_720.png">
+    <meta property="og:type" content="website" />
+    <meta property="og:updated_time" content="@DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()" />
+    }
 

@@ -29,7 +29,7 @@ namespace DataAPI.Models
     {
         Scheduled,
         Timed,
-        InPlay,
+        In_Play,
         Postponed,
         Canceled,
         Finished

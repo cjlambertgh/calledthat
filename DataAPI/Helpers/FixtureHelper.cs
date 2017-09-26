@@ -11,7 +11,7 @@ namespace DataAPI.Helpers
     {
         public static bool IsFixtureInPlay(Fixture fixture)
         {
-            return (fixture.FixtureStatus == FixtureStatus.InPlay);
+            return (fixture.FixtureStatus == FixtureStatus.In_Play);
         }
 
         public static bool IsFixtureInFinished(Fixture fixture)

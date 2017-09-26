@@ -13,66 +13,60 @@
     <ul class="nav navbar-nav navbar-left navbar-top-links">
         <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Home</a></li>
     </ul>
+        <ul class="nav navbar-right navbar-top-links">
 
-    <ul class="nav navbar-right navbar-top-links">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="dropdown hidden-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> @Session["playerName"] <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="@Url.Action("Logoff", "Account")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> @Session["playerName"] <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    @*<li>
-                        <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Home", "GameServiceTest", new {  })"><i class="fa fa-gear fa-fw"></i> Update</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                    </li>
-                    <li class="divider"></li>*@
-                    <li>
-                        <a href="@Url.Action("Logoff", "Account")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                    </li>
-                </ul>
-            </li>
-
-        }
-        else
-        {
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="@Url.Action("Login", "Account")">
-                    <i class="fa fa-user fa-fw"></i>Login 
-                </a>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" href="@Url.Action("Register", "Account")">
-                    <i class="fa fa-user fa-fw"></i>Register 
-                </a>
-            </li>
-        }
-    </ul>
- 
-    <!-- /.navbar-top-links -->
-
+            }
+            else
+            {
+                <li class="dropdown hidden-xs">
+                    <a class="dropdown-toggle" href="@Url.Action("Login", "Account")">
+                        <i class="fa fa-user fa-fw"></i>Login
+                    </a>
+                </li>
+                <li class="dropdown hidden-xs">
+                    <a class="dropdown-toggle" href="@Url.Action("Register", "Account")">
+                        <i class="fa fa-user fa-fw"></i>Register
+                    </a>
+                </li>
+            }
+        </ul>
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                    <!-- /input-group -->
+                <li>
+                    <a href="#"><i class="fa fa-user fa-fw"></i> User</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@Url.Action("Logoff", "Account")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>                            
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav nav-second-level">
+                            <li><a href="@Url.Action("Login", "Account")"><i class="fa fa-user fa-fw"></i>Login</a></li>
+                            <li><a href="@Url.Action("Register", "Account")"><i class="fa fa-user fa-fw"></i>Register</a></li>
+                        </ul>
+                    }
+                    
                 </li>
                 <li>
-                    <a href="@Url.Action("Index", "Game")" class="active"><i class="fa fa-futbol-o fa-fw"></i> Game</a>
+                    <a href="#" class="active"><i class="fa fa-futbol-o fa-fw"></i> Game</a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="@Url.Action("Index", "Game")"><i class="fa fa-pencil fa-fw"></i> Picks</a>
@@ -84,22 +78,9 @@
                             <a href="@Url.Action("Stats", "Game")"><i class="fa fa-bar-chart-o fa-fw"></i> Stats</a>
                         </li>
                     </ul>
-                        
-
-                @*<li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="morris.html">Morris.js Charts</a>
-                        </li>
-                    </ul>
-                </li>
-                    *@
+                       
                 <li>
-                    <a href="@Url.Action("Index","League")"><i class="fa fa-table fa-fw"></i> Leagues</a>
+                    <a href="#"><i class="fa fa-table fa-fw"></i> Leagues</a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="@Url.Action("Index","League")">My Leagues</a>

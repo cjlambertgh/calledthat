@@ -8,7 +8,16 @@
 
 <div class="col-lg-12">
     <h1 class="page-header">@Model.LeagueName</h1>
-    <p class="text-muted">Join a private league by entering the invite code below</p>
+    @if (Model.IsLeagueOwner)
+    {
+        <p class="text-muted">You are the league owner, to invite others they will need your league invite code: <strong>@Model.InviteCode</strong></p>
+        
+    }
+    else
+    {
+        <p class="text-muted">To invite others, you will need to get the <strong>league invite code</strong> from the league owner</p>
+    }
+    
 </div>
 
 <div class="row">

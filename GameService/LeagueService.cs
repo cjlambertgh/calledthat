@@ -84,6 +84,11 @@ namespace GameService
             return false;
         }
 
+        public bool IsPlayerALeagueOwner(Guid playerId, League league)
+        {
+            return league.LeagueOwners.Any(o => o.PlayerId == playerId);
+        }
+
         public void JoinLeague(Guid playerId, string inviteCode)
         {
             var league = _db.Leagues.FirstOrDefault(l => l.InviteCode == inviteCode);

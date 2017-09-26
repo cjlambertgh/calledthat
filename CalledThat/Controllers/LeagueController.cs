@@ -101,12 +101,16 @@ namespace CalledThat.Controllers
                 RedirectToAction("Index");
             }
 
+            var isOwner = _leagueService.IsPlayerALeagueOwner(CurrentPlayerId, league);
+
             var leagueRows = _leagueService.GetLeagueTable(leagueId);
 
             var model = new ViewSingleLeagueViewModel
             {
                 LeagueName = league.Name,
                 LeagueId = league.Id,
+                IsLeagueOwner = isOwner,
+                InviteCode = league.InviteCode,
                 LeagueTableRows = leagueRows.Select(lr => new LeagueTableRow
                 {
                     PlayerName = lr.PlayerName,

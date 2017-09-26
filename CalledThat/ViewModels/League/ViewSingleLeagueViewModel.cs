@@ -10,6 +10,8 @@ namespace CalledThat.ViewModels.League
         public string LeagueName { get; set; }
         public Guid LeagueId { get; set; }
         public List<LeagueTableRow> LeagueTableRows { get; set; }
+        public bool IsLeagueOwner { get; set; }
+        public string InviteCode { get; set; }
 
         public ViewSingleLeagueViewModel()
         {

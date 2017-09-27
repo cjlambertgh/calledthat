@@ -28,8 +28,11 @@ namespace CalledThat.App_Start
                 $"{jsDir}startmin.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/game").Include(
+            bundles.Add(new ScriptBundle("~/bundles/game/index").Include(
                 "~/Scripts/Web/Game/addpicks.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/game/results").Include(
+                "~/Scripts/Web/Game/results.js"
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/styles").Include(

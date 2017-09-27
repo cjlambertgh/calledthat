@@ -49,6 +49,18 @@ namespace CalledThat.Controllers
             TempData["SuccessMessage"] = message;
         }
 
+        protected void AddError(IEnumerable<string> messages)
+        {
+            var message = string.Join("<br/>", messages);
+            TempData["ErrorMessage"] = message;
+        }
+
+        protected void AddSuccess(IEnumerable<string> messages)
+        {
+            var message = string.Join("<br/>", messages);
+            TempData["SuccessMessage"] = message;
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (CurrentUser != null && Session["user"] == null)

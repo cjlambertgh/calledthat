@@ -26,23 +26,5 @@
         </div>
     </div>
 @section scripts {
-<script type="text/javascript">
-    $(function () {
-        $('.demo2').bootpag({
-            total: @Model.TotalGameweeks,
-            page: "@Model.Gameweek",
-            maxVisible: 10
-        }).on('page', function (event, num) {
-            $.ajax({
-                url: "~/game/results",
-                data: {week: num, playerId: "@Model.PlayerId"},
-                success: function(data) {
-                    $('#results-container').html(data);
-                    $('#gameweek-number').html(num);
-                }
-            });
-        });
-    });
-    
-</script>
+    @Scripts.Render("~/bundles/game/results")
 }

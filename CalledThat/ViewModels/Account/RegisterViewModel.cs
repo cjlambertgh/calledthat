@@ -15,5 +15,7 @@ namespace CalledThat.ViewModels.Account
         public string Password { get; set; }
         [Required]
         public string Name { get; set; }
+        [Display(Name="Enable Email Notifications")]
+        public bool EmailAlerts { get; set; }
     }
 }

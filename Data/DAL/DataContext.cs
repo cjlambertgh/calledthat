@@ -16,6 +16,7 @@ namespace Data
     {
         public DataContext() : base("DataContext")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Data.Migrations.Configuration>());
         }
 
         public static DataContext Create()

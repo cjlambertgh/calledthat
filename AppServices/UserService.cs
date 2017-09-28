@@ -17,14 +17,15 @@ namespace AppServices
         {
             context = new DataContextConnection();
         }
-        public void CreatePlayer(string userId, string name)
+        public void CreatePlayer(string userId, string name, bool emailAlerts)
         {
             using (var db = context.Database)
             {
                 db.Players.Add(new Player
                 {
                     UserId = userId,
-                    Name = name
+                    Name = name,
+                    EmailAlerts = emailAlerts
                 });
                 db.SaveChanges();
             }

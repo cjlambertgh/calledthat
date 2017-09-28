@@ -180,6 +180,10 @@
     <Compile Include="Migrations\201708091732301_add-name-to-players.Designer.cs">
       <DependentUpon>201708091732301_add-name-to-players.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709281614033_add-emailalerts-to-players.cs" />
+    <Compile Include="Migrations\201709281614033_add-emailalerts-to-players.Designer.cs">
+      <DependentUpon>201709281614033_add-emailalerts-to-players.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -272,6 +276,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709281614033_add-emailalerts-to-players.resx">
+      <DependentUpon>201709281614033_add-emailalerts-to-players.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SQL\uspGetPlayerResults.sql" />
     <EmbeddedResource Include="SQL\uspGetLeagueTable.sql" />
   </ItemGroup>

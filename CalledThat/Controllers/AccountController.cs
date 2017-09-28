@@ -135,7 +135,7 @@ namespace CalledThat.Controllers
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
-                    _userService.CreatePlayer(user.Id, model.Name);
+                    _userService.CreatePlayer(user.Id, model.Name, model.EmailAlerts);
                     var code = UserManager.GenerateEmailConfirmationToken(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account",
                         new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -152,9 +152,9 @@ namespace CalledThat.Controllers
                 }
                 AddErrors(result);
             }
-            var allErrors = ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage));
-            var errorMessage = string.Join("<br />", allErrors);
-            AddError(errorMessage);
+            //var allErrors = ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage));
+            //var errorMessage = string.Join("<br />", allErrors);
+            //AddError(errorMessage);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

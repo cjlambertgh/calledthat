@@ -23,6 +23,8 @@ namespace Data.Models
 
         public int GameWeekScore { get; set; }
 
+        public bool EmailAlerts { get; set; }
+
         public virtual ICollection<PlayerLeagues> PlayerLeagues { get; set; }
 
         public virtual ICollection<LeagueOwners> LeagueOwners { get; set; }

@@ -53,6 +53,12 @@
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control", autofocus = true, type = "text", placeholder = "Name" })
                                     @Html.ValidationMessageFor(m => m.Name, null, new { @class="text-danger"})
                                 </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.EmailAlerts, new { @class = "control-label" })
+                                    @Html.CheckBoxFor(m => m.EmailAlerts, new { @class = "toggle", @checked="checked" })
+                                    <p class="text-muted">Receive reminder emails when gameweeks open/close. This can be turned on/off in account settings.</p>
+                                    @Html.ValidationMessageFor(m => m.EmailAlerts, null, new { @class = "text-danger" })
+                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Register"/>
                             </fieldset>

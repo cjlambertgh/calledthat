@@ -1,5 +1,9 @@
 ﻿$(function () {
-    $(".toggle").bootstrapSwitch();
+    $(".toggle").bootstrapSwitch({
+        size: 'mini'
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
 
     $('input.toggle').on('change', function () {
         $('input.toggle').not(this).prop('checked', false);

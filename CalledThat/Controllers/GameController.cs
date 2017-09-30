@@ -1,6 +1,7 @@
 ﻿using AppServices;
 using CalledThat.ViewModels;
 using CalledThat.ViewModels.Game;
+using EmailService;
 using GameService;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace CalledThat.Controllers
         private readonly IPlayerService _playerService;
         private const string GameweekResultPartial = "~/Views/Game/Partials/_GameweekREsults.cshtml";
 
-        public GameController(IGameService gameService, IUserService userService, IPlayerService playerService)
-            :base(userService)
+        public GameController(IGameService gameService, IUserService userService, IPlayerService playerService, IMailService mailService)
+            :base(userService, mailService)
         {
             _gameService = gameService;
             _playerService = playerService;
@@ -109,7 +110,6 @@ namespace CalledThat.Controllers
         [HttpGet]
         [Authorize]
         [Route("game/results/{week?}/{playerId?}")]
-        [OutputCache(Duration = 300, VaryByParam = "week;playerId")]
         public ActionResult Results(int? week = null, Guid? playerId = null)
         {
             string playerName;

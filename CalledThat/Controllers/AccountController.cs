@@ -3,6 +3,7 @@ using CalledThat.App_Start;
 using CalledThat.ViewModels.Account;
 using Data.DAL.Identity;
 using Data.Interfaces;
+using EmailService;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -20,7 +21,7 @@ namespace CalledThat.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IUserService userService): base(userService)
+        public AccountController(IUserService userService, IMailService mailService): base(userService, mailService)
         {
         }
 

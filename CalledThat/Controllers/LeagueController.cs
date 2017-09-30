@@ -1,5 +1,6 @@
 ﻿using AppServices;
 using CalledThat.ViewModels.League;
+using EmailService;
 using GameService;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace CalledThat.Controllers
     {
         private readonly ILeagueService _leagueService;
 
-        public LeagueController(ILeagueService leagueService, IUserService userService)
-            : base(userService)
+        public LeagueController(ILeagueService leagueService, IUserService userService, IMailService mailService)
+            : base(userService, mailService)
         {
             _leagueService = leagueService;
         }

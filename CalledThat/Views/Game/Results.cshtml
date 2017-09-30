@@ -25,23 +25,25 @@
             </div>
         </div>
     </div>
+<input type="hidden" value="@Url.Action("Results","Game")" id="result-url" />
 @section scripts {
     <script>
         $(function () {
-    $('.demo2').bootpag({
-        total: '@Model.TotalGameweeks',
-        page: '@Model.Gameweek',
-        maxVisible: 10
-        }).on('page', function (event, num) {
-        $.ajax({
-            url: '@Url.Action("Results", "Game")',
-            data: { week: num, playerId: "@Model.PlayerId" },
-            success: function (data) {
-                $('#results-container').html(data);
-                $('#gameweek-number').html(num);
-            }
-        });
-    });
+            $('.demo2').bootpag({
+                total: '@Model.TotalGameweeks',
+                page: '@Model.Gameweek',
+                maxVisible: 10
+                }).on('page', function (event, num) {
+                    $.ajax({
+            
+                        url: $('#result-url').val(),
+                    data: { week: num, playerId: "@Model.PlayerId" },
+                    success: function (data) {
+                        $('#results-container').html(data);
+                        $('#gameweek-number').html(num);
+                    }
+                });
+            });
     });
     </script>
 }

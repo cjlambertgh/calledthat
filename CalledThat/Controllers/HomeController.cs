@@ -17,7 +17,7 @@ namespace CalledThat.Controllers
         private readonly IMailService _mailService;
 
         public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService, IMailService mailService)
-            :base(userService)
+            :base(userService, mailService)
         {
             _db = unitOfWork;
             _gameService = gameService;

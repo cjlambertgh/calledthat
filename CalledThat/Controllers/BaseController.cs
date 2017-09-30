@@ -1,9 +1,11 @@
 ﻿using AppServices;
 using Data.DAL.Identity;
+using EmailService;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -14,10 +16,12 @@ namespace CalledThat.Controllers
     public class BaseController : Controller
     {
         protected readonly IUserService _userService;
+        private readonly IMailService _emailService;
 
-        public BaseController(IUserService userService)
+        public BaseController(IUserService userService, IMailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
         public bool IsAuthenticated
         {
@@ -71,6 +75,22 @@ namespace CalledThat.Controllers
                 Session["playerName"] = _userService.GetPlayerByUserId(CurrentUser.Id)?.Name;
             }
             base.OnActionExecuting(filterContext);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+            _emailService.Send(ConfigurationManager.AppSettings["Exception.EmailRecipient"],
+                "YKTS Exception",
+                filterContext.Exception.ToString());
+            filterContext.Result = new ViewResult
+            {
+                ViewName = "~/Views/Shared/Error.aspx"
+            };
+            base.OnException(filterContext);
         }
     }
 }

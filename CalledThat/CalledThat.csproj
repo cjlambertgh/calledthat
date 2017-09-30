@@ -226,6 +226,7 @@
     <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-touchspin.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom-styles.css" />
     <Content Include="Content\DataTable\dataTables.bootstrap.css" />
@@ -273,6 +274,7 @@
     <Content Include="Scripts\Web\Game\results.js" />
     <Content Include="Scripts\Web\League\viewleague.js" />
     <Content Include="Scripts\Web\Shared\common.js" />
+    <Content Include="Scripts\Web\Shared\jquery.bootstrap-touchspin.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

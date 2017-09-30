@@ -16,4 +16,8 @@
     $('input.toggle.double').on('switchChange.bootstrapSwitch', function (event, state) {
         $('input.toggle.double').not($(this)).bootstrapSwitch('state', false);
     });
+
+    $('.input-box').TouchSpin({
+        min: 0
+    });
 });

@@ -18,7 +18,8 @@ namespace CalledThat.App_Start
                 $"{jsDir}startmin.js",
                 $"{jsDir}jquery-bootpag.min.js",
                 "~/Scripts/bootstrap-switch.min.js",
-                "~/Scripts/Web/Shared/common.js"
+                "~/Scripts/Web/Shared/common.js",
+                "~/Scripts/Web/Shared/jquery.bootstrap-touchspin.js"
                 );
 
             mainBundle.Orderer = new AsIsBundleOrderer();
@@ -45,7 +46,8 @@ namespace CalledThat.App_Start
                 "~/Content/morris.css",
                 "~/Content/font-awesome.min.css",
                 "~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.min.css",
-                "~/Content/custom-styles.css"
+                "~/Content/custom-styles.css",
+                "~/Content/bootstrap-touchspin.css"
                 ));
 
         }

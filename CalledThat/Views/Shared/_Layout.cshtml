@@ -22,18 +22,20 @@
 </head>
 <body>
     
-    <div id="wrapper">
+        <div id="wrapper">
 
-        <!-- Navigation -->
-        @Html.Partial("_NotificationBar")
-        @Html.Partial("_HeaderBar")
-        
+            <!-- Navigation -->
+            @Html.Partial("_NotificationBar")
+            @Html.Partial("_HeaderBar")
+            <div class="container">
 
-        <div id="page-wrapper">
-            <div class="row">
-                @RenderBody()
+                <div id="page-wrapper">
+
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
     @Scripts.Render("~/bundles/main")
     @RenderSection("scripts", false)

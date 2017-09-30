@@ -39,7 +39,7 @@
                     var item = Model.PickItems[i];
                 }
 
-                <div class="col-xs-3 text-center">
+                <div class="col col-xs-6 col-lg-6 text-center">
                     <img src="@item.HomeTeamBadgeUrl" data-toggle="tooltip" title="@item.HomeTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
                     <br />
                     <br />
@@ -47,7 +47,7 @@
                     <br />
                     @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
                 </div>
-                <div class="col-xs-3 text-center">
+                <div class="col col-xs-6 col-lg-6 text-center">
                     <img src="@item.AwayTeamBadgeUrl" data-toggle="tooltip" title="@item.AwayTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
                     <br />
                     <br />
@@ -55,17 +55,16 @@
                     <br />
                     @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
                 </div>
-                <div class="col-xs-6 text-center">
-                    <div class="center-block">
-                        <div class="input-group">
-                            @Html.LabelFor(m => m.PickItems[i].Banker) &nbsp;
-                            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
-                        </div>
-                        <br />
-                        <div class="input-group">
-                            @Html.LabelFor(m => m.PickItems[i].Double) &nbsp;
-                            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
-                        </div>
+                <div class="col col-xs-6 col-lg-6">
+                    <div class="center-block text-center">
+                        @Html.LabelFor(m => m.PickItems[i].Banker) &nbsp;
+                        @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
+                    </div>
+                </div>
+                <div class="col col-xs-6 col-lg-6">
+                    <div class="center-block text-center">
+                        @Html.LabelFor(m => m.PickItems[i].Double) &nbsp;
+                        @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
                     </div>
                 </div>
             </div>

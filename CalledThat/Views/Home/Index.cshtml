@@ -8,13 +8,6 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="col-lg-12">
-        <h1 class="page-header">Welcome to You Know The Score</h1>
-    </div>
-}
-else
-{
-
-    <div class="col-lg-12">
         <h1 class="page-header">Welcome to you know the score</h1>
         <p class="text-muted">Predict football scores each week, earning points for correct scores and results.</p>
     </div>
@@ -78,8 +71,12 @@ else
                     <ul>
                         <li>Predict 1-0</li>
                         <li>Result 3-1</li>
-                        <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.CorrectResultPoints"] (correct result) x @ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"] (bonus multiplier) = 
-                              @(int.Parse(@ConfigurationManager.AppSettings["Game.CorrectResultPoints"]) * int.Parse(@ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"]))</strong></li>
+                        <li>
+                            Points scored: <strong>
+                                @ConfigurationManager.AppSettings["Game.CorrectResultPoints"] (correct result) x @ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"] (bonus multiplier) =
+                                @(int.Parse(@ConfigurationManager.AppSettings["Game.CorrectResultPoints"]) * int.Parse(@ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"]))
+                            </strong>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -96,15 +93,120 @@ else
             </p>
         </div>
     </div>
-
 }
+else
+{
 
-@section metatags {
-    <meta property="og:site_name" content="You Know The Score">
-    <meta property="og:title" content="You Know The Score" />
-    <meta property="og:description" content="Predict football scores. Compete with others in private leagues" />
-    <meta property="og:image" itemprop="image" content="https://cdn.pixabay.com/photo/2012/04/15/18/52/soccer-34898_960_720.png">
-    <meta property="og:type" content="website" />
-    <meta property="og:updated_time" content="@DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()" />
-}
+    <div class="col-lg-12">
+        <h1 class="page-header">Welcome to you know the score</h1>
+        <p class="text-muted">Predict football scores each week, earning points for correct scores and results.</p>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Game overview</div>
+                <div class="panel-body">
+                    <ul>
+                        <li>
+                            Predict the scores of football games each game week
+                        </li>
+                        <li>
+                            Earn points for correct predictions
+                        </li>
+                        <li>
+                            Create private leagues and invite others to compete against
+                        </li>
+                        <li>
+                            Join leagues created by others
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Rules and point scoring</div>
+                <div class="panel-body">
+                    <ul>
+                        <li>
+                            Correct score:<strong> @ConfigurationManager.AppSettings["Game.CorrectScorePoints"] points </strong>
+                            <ul>
+                                <li>Predict 2-0</li>
+                                <li>Result 2-0</li>
+                                <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.CorrectScorePoints"]</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Correct result: <strong>@ConfigurationManager.AppSettings["Game.CorrectResultPoints"] points </strong>
+                            <ul>
+                                <li>Predict 2-0</li>
+                                <li>Result 1-0</li>
+                                <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.CorrectResultPoints"]</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Game ends in draw when you chose a team to win: <strong>@ConfigurationManager.AppSettings["Game.IncorrectEndedInDraw"] points </strong>
+                            <ul>
+                                <li>Predict 2-0</li>
+                                <li>Result 1-1</li>
+                                <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.IncorrectEndedInDraw"]</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            You pick team A to win and team B wins: <strong>@ConfigurationManager.AppSettings["Game.InCorrectResultPoints"] points </strong>
+                            <ul>
+                                <li>Predict 1-0</li>
+                                <li>Result 0-1</li>
+                                <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.InCorrectResultPoints"]</strong></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Bonus multiplier: <strong>multiplies the number of points above by: @ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"]x </strong>
+                            <ul>
+                                <li>Predict 1-0</li>
+                                <li>Result 3-1</li>
+                                <li>
+                                    Points scored: <strong>
+                                        @ConfigurationManager.AppSettings["Game.CorrectResultPoints"] (correct result) x @ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"] (bonus multiplier) =
+                                        @(int.Parse(@ConfigurationManager.AppSettings["Game.CorrectResultPoints"]) * int.Parse(@ConfigurationManager.AppSettings["Game.DoubleBonusMultiplier"]))
+                                    </strong>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Banker fixture: <strong>limits the minimum number of points as calculated above to: @ConfigurationManager.AppSettings["Game.BankerScore"] points. </strong>
+                            <ul>
+                                <li>Predict 1-0</li>
+                                <li>Result 0-1</li>
+                                <li>Points scored: <strong>@ConfigurationManager.AppSettings["Game.BankerScore"] (instead of @ConfigurationManager.AppSettings["Game.InCorrectResultPoints"])</strong></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        Total points will be calculated at the end of each gameweek
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div col="xs-6"><a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-block"> Register </a></div>
+        <div col="xs-6"><a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-block"> Login </a></div>
+    </div>
+
+    }
+
+    @section metatags {
+        <meta property="og:site_name" content="You Know The Score">
+        <meta property="og:title" content="You Know The Score" />
+        <meta property="og:description" content="Predict football scores. Compete with others in private leagues" />
+        <meta property="og:image" itemprop="image" content="https://cdn.pixabay.com/photo/2012/04/15/18/52/soccer-34898_960_720.png">
+        <meta property="og:type" content="website" />
+        <meta property="og:updated_time" content="@DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()" />
+    }
 

@@ -16,54 +16,73 @@
 }
 
 @model CalledThat.ViewModels.AddPicksViewModel
+<div class="row">
     <div class="col-xs-12">
         <h1 class="page-header">Pick Scores - Gameweek @Model.Gameweek</h1>
-        <p class="text-muted">Selection Opens/Closes: @Model.OpenDateTime.ToString("dd-MMM-yyyy HH:mm") / @Model.CloseDateTime.ToString("dd-MMM-yyyy HH:mm") </p>
+        <p class="text-muted">Selection Closes: @Model.CloseDateTime.ToString("dd-MMM-yyyy HH:mm") </p>
     </div>
+</div>
 @using (Html.BeginForm("Index", "Game", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.PlayerId)
     for (var i = 0; i < Model.PickItems.Count; i++)
     {
-        <div class="row">
-            @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
-            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamBadgeUrl)
-            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamBadgeUrl)
-            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamName)
-            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamName)
-            @{
-                var item = Model.PickItems[i];
-            }
-            <div class="col-xs-3 text-center">
-                <img src="@item.HomeTeamBadgeUrl" data-toggle="tooltip" title="@item.HomeTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
-                <br />
-                <br />
-                @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
-                <br />
-                @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
-            </div>
-            <div class="col-xs-3 text-center">
-                <img src="@item.AwayTeamBadgeUrl" data-toggle="tooltip" title="@item.AwayTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
-                <br />
-                <br />
-                @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
-                <br />
-                @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
-            </div>
-            <div class="col-xs-6 text-center">
-                <div class="input-group">
-                    @Html.LabelFor(m => m.PickItems[i].Banker) &nbsp;
-                    @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
-                </div>                
-                <br />
-                <div class="input-group">
-                    @Html.LabelFor(m => m.PickItems[i].Double) &nbsp;
-                    @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
+        <div class="well">
+            <div class="row">
+                @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
+                @Html.HiddenFor(m => Model.PickItems[i].HomeTeamBadgeUrl)
+                @Html.HiddenFor(m => Model.PickItems[i].AwayTeamBadgeUrl)
+                @Html.HiddenFor(m => Model.PickItems[i].HomeTeamName)
+                @Html.HiddenFor(m => Model.PickItems[i].AwayTeamName)
+                @{
+                    var item = Model.PickItems[i];
+                }
+
+                <div class="col-xs-3 text-center">
+                    <img src="@item.HomeTeamBadgeUrl" data-toggle="tooltip" title="@item.HomeTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
+                    <br />
+                    @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
+                </div>
+                <div class="col-xs-3 text-center">
+                    <img src="@item.AwayTeamBadgeUrl" data-toggle="tooltip" title="@item.AwayTeamName" class="image-responsive" style="max-height: 50px; max-width: 50px" />
+                    <br />
+                    <br />
+                    @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
+                    <br />
+                    @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
+                </div>
+                <div class="col-xs-6 text-center">
+                    <div class="center-block">
+                        <div class="input-group">
+                            @Html.LabelFor(m => m.PickItems[i].Banker) &nbsp;
+                            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            @Html.LabelFor(m => m.PickItems[i].Double) &nbsp;
+                            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     }
+    <div class="row">
+        <div class="col-xs-12">
+            @if (Model.ReadOnly)
+            {
+            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" disabled readonly />
+            }
+            else
+            {
+            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" />
+            }
+        </div>
+    </div>
 }
 
 

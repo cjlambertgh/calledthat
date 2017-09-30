@@ -1,6 +1,6 @@
 ﻿$(function () {
     $(".toggle").bootstrapSwitch({
-        size: 'mini'
+        size: 'small'
     });
 
     $('[data-toggle="tooltip"]').tooltip();

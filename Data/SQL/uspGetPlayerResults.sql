@@ -23,7 +23,8 @@ CREATE procedure [dbo].[uspGetPlayerResults]
 as
 
 select pl.Name PlayerName, gw.Number GameweekNumber, f.KickOffDateTime, home.name HomeTeam, away.name AwayTeam, 
-r.HomeScore, r.AwayScore, p.HomeScore HomeScorePick, p.AwayScore AwayScorePick, pr.Points, p.Banker, p.[Double]
+r.HomeScore, r.AwayScore, p.HomeScore HomeScorePick, p.AwayScore AwayScorePick, pr.Points, p.Banker, p.[Double],
+home.BadgeUrl HomeBadgeUrl, away.BadgeUrl AwayBadgeUrl
 from Fixture f
 join team home on f.HomeTeamId = home.Id
 join team away on f.AwayTeamId = away.Id

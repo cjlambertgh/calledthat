@@ -16,5 +16,7 @@ namespace Data.Models.Procs
         public bool Banker { get; set; }
         public bool Double { get; set; }
         public string PlayerName { get; set; }
+        public string HomeBadgeUrl { get; set; }
+        public string AwayBadgeUrl { get; set; }
     }
 }

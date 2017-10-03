@@ -84,69 +84,6 @@
     </div>
 }
 
-
-@*@using (Html.BeginForm("Index", "Game", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.PlayerId)
-
-    <table class="table borderless">
-        @for (var i = 0; i < Model.PickItems.Count; i++)
-        {
-            @Html.HiddenFor(m => Model.PickItems[i].FixtureId)
-            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamBadgeUrl)
-            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamBadgeUrl)
-            @Html.HiddenFor(m => Model.PickItems[i].HomeTeamName)
-            @Html.HiddenFor(m => Model.PickItems[i].AwayTeamName)
-            var item = Model.PickItems[i];
-            if (i == 0)
-            {
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Banker</th>
-                        <th>Double</th>
-                    </tr>
-                </thead>
-            }
-
-            <tr>
-                <td></td>
-                <td>
-                    <img src="@item.HomeTeamBadgeUrl" class="image-responsive" width="50" height="50" /><br />
-                    @Html.TextBoxFor(m => m.PickItems[i].HomeScore, inputAttributes)
-                <br /> @Html.ValidationMessageFor(m => m.PickItems[i].HomeScore)
-            </td>
-
-            <td>
-                <img src="@item.AwayTeamBadgeUrl" width="50" height="50" /> <br />
-                @Html.TextBoxFor(m => m.PickItems[i].AwayScore, inputAttributes)
-            <br /> @Html.ValidationMessageFor(m => m.PickItems[i].AwayScore)
-        </td>
-        <td></td>
-        <td>
-            @Html.CheckBoxFor(m => m.PickItems[i].Banker, checkboxAttributesBanker)
-        </td>
-        <td>
-            @Html.CheckBoxFor(m => m.PickItems[i].Double, checkboxAttributesDouble)
-        </td>
-    </tr>
-        }
-    </table>
-    <br />
-    if (Model.ReadOnly)
-    {
-        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" disabled readonly />
-    }
-    else
-    {
-        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Submit" />
-    }
-}*@
-
 @section scripts {
     @Scripts.Render("~/bundles/game/index")
 }

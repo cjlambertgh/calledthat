@@ -33,16 +33,19 @@
                 total: '@Model.TotalGameweeks',
                 page: '@Model.Gameweek',
                 maxVisible: 10
-                }).on('page', function (event, num) {
-                    $.ajax({
-            
+            }).on('page', function (event, num) {
+                var url = $('#result-url').val();
+                url = url + "/" + num + "/@Model.PlayerId";
+                window.location = url
+                    @*$.ajax({
+
                         url: $('#result-url').val(),
                     data: { week: num, playerId: "@Model.PlayerId" },
                     success: function (data) {
                         $('#results-container').html(data);
                         $('#gameweek-number').html(num);
                     }
-                });
+                });*@
             });
     });
     </script>

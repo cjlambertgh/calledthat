@@ -31,6 +31,8 @@ namespace CalledThat.ViewModels.Game
             public int HomePick { get; set; }
             public int AwayPick { get; set; }
             public int Points { get; set; }
+            public string HomeBadgeUrl { get; set; }
+            public string AwayBadgeUrl { get; set; }
         }
     }
 }

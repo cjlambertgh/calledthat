@@ -1,7 +1,59 @@
 ﻿@model CalledThat.ViewModels.Game.ResultsViewModel
 
-<h2>Points @Model.PlayerResults.Sum(res => res.Points) </h2>
-<div class="table content2">
+<h2>Total Points @Model.PlayerResults.Sum(res => res.Points) </h2>
+@foreach (var item in Model.PlayerResults)
+{
+    <div class="well">
+        <div class="row">
+            <div class="col col-xs-4 col-lg-6 text-center">
+                <img src="@item.HomeBadgeUrl" data-toggle="tooltip" title="@item.HomeTeam" class="image-responsive" style="max-height: 50px; max-width: 50px" />
+                <br />
+            </div>
+            <div class="col col-xs-4 col-lg-6 text-center">
+                Result<br />
+                @item.HomeScore - @item.AwayScore
+                <br />
+
+            </div>
+            <div class="col col-xs-4 col-lg-6 text-center">
+                <img src="@item.AwayBadgeUrl" data-toggle="tooltip" title="@item.AwayTeam" class="image-responsive" style="max-height: 50px; max-width: 50px" />
+                <br />
+            </div>
+            <div class="col col-xs-12 col-lg-6">
+                <div class="center-block text-center">
+                    <br />
+                    Prediction
+                    @item.HomeScorePick - @item.AwayScorePick
+                    Points: @item.Points
+                    @if (item.Double)
+                    {
+                        <div class="text-center">
+                            Double <i class="fa fa-fw" aria-hidden="true" title="Copy to use check">&#xf00c</i>
+                        </div>
+                    }
+                    @if (item.Banker)
+                    {
+                        <div class="text-center">
+                            Banker <i class="fa fa-fw" aria-hidden="true" title="Copy to use check">&#xf00c</i>
+                        </div>
+                    }
+                    <br />
+                </div>
+            </div>
+            @*<div class="col col-xs-6 col-lg-6">
+                    <div class="center-block text-center">
+                        @item.Banker &nbsp;
+                    </div>
+                </div>
+                <div class="col col-xs-6 col-lg-6">
+                    <div class="center-block text-center">
+                        @item.Double &nbsp;
+                    </div>
+                </div>*@
+        </div>
+    </div>
+}
+@*<div class="table content2">
     <table class="table">
         <thead>
             <tr>
@@ -42,5 +94,5 @@
             }
         </tbody>
     </table>
-</div>
+</div>*@
 

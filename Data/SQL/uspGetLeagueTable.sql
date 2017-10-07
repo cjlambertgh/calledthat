@@ -86,7 +86,7 @@ FROM
                ON l.CompetitionId = c.Id 
          WHERE
             l.id = @leagueId 
-			AND g.number =  c.CurrentGameWeekNumber-1 
+			AND g.number =  c.CurrentGameWeekNumber
          GROUP BY
             p.id ,
 			g.Number

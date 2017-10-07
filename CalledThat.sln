@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices", "AppServices\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{0DAE4310-233C-43B5-8C30-9A9E06710C88}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsService", "WindowsService", "{986F36B7-531F-4DD3-B7F4-7B16F9C959EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalledThatService", "CalledThatService\CalledThatService.csproj", "{C9460519-0E38-4B89-AE7C-27119E4B8D80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,12 @@ Global
 		{0DAE4310-233C-43B5-8C30-9A9E06710C88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0DAE4310-233C-43B5-8C30-9A9E06710C88}.sandbox|Any CPU.ActiveCfg = sandbox|Any CPU
 		{0DAE4310-233C-43B5-8C30-9A9E06710C88}.sandbox|Any CPU.Build.0 = sandbox|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.sandbox|Any CPU.ActiveCfg = Release|Any CPU
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.sandbox|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +92,7 @@ Global
 		{DF5FBFBF-3324-47B6-9BA3-B790090696B9} = {F685D015-ACBC-4D73-BBB0-9F3C59D7D41E}
 		{A64E7727-9FC5-4D80-842C-B0EDA16EA147} = {437D1358-489E-4399-9D6F-0C3035D93ADE}
 		{0DAE4310-233C-43B5-8C30-9A9E06710C88} = {437D1358-489E-4399-9D6F-0C3035D93ADE}
+		{C9460519-0E38-4B89-AE7C-27119E4B8D80} = {986F36B7-531F-4DD3-B7F4-7B16F9C959EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DAB35FB-78AF-4FA8-91C7-719DF9356882}

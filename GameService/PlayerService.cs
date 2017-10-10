@@ -31,5 +31,10 @@ namespace GameService
         {
             return _db.Players.GetById(playerId);
         }
+
+        public Player GetPlayerById(Guid playerId)
+        {
+            return GetPlayer(playerId);
+        }
     }
 }

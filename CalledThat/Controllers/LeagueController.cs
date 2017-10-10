@@ -1,4 +1,5 @@
 ﻿using AppServices;
+using CalledThat.ViewModels.Game;
 using CalledThat.ViewModels.League;
 using EmailService;
 using GameService;
@@ -13,11 +14,17 @@ namespace CalledThat.Controllers
     public class LeagueController : BaseController
     {
         private readonly ILeagueService _leagueService;
+        private readonly IGameService _gameService;
+        private readonly IPlayerService _playerService;
+        private const string GameweekResultPartial = "~/Views/Game/Partials/_GameweekREsults.cshtml";
 
-        public LeagueController(ILeagueService leagueService, IUserService userService, IMailService mailService)
+        public LeagueController(ILeagueService leagueService, IUserService userService, IMailService mailService, IGameService gameService,
+            IPlayerService playerService)
             : base(userService, mailService)
         {
             _leagueService = leagueService;
+            _gameService = gameService;
+            _playerService = playerService;
         }
         // GET: League
         [HttpGet]
@@ -122,6 +129,31 @@ namespace CalledThat.Controllers
                 }).ToList()
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Results(int week, Guid playerId, int? totalWeeks)
+        {
+            var player = _playerService.GetPlayerById(playerId);
+            var playerName = player.Name;
+            var results = _gameService.GetPlayerResults(playerId, week).ToList();
+            if(totalWeeks == null)
+            {
+                totalWeeks = _gameService.GetCurrentGameweek();
+            }
+            var viewModel = new ResultsViewModel
+            {
+                PlayerResults = results,
+                Gameweek = week,
+                TotalGameweeks = (int)totalWeeks,
+                PlayerId = playerId,
+                PlayerName = playerName
+            };
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(GameweekResultPartial, viewModel);
+            }
+            return View(viewModel);
         }
     }
 }

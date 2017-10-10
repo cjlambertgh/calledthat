@@ -21,6 +21,11 @@ namespace Data.Models
 
         public string InviteCode { get; set; }
 
+        public Guid? GameweekIdScoringStarts { get; set; }
+
+        [ForeignKey("GameweekIdScoringStarts")]
+        public virtual GameWeek GameweekScoringStarts { get; set; }
+
         public virtual ICollection<PlayerLeagues> PlayerLeagues { get; set; }
 
         public virtual ICollection<LeagueOwners> LeagueOwners { get; set; }

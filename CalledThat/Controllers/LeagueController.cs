@@ -132,6 +132,7 @@ namespace CalledThat.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Results(int week, Guid playerId, int? totalWeeks)
         {
             var player = _playerService.GetPlayerById(playerId);
@@ -154,6 +155,13 @@ namespace CalledThat.Controllers
                 return PartialView(GameweekResultPartial, viewModel);
             }
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Manage(Guid leagueId)
+        {
+            var league = _leagueService.GetLeague(leagueId);
+            return View();
         }
     }
 }

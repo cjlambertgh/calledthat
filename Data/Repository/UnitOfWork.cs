@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Data.Repository
@@ -8,6 +9,7 @@ namespace Data.Repository
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private bool disposed;
+        private DbContextTransaction transaction;
 
         private DataContext context = new DataContext();
 
@@ -78,6 +80,33 @@ namespace Data.Repository
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void BeginTransaction()
+        {
+            if(transaction != null)
+            {
+                throw new Exception("Trying to create transaction on context with an existing transation");
+            }
+            transaction = context.Database.BeginTransaction();
+        }
+
+        public void CommitTransaction()
+        {
+            if (transaction != null)
+            {
+                transaction.Commit();
+            }
+            transaction = null;
+        }
+
+        public void RollbackTransaction()
+        {
+            if (transaction != null)
+            {
+                transaction.Rollback();
+            }
+            transaction = null;
         }
     }
 }

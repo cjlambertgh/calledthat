@@ -349,6 +349,7 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\AdsenseBar.cshtml" />
     <Content Include="Views\League\Results.cshtml" />
+    <Content Include="Views\League\Manage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

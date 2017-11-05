@@ -102,6 +102,7 @@ namespace GameService
                 }
 
                 _db.SaveChanges();
+                _db.CommitTransaction();
             }
             catch(Exception)
             {

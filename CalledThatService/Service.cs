@@ -1,4 +1,6 @@
 ﻿using Data.DAL;
+using EmailService;
+using GameService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,14 +41,24 @@ namespace CalledThatService
         {
             try
             {
-                var db = new DataContextConnection();
-                var gs = new GameService.GameService(db);
-                gs.UpdateApiData();
-                gs.UpdateResults();
+                //var db = new DataContextConnection();
+                //var _playerService = new PlayerService(db);
+                //var gameweekOpenEmailRecipients = _playerService.GetPlayersEmailsAcceptedAlerts();
+                //var _gameEmailService = new GameEmailService(new SmtpMailService());
+                //var gs = new GameService.GameService(db, _gameEmailService);
+                //Action gameweekUpdatedAction = () =>
+                //{
+                //    Parallel.ForEach(gameweekOpenEmailRecipients, (address) =>
+                //    {
+                //        _gameEmailService.SendGameweekOpenEmail(address, Url.Action("Index", "Home", null, Request.Url.Scheme));
+                //    });
+                //};
+                //gs.UpdateApiData(gameweekUpdatedAction);
+                //gs.UpdateResults();
             }
             catch(Exception ex)
             {
-                var mailSvc = new EmailService.SmtpMailService();
+                var mailSvc = new SmtpMailService();
                 mailSvc.Send("phateuk@Gmail.com", "CalledThat Service Exception", ex.ToString());
             }
             

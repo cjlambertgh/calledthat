@@ -6,6 +6,7 @@ using EmailService;
 using GameService;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CalledThat.Controllers
@@ -15,13 +16,18 @@ namespace CalledThat.Controllers
         private readonly IDataContextConnection _db;
         private readonly IGameService _gameService;
         private readonly IMailService _mailService;
+        private readonly IGameEmailService _gameEmailService;
+        private readonly IPlayerService _playerService;
 
-        public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService, IMailService mailService)
+        public HomeController(IDataContextConnection unitOfWork, IGameService gameService, IUserService userService, 
+            IMailService mailService, IGameEmailService gameEmailService, IPlayerService playerService)
             :base(userService, mailService)
         {
             _db = unitOfWork;
             _gameService = gameService;
             _mailService = mailService;
+            _gameEmailService = gameEmailService;
+            _playerService = playerService;
         }
 
         // GET: Home
@@ -63,7 +69,15 @@ namespace CalledThat.Controllers
 
         public JsonResult GameServiceTest()
         {
-            _gameService.UpdateApiData();
+            var gameweekOpenEmailRecipients = _playerService.GetPlayersEmailsAcceptedAlerts();
+            Action gameweekUpdatedAction = () =>
+            {
+                Parallel.ForEach(gameweekOpenEmailRecipients, (address) =>
+                {
+                    _gameEmailService.SendGameweekOpenEmail(address, Url.Action("Index", "Home", null, Request.Url.Scheme));
+                });
+            };
+            _gameService.UpdateApiData(gameweekUpdatedAction);
             _gameService.UpdateResults();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }

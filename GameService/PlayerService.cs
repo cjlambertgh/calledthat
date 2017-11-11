@@ -36,5 +36,11 @@ namespace GameService
         {
             return GetPlayer(playerId);
         }
+
+        public IEnumerable<string> GetPlayersEmailsAcceptedAlerts()
+        {
+            var players = _db.Players.Get(p => p.EmailAlerts);
+            return players.Select(p => p.AppUser.Email);
+        }
     }
 }

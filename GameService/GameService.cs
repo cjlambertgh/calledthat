@@ -162,8 +162,10 @@ namespace GameService
             return score;
         }
 
-        public void UpdateApiData()
+        public void UpdateApiData(Action gameWeekUpdatedAction)
         {
+            var gameweekAdded = false;
+
             _db.BeginTransaction();
             try
             {
@@ -173,9 +175,7 @@ namespace GameService
                 var compApi = new CompetitionAPI();
                 var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
 
-                UpdateExistingFixtureResults(currentSeasonComp.Id);
-
-                var gameweekAdded = false;
+                UpdateExistingFixtureResults(currentSeasonComp.Id);                
 
                 comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
                 if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
@@ -245,6 +245,11 @@ namespace GameService
             {
                 _db.RollbackTransaction();
                 throw;
+            }
+
+            if(gameweekAdded)
+            {
+                gameWeekUpdatedAction();
             }
                      
         }

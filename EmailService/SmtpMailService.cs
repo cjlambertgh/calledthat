@@ -10,6 +10,7 @@ namespace EmailService
             var mail = new MailMessage(ConfigurationManager.AppSettings["Mail.SMTP.From"], recipient);
             mail.Subject = subject;
             mail.Body = body;
+            mail.IsBodyHtml = true;
 
             using (var client = new SmtpClient())
             {

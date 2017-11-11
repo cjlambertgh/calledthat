@@ -1,7 +1,7 @@
 ﻿@model CalledThat.ViewModels.Game.ResultsViewModel
 
 <h2>Total Points @Model.PlayerResults.Sum(res => res.Points) </h2>
-@foreach (var item in Model.PlayerResults)
+@foreach (var item in Model.PlayerResults.OrderBy(r => r.KickOffDateTime))
 {
     <div class="well">
         <div class="row">

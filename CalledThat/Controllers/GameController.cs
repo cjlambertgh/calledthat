@@ -46,7 +46,7 @@ namespace CalledThat.Controllers
 
             var fixtures = _gameService.GetGameWeekFixtures();
 
-            foreach (var fixture in fixtures)
+            foreach (var fixture in fixtures.OrderBy(f => f.KickOffDateTime))
             {
                 viewModel.PickItems.Add(new PickItem
                 {

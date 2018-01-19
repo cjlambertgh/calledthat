@@ -3,7 +3,7 @@ using CalledThat.ViewModels;
 using Data.Interfaces;
 using DataAPI.Implementations;
 using EmailService;
-using GameService;
+using GameServices;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

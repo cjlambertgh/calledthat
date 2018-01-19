@@ -2,7 +2,7 @@
 using CalledThat.ViewModels;
 using CalledThat.ViewModels.Game;
 using EmailService;
-using GameService;
+using GameServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

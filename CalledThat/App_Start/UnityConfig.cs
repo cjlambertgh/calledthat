@@ -4,7 +4,7 @@ using Microsoft.Practices.Unity.Configuration;
 using Data.Repository;
 using Data.Interfaces;
 using Data.DAL;
-using GameService;
+using GameServices;
 using Microsoft.AspNet.Identity;
 using Data.DAL.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -50,7 +50,7 @@ namespace CalledThat.App_Start
             // container.LoadConfiguration();
 
             container.RegisterType<IDataContextConnection, DataContextConnection>();
-            container.RegisterType<IGameService, GameService.GameService>();
+            container.RegisterType<IGameService, GameServices.GameService>();
             container.RegisterType<IGameEmailService, GameEmailService>();
             container.RegisterType<ILeagueService, LeagueService>();
             container.RegisterType<IUserService, UserService>();

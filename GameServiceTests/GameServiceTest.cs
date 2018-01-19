@@ -26,11 +26,11 @@ namespace GameServiceTests
                 PlayerId = Guid.Empty
             };
 
-            var factory = new MockRepository(MockBehavior.Loose);
-            var mockPickRepo = factory.Create<Repository<Pick>>();
-            var repo = mockPickRepo.Object;
-            var db = new Mock<IUnitOfWork>();
-            db.Setup(m => m.Picks).Returns(repo);
+            //var factory = new MockRepository(MockBehavior.Loose);
+            //var mockPickRepo = factory.Create<Repository<Pick>>();
+            //var repo = mockPickRepo.Object;
+            //var db = new Mock<IUnitOfWork>();
+            //db.Setup(m => m.Picks).Returns(repo);
             //var gameService = new GameService.GameService(db.Object);
 
             //act

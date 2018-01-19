@@ -44,7 +44,7 @@ namespace Data.Migrations
                                 context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, cmdtext);
                             }
                         }
-                        catch (Exception exc)
+                        catch (Exception)
                         {
                             //errors.Add($"Fatal error in SSRS.SQL.dll resource:{resourcename} Error was:{exc.Message}");
                         }

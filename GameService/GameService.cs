@@ -312,7 +312,7 @@ namespace GameServices
 
         public IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek)
         {
-            if (playerId == null) throw new ArgumentNullException(nameof(playerId));
+            if (playerId == null || playerId == Guid.Empty) throw new ArgumentNullException(nameof(playerId));
 
             return _db.Picks.Get(pp => pp.PlayerId == playerId && pp.Fixture.GameWeek.Number == gameweek).ToList();
         }

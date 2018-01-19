@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GameService
+namespace GameServices
 {
     public interface IPlayerService
     {

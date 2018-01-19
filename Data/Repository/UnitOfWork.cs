@@ -19,47 +19,47 @@ namespace Data.Repository
         }
 
         private Repository<Competition> _competitions;
-        public Repository<Competition> Competitions => _competitions ?? (_competitions = new Repository<Competition>(context));
+        public virtual Repository<Competition> Competitions => _competitions ?? (_competitions = new Repository<Competition>(context));
 
         private Repository<Team> _teams;
-        public Repository<Team> Teams => _teams ?? (_teams = new Repository<Team>(context));
+        public virtual Repository<Team> Teams => _teams ?? (_teams = new Repository<Team>(context));
 
         private Repository<Season> _seasons;
-        public Repository<Season> Seasons => _seasons ?? (_seasons = new Repository<Season>(context));
+        public virtual Repository<Season> Seasons => _seasons ?? (_seasons = new Repository<Season>(context));
 
         private Repository<Fixture> _fixtures;
-        public Repository<Fixture> Fixtures => _fixtures ?? (_fixtures = new Repository<Fixture>(context));
+        public virtual Repository<Fixture> Fixtures => _fixtures ?? (_fixtures = new Repository<Fixture>(context));
 
         private Repository<GameWeek> _gameWeeks;
-        public Repository<GameWeek> GameWeeks => _gameWeeks ?? (_gameWeeks = new Repository<GameWeek>(context));
+        public virtual Repository<GameWeek> GameWeeks => _gameWeeks ?? (_gameWeeks = new Repository<GameWeek>(context));
 
         private Repository<League> _leagues;
-        public Repository<League> Leagues => _leagues ?? (_leagues = new Repository<League>(context));
+        public virtual Repository<League> Leagues => _leagues ?? (_leagues = new Repository<League>(context));
 
         private Repository<LeagueOwners> _leagueOwners;
-        public Repository<LeagueOwners> LeagueOwners => _leagueOwners ?? (_leagueOwners = new Repository<LeagueOwners>(context));
+        public virtual Repository<LeagueOwners> LeagueOwners => _leagueOwners ?? (_leagueOwners = new Repository<LeagueOwners>(context));
 
         private Repository<Player> _players;
-        public Repository<Player> Players => _players ?? (_players = new Repository<Player>(context));
+        public virtual Repository<Player> Players => _players ?? (_players = new Repository<Player>(context));
 
         private Repository<PlayerLeagues> _playerLeagues;
-        public Repository<PlayerLeagues> PlayerLeagues => _playerLeagues ?? (_playerLeagues = new Repository<PlayerLeagues>(context));
+        public virtual Repository<PlayerLeagues> PlayerLeagues => _playerLeagues ?? (_playerLeagues = new Repository<PlayerLeagues>(context));
 
         private Repository<Result> _results;
-        public Repository<Result> Results => _results ?? (_results = new Repository<Result>(context));
+        public virtual Repository<Result> Results => _results ?? (_results = new Repository<Result>(context));
 
         private Repository<Pick> _picks;
-        public Repository<Pick> Picks => _picks ?? (_picks = new Repository<Pick>(context));
+        public virtual Repository<Pick> Picks => _picks ?? (_picks = new Repository<Pick>(context));
 
         private Repository<PickResult> _pickResults;
-        public Repository<PickResult> PickResults => _pickResults ?? (_pickResults = new Repository<PickResult>(context));
+        public virtual Repository<PickResult> PickResults => _pickResults ?? (_pickResults = new Repository<PickResult>(context));
 
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             context.SaveChanges();
         }
 
-        public Task<int> SaveChangesAsync()
+        public virtual Task<int> SaveChangesAsync()
         {
             return context.SaveChangesAsync();
         }

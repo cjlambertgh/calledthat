@@ -10,7 +10,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace GameService
+namespace GameServices
 {
     public class GameService : IGameService
     {

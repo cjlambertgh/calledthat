@@ -3,7 +3,7 @@ using Data.Models.Procs;
 using System;
 using System.Collections.Generic;
 
-namespace GameService
+namespace GameServices
 {
     public interface ILeagueService
     {

@@ -8,7 +8,7 @@ using System.Configuration;
 using Data.Models.Procs;
 using System.Data.SqlClient;
 
-namespace GameService
+namespace GameServices
 {
     public class LeagueService : ILeagueService
     {

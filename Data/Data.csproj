@@ -41,12 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -188,6 +186,10 @@
     <Compile Include="Migrations\201710101828363_add-startgameweek-to-leagues.Designer.cs">
       <DependentUpon>201710101828363_add-startgameweek-to-leagues.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801191743148_add_unique_constraints.cs" />
+    <Compile Include="Migrations\201801191743148_add_unique_constraints.Designer.cs">
+      <DependentUpon>201801191743148_add_unique_constraints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -285,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710101828363_add-startgameweek-to-leagues.resx">
       <DependentUpon>201710101828363_add-startgameweek-to-leagues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801191743148_add_unique_constraints.resx">
+      <DependentUpon>201801191743148_add_unique_constraints.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SQL\uspGetPlayerResults.sql" />
     <EmbeddedResource Include="SQL\uspGetLeagueTable.sql" />

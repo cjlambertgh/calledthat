@@ -30,6 +30,12 @@ namespace Data
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+
+            //add unique constraints
+            modelBuilder.Entity<PickResult>().HasIndex(i => i.PickId).IsUnique();
+            modelBuilder.Entity<Result>().HasIndex(i => i.FixtureId).IsUnique();
+            modelBuilder.Entity<Fixture>().HasIndex(i => new { i.GameWeekId, i.HomeTeamId, i.AwayTeamId }).IsUnique();
+            modelBuilder.Entity<GameWeek>().HasIndex(i => new { i.CompetitionId, i.Number }).IsUnique();
         }
 
         public override int SaveChanges()

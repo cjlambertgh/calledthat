@@ -11,13 +11,13 @@
     @if (Model.IsLeagueOwner)
     {
         <p class="text-muted">You are the league owner, to invite others they will need your league invite code: <strong>@Model.InviteCode</strong></p>
-        
+
     }
     else
     {
         <p class="text-muted">To invite others, you will need to get the <strong>league invite code</strong> from the league owner</p>
     }
-    
+
 </div>
 @Html.Partial("AdsenseBar")
 <div class="row">
@@ -25,31 +25,24 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 @Model.LeagueName
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    View
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">League Table</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Stats</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Something else here</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">Separated link</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            View
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="#" class="leaguetable-menuitem" data-toggle-on="#leaguetable-panel">League Table</a>
+                            </li>
+                            <li>
+                                <a href="#" class="leaguetable-menuitem" data-toggle-on="#stats-panel">Stats</a>
+                            </li>
+                        </ul>
                     </div>
-            <div class="panel-body" hidden>
+                </div>
+            </div>
+            <div class="panel-body league-panel" id="leaguetable-panel">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -69,12 +62,12 @@
                                 <td>@item.GameweekPoints </td>
                                 <td>@item.TotalPoints</td>
                             </tr>
-                            postition++; 
+                            postition++;
                         }
                     </tbody>
                 </table>
             </div>
-            <div class="panel-body">
+            <div class="panel-body league-panel" id="stats-panel" hidden>
                 @{
                     var highScore = Model.LeagueStats.FirstOrDefault(s => s.LeagueStatType == Data.Models.Procs.LeagueStatType.HighestScore);
                     var lowScore = Model.LeagueStats.FirstOrDefault(s => s.LeagueStatType == Data.Models.Procs.LeagueStatType.LowestScore);
@@ -93,8 +86,8 @@
                                 <div class="col-xs-12 text-right">
                                     <div>@(highScore?.PlayerName)</div>
                                 </div>
-                            </div>                           
-                                
+                            </div>
+
                         </div>
                         <a href='@Url.Action("Results", "League", new { week = highScore.GameweekNumber, playerId=highScore.PlayerID })'>
                             <div class="panel-footer">
@@ -136,3 +129,17 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+<script type="text/javascript">
+    $(function () {
+        $('.leaguetable-menuitem').on('click', function () {
+            var showElement = $(this).data('toggle-on');
+            $('.league-panel').hide();
+            $(showElement).show();
+        });
+    });
+</script>
+
+
+}

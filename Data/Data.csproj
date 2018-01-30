@@ -104,6 +104,7 @@
     <Compile Include="DAL\Identity\AppRole.cs" />
     <Compile Include="DAL\Identity\AppUser.cs" />
     <Compile Include="DAL\Identity\IdentityConfig.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Interfaces\IDataContextConnection.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Migrations\201703081826562_initial.cs" />
@@ -190,6 +191,10 @@
     <Compile Include="Migrations\201801191743148_add_unique_constraints.Designer.cs">
       <DependentUpon>201801191743148_add_unique_constraints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801301759540_add_league_stats_proc.cs" />
+    <Compile Include="Migrations\201801301759540_add_league_stats_proc.Designer.cs">
+      <DependentUpon>201801301759540_add_league_stats_proc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -200,6 +205,7 @@
     <Compile Include="Models\PickResult.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerLeagues.cs" />
+    <Compile Include="Models\Procs\LeagueStats.cs" />
     <Compile Include="Models\Procs\LeagueTable.cs" />
     <Compile Include="Models\Procs\PlayerResults.cs" />
     <Compile Include="Models\Result.cs" />
@@ -290,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801191743148_add_unique_constraints.resx">
       <DependentUpon>201801191743148_add_unique_constraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801301759540_add_league_stats_proc.resx">
+      <DependentUpon>201801301759540_add_league_stats_proc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SQL\uspGetPlayerResults.sql" />
     <EmbeddedResource Include="SQL\uspGetLeagueTable.sql" />

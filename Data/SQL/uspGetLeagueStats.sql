@@ -22,6 +22,7 @@ CREATE procedure [dbo].[uspGetLeagueStats]
 as
 DECLARE @stats TABLE (
   Playerid uniqueidentifier,
+  PlayerName nvarchar(256),
   GameweekNumber int,
   Points int,
   Stat nvarchar(64)
@@ -29,6 +30,7 @@ DECLARE @stats TABLE (
 
 DECLARE @data TABLE (
   playerId uniqueidentifier,
+  PlayerName nvarchar(256),
   GameweekNumber int,
   GameweekPoints int
 )
@@ -36,6 +38,7 @@ DECLARE @data TABLE (
 INSERT INTO @data
   SELECT
     p.Id playerId,
+	p.Name AS PlayerName,
     g.Number AS GameweekNumber,
     SUM(pr.Points) GameweekPoints
   FROM player p
@@ -53,29 +56,31 @@ INSERT INTO @data
     ON pic.id = pr.PickId
   LEFT JOIN Competition c
     ON l.CompetitionId = c.Id
-  WHERE l.id = 'B07FF771-B247-41C7-B68E-4A61F93269BD'
-  GROUP BY p.id,
+  WHERE l.id = @leagueId
+  GROUP BY p.id, p.Name,
            g.Number
 
 
-INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
+INSERT INTO @stats (PlayerId, PlayerName, GameweekNumber, Points, Stat)
   SELECT
     playerId,
+	PlayerName,
     GameWeekNumber,
     GameweekPoints,
-    'TOP'
+    'HighestScore'
   FROM @data d
   JOIN (SELECT
     MAX(GameweekPoints) points
   FROM @data) AS highest
     ON highest.points = d.GameweekPoints
 
-INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
+INSERT INTO @stats (PlayerId, PlayerName, GameweekNumber, Points, Stat)
   SELECT
     playerId,
+	PlayerName,
     GameWeekNumber,
     GameweekPoints,
-    'BOTTOM'
+    'LowestScore'
   FROM @data d
   JOIN (SELECT
     MIN(GameweekPoints) points
@@ -85,3 +90,4 @@ INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
 SELECT
   *
 FROM @Stats
+GO

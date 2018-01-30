@@ -113,6 +113,8 @@ namespace CalledThat.Controllers
 
             var leagueRows = _leagueService.GetLeagueTable(leagueId);
 
+            var leagueStats = _leagueService.GetLeagueStats(leagueId);
+
             var model = new ViewSingleLeagueViewModel
             {
                 LeagueName = league.Name,
@@ -126,7 +128,8 @@ namespace CalledThat.Controllers
                     TotalPoints = lr.TotalPoints,
                     PlayerId = lr.PlayerId,
                     GameWeek = lr.GameweekNumber
-                }).ToList()
+                }).ToList(),
+                LeagueStats = leagueStats.ToList()
             };
             return View(model);
         }

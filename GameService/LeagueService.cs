@@ -59,6 +59,11 @@ namespace GameServices
             return _db.Leagues.FirstOrDefault(l => l.Id == leagueId);
         }
 
+        public IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId)
+        {
+            return _db.SqlQuery<LeagueStats>("uspGetLeagueStats @leagueId", new SqlParameter("@leagueId", leagueId));
+        }
+
         public IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId)
         {
             var res = _db.SqlQuery<LeagueTable>("uspGetLeagueTable @leagueId", new SqlParameter("@leagueId", leagueId));

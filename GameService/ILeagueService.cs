@@ -15,5 +15,6 @@ namespace GameServices
         League GetLeague(Guid leagueId);
         IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId);
         bool IsPlayerALeagueOwner(Guid playerId, League league);
+        IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId);
     }
 }

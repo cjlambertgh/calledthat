@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Data.Models.Procs;
 
 namespace CalledThat.ViewModels.League
 {
@@ -12,6 +13,7 @@ namespace CalledThat.ViewModels.League
         public List<LeagueTableRow> LeagueTableRows { get; set; }
         public bool IsLeagueOwner { get; set; }
         public string InviteCode { get; set; }
+        public List<LeagueStats> LeagueStats { get; set; } = new List<LeagueStats>();
 
         public ViewSingleLeagueViewModel()
         {

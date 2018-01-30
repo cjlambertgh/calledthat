@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Procs
 {
-    class LeagueStats
+    public class LeagueStats
     {
         public Guid PlayerID { get; set; }
+        public string PlayerName { get; set; }
         public int Points { get; set; }
         public int GameweekNumber { get; set; }
         public string Stat

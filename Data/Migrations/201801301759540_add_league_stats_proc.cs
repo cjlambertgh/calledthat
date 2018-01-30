@@ -22,6 +22,7 @@ namespace Data.Migrations
 as
 DECLARE @stats TABLE (
   Playerid uniqueidentifier,
+  PlayerName nvarchar(256),
   GameweekNumber int,
   Points int,
   Stat nvarchar(64)
@@ -29,6 +30,7 @@ DECLARE @stats TABLE (
 
 DECLARE @data TABLE (
   playerId uniqueidentifier,
+  PlayerName nvarchar(256),
   GameweekNumber int,
   GameweekPoints int
 )
@@ -36,6 +38,7 @@ DECLARE @data TABLE (
 INSERT INTO @data
   SELECT
     p.Id playerId,
+	p.Name AS PlayerName,
     g.Number AS GameweekNumber,
     SUM(pr.Points) GameweekPoints
   FROM player p
@@ -54,13 +57,14 @@ INSERT INTO @data
   LEFT JOIN Competition c
     ON l.CompetitionId = c.Id
   WHERE l.id = @leagueId
-  GROUP BY p.id,
+  GROUP BY p.id, p.Name,
            g.Number
 
 
-INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
+INSERT INTO @stats (PlayerId, PlayerName, GameweekNumber, Points, Stat)
   SELECT
     playerId,
+	PlayerName,
     GameWeekNumber,
     GameweekPoints,
     'HighestScore'
@@ -70,9 +74,10 @@ INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
   FROM @data) AS highest
     ON highest.points = d.GameweekPoints
 
-INSERT INTO @stats (PlayerId, GameweekNumber, Points, Stat)
+INSERT INTO @stats (PlayerId, PlayerName, GameweekNumber, Points, Stat)
   SELECT
     playerId,
+	PlayerName,
     GameWeekNumber,
     GameweekPoints,
     'LowestScore'
@@ -86,7 +91,6 @@ SELECT
   *
 FROM @Stats
 GO
-
 ";
     }
 }

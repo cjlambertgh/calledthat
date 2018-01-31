@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201801301759540_add_league_stats_proc.Designer.cs">
       <DependentUpon>201801301759540_add_league_stats_proc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801311841132_update_uspGetLEagueStats_extra_stats.cs" />
+    <Compile Include="Migrations\201801311841132_update_uspGetLEagueStats_extra_stats.Designer.cs">
+      <DependentUpon>201801311841132_update_uspGetLEagueStats_extra_stats.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\Fixture.cs" />
@@ -299,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801301759540_add_league_stats_proc.resx">
       <DependentUpon>201801301759540_add_league_stats_proc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801311841132_update_uspGetLEagueStats_extra_stats.resx">
+      <DependentUpon>201801311841132_update_uspGetLEagueStats_extra_stats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SQL\uspGetPlayerResults.sql" />
     <EmbeddedResource Include="SQL\uspGetLeagueTable.sql" />

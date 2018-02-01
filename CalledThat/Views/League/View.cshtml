@@ -8,16 +8,21 @@
 
 <div class="col-lg-12">
     <h1 class="page-header">@Model.LeagueName</h1>
-    @if (Model.IsLeagueOwner)
-    {
-        <p class="text-muted">You are the league owner, to invite others they will need your league invite code: <strong>@Model.InviteCode</strong></p>
 
-    }
-    else
-    {
-        <p class="text-muted">To invite others, you will need to get the <strong>league invite code</strong> from the league owner</p>
-    }
+    <div class="row">
+        @if (Model.IsLeagueOwner)
+        {
+            <p class="text-muted">You are the league owner, to invite others they will need your league invite code: <strong>@Model.InviteCode</strong></p>
+            <a href='@Url.Action("Manage", "League", new { leagueId=Model.LeagueId })' class="btn btn-primary">Manage</a>
 
+        }
+        else
+        {
+            <p class="text-muted">To invite others, you will need to get the <strong>league invite code</strong> from the league owner</p>
+        }
+
+    </div>
+    <br />
 </div>
 @Html.Partial("AdsenseBar")
 <div class="row">

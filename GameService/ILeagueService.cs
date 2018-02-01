@@ -16,5 +16,7 @@ namespace GameServices
         IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId);
         bool IsPlayerALeagueOwner(Guid playerId, League league);
         IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId);
+        void RemovePlayerFromLeague(Guid leagueId, Guid playerId);
+        void UpdateStartweek(Guid leagueId, Guid gameweekId);
     }
 }

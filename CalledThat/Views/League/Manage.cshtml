@@ -3,6 +3,57 @@
     ViewBag.Title = "Manage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model CalledThat.ViewModels.League.ManageLeagueViewModel
 
-<h2>Manage</h2>
+<h2 class="page-header">Manage - @Model.League.Name</h2>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        Invite Code
+    </div>
+    <div class="panel-body">
+        <p>To invite others to the league - give them the invite code: <strong>@Model.League.InviteCode</strong></p>
+        <p>Or share <a href="@Url.Action("Join", "League", new { leagueCode = Model.League.InviteCode })">this link</a> </p>
+    </div>
+</div>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        Set Gameweek scoring start week
+    </div>
+    <div class="panel-body">
+        <p>This is the week that the league will begin scoring from.</p>
+        @using (Html.BeginForm("UpdateStartweek", "League", FormMethod.Post, new { @class="form" }))
+        {
+            @Html.HiddenFor(m => m.League.Id)
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.SelectedStartWeek, Model.AvailableGameweeks, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update" />
+        </div>
+        }
+    </div>
+
+</div>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        Remove Players From The League
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Remove</th>
+                </tr>
+                @foreach (var player in Model.League.PlayerLeagues.Select(pl => pl.Player))
+                {
+                <tr>
+                    <td>@player.Name</td>
+                    <td><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+                    }
+            </thead>
+        </table>
+    </div>
+</div>
 

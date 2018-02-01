@@ -71,9 +71,24 @@ namespace CalledThat.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Join()
+        public ActionResult Join(string leagueCode)
         {
-            return View();
+            if(string.IsNullOrEmpty(leagueCode))
+            {
+                return View();
+            }
+            if (!_leagueService.IsInviteCodeValid(CurrentPlayerId, leagueCode))
+            {
+                AddError("Unable to join league. Ether league code is invalid, or you have already joined this league.");
+                return RedirectToAction("Join");
+            }
+
+            //TODO: maybe not auto join here - return Join view with code pre-populated
+            _leagueService.JoinLeague(CurrentPlayerId, leagueCode);
+
+            AddSuccess("Successfully joined league");
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -161,10 +176,38 @@ namespace CalledThat.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Manage(Guid leagueId)
         {
             var league = _leagueService.GetLeague(leagueId);
-            return View();
+            var vm = new ManageLeagueViewModel
+            {
+                League = league,
+                AvailableGameweeks = league.Competition.GameWeeks.OrderBy(gw => gw.Number).Select(g => new SelectListItem
+                {
+                    Value = g.Id.ToString(),
+                    Text = g.Number.ToString()
+                }),
+                SelectedStartWeek = league.GameweekIdScoringStarts ?? Guid.Empty
+        };
+            return View(vm);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UpdateStartweek(ManageLeagueViewModel model)
+        {
+            _leagueService.UpdateStartweek(model.League.Id, model.SelectedStartWeek);
+            AddSuccess("Starting Gameweek Updated");
+            return RedirectToAction("Manage", new { leagueId = model.League.Id });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult RemovePlayerFromLeague(Guid leagueId, Guid playerId)
+        {
+            _leagueService.RemovePlayerFromLeague(leagueId, playerId);
+            return Json("ok");
         }
     }
 }

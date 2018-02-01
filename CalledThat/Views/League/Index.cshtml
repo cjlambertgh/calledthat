@@ -28,12 +28,25 @@
                     <tbody>
                         @foreach (var item in Model.LeagueItems.OrderBy(l => l.LeagueName))
                         {
-                            <tr class="get-action" data-url="@Url.Action("View", "League", new { item.LeagueId })">
+                        <tr class="get-action" data-url="@Url.Action("View", "League", new { item.LeagueId })">
+                            @if (item.LeagueOwner)
+                            {
+                            <td>
+                                @item.LeagueName
+                                &nbsp;
+                                <a href='@Url.Action("Manage", "League", new { leagueId=item.LeagueId })'>
+                                    <span data-toggle="tooltip" title="Manage"><i class="glyphicon glyphicon-cog"></i></span>
+                                </a>
+                            </td>
+                            }
+                            else
+                            {
                                 <td>@item.LeagueName</td>
-                                <td>@item.Competition</td>
-                                <td>@item.NumberOfPlayers</td>
-                                <td>@(item.LeagueOwner ? "Yes" : "No")</td>
-                            </tr>
+                            }
+                            <td>@item.Competition</td>
+                            <td>@item.NumberOfPlayers</td>
+                            <td>@(item.LeagueOwner ? "Yes" : "No")</td>
+                        </tr>
                         }                        
                     </tbody>
                 </table>

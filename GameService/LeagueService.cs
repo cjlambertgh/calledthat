@@ -111,6 +111,23 @@ namespace GameServices
             _db.SaveChanges();
         }
 
+        public void RemovePlayerFromLeague(Guid leagueId, Guid playerId)
+        {
+            var playerLeagueItem = _db.PlayerLeagues.FirstOrDefault(pl => pl.LeagueId == leagueId && pl.PlayerId == playerId);
+            if(playerLeagueItem != null)
+            {
+                _db.PlayerLeagues.Delete(playerLeagueItem.Id);
+                _db.SaveChanges();
+            }
+        }
+
+        public void UpdateStartweek(Guid leagueId, Guid gameweekId)
+        {
+            var league = _db.Leagues.FirstOrDefault(l => l.Id == leagueId);
+            league.GameweekIdScoringStarts = gameweekId;
+            _db.SaveChanges();
+        }
+
         private string GenerateInviteCode()
         {
             Random r = new Random();

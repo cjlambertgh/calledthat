@@ -21,15 +21,15 @@
     </div>
     <div class="panel-body">
         <p>This is the week that the league will begin scoring from.</p>
-        @using (Html.BeginForm("UpdateStartweek", "League", FormMethod.Post, new { @class="form" }))
+        @using (Html.BeginForm("UpdateStartweek", "League", FormMethod.Post, new { @class = "form" }))
         {
             @Html.HiddenFor(m => m.League.Id)
-        <div class="form-group">
-            @Html.DropDownListFor(m => m.SelectedStartWeek, Model.AvailableGameweeks, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Update" />
-        </div>
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.SelectedStartWeek, Model.AvailableGameweeks, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Update" />
+            </div>
         }
     </div>
 
@@ -47,13 +47,67 @@
                 </tr>
                 @foreach (var player in Model.League.PlayerLeagues.Select(pl => pl.Player))
                 {
-                <tr>
-                    <td>@player.Name</td>
-                    <td><span class="glyphicon glyphicon-trash"></span></td>
-                </tr>
-                    }
+                    <tr>
+                        <td>@player.Name</td>
+                        <td><span class="glyphicon glyphicon-trash" 
+                                  data-toggle="modal" data-target="#removePlayerModal" data-name="@player.Name" data-playerid="@player.Id"></span></td>
+                    </tr>
+                }
             </thead>
         </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="removePlayerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger">You are about to remove <strong><span id="playerName" class="bold"></span></strong> from <strong>@Model.League.Name</strong> </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmRemoveButton" class="btn btn-danger" data-playerid="" data-leagueid="@Model.League.Id" >Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $('#removePlayerModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var name = button.data('name')
+            var playerId = button.data('playerid')
+            var modal = $(this)
+            modal.find('.modal-title').text('Remove player ' + name)
+            modal.find('#playerName').html(name)
+
+            var submitButton = modal.find('#confirmRemoveButton');
+            submitButton.data('playerid', playerId)
+        });
+
+        $('#confirmRemoveButton').on('click', function () {
+            var playerId = $(this).data('playerid')
+            var leagueId = $(this).data('leagueid')
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemovePlayerFromLeague", "League")',
+                data: {
+                    leagueId: leagueId,
+                    playerId: playerId
+                },
+                success: function () {
+                    location.reload();
+                }
+            })
+        })
+    </script>
+    
+}
+
 

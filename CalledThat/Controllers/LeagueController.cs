@@ -210,6 +210,7 @@ namespace CalledThat.Controllers
         public JsonResult RemovePlayerFromLeague(Guid leagueId, Guid playerId)
         {
             _leagueService.RemovePlayerFromLeague(leagueId, playerId);
+            AddSuccess("Player removed from league");
             return Json("ok");
         }
     }

@@ -13,5 +13,7 @@ namespace CalledThat.ViewModels.League
         [MaxLength(5)]
         [Display(Name = "Invite Code")]
         public string LeagueCode { get; set; }
+
+        public string LeagueName { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace GameServices
         void JoinLeague(Guid playerId, string inviteCode);
         bool IsInviteCodeValid(Guid playerId, string code);
         League GetLeague(Guid leagueId);
+        League GetLeagueByInviteCode(string inviteCode);
         IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId);
         bool IsPlayerALeagueOwner(Guid playerId, League league);
         IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId);

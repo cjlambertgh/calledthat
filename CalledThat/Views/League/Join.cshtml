@@ -13,7 +13,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="panel pabel-default">
+        <div class="panel panel-default">
             <div class="panel-heading">League details</div>
             <div class="panel-body">
                 @using (Html.BeginForm("Join", "League", FormMethod.Post))
@@ -23,6 +23,12 @@
                         @Html.TextBoxFor(m => m.LeagueCode, new { @class="form-control"})
                         @Html.ValidationMessageFor(m => m.LeagueCode, null, new { @class="text-danger"})
                     </div>
+                    if(Model != null && !string.IsNullOrEmpty(Model.LeagueName))
+                    {
+                    <div class="form-group">
+                        <span>Click Join League to join: <strong>@Model.LeagueName</strong></span>
+                    </div>
+                    }
                     <input type="submit" value="Join League" class="btn btn-primary" />
                 }
             </div>

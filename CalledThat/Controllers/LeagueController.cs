@@ -83,12 +83,15 @@ namespace CalledThat.Controllers
                 return RedirectToAction("Join");
             }
 
-            //TODO: maybe not auto join here - return Join view with code pre-populated
-            _leagueService.JoinLeague(CurrentPlayerId, leagueCode);
+            var league = _leagueService.GetLeagueByInviteCode(leagueCode);
 
-            AddSuccess("Successfully joined league");
+            var viewModel = new JoinLeagueViewModel
+            {
+                LeagueCode = leagueCode,
+                LeagueName = league.Name
+            };
 
-            return RedirectToAction("Index");
+            return View(viewModel);
         }
 
         [HttpPost]

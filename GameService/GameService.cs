@@ -162,7 +162,7 @@ namespace GameServices
             return score;
         }
 
-        public void UpdateApiData(Action gameWeekUpdatedAction)
+        public void UpdateApiData(Action gameWeekUpdatedAction, Action reminderEmail)
         {
             var gameweekAdded = false;
 
@@ -393,6 +393,12 @@ namespace GameServices
                 return res.Where(item => item.GameweekNumber == gameWeek);
             }
             return res;
+        }
+
+        private IReadOnlyCollection<Player> GetPlayersWithoutGameweekPredictions()
+        {
+
+            return null;
         }
     }
 }

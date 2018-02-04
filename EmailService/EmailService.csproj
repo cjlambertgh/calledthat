@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="GameEmailService.cs" />
     <Compile Include="GameEmails\GameweekOpen.cs" />
+    <Compile Include="GameEmails\PicksNotEntered.cs" />
     <Compile Include="HttpMailService.cs" />
     <Compile Include="IGameEmailService.cs" />
     <Compile Include="IMailService.cs" />

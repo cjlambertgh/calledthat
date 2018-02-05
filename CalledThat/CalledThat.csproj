@@ -340,7 +340,8 @@
     <Content Include="Views\League\Join.cshtml" />
     <Content Include="Views\Shared\_NotificationBar.cshtml" />
     <Content Include="Views\League\View.cshtml" />
-    <Content Include="privatesettings.config" />
+    <None Include="privatesettings.config" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />

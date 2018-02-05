@@ -162,7 +162,7 @@ namespace GameServices
             return score;
         }
 
-        public void UpdateApiData(Action gameWeekUpdatedAction, Action reminderEmail)
+        public void UpdateApiData(Action gameWeekUpdatedAction)
         {
             var gameweekAdded = false;
 

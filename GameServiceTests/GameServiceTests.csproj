@@ -72,9 +72,9 @@
       <Project>{f148b20a-be7f-4090-981c-bb24a2bc0dca}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameService\GameService.csproj">
+    <ProjectReference Include="..\GameService\GameServices.csproj">
       <Project>{a9aa049c-1b2a-4aac-96bc-05efd802609a}</Project>
-      <Name>GameService</Name>
+      <Name>GameServices</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

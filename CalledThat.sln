@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalledThat", "CalledThat\CalledThat.csproj", "{48038ACE-1602-4DDC-9E78-EBD46A601DB6}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAPI", "DataAPI\DataAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{F148B20A-BE7F-4090-981C-BB24A2BC0DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameService", "GameService\GameService.csproj", "{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServices", "GameService\GameServices.csproj", "{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77176596-D584-403E-9C92-E960323017E1}"
 EndProject

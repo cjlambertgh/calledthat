@@ -13,14 +13,16 @@ namespace GameServiceTests
     public class GameServiceTest
     {
         private IDataContextConnection _dataContextConnection;
+        private IReminderService _reminderService;
 
         public GameServiceTest()
         {
             _dataContextConnection = A.Fake<IDataContextConnection>();
+            _reminderService = A.Fake<IReminderService>();
         }
         private GameService CreateService()
         {
-            return new GameService(_dataContextConnection);
+            return new GameService(_dataContextConnection, _reminderService);
         }
 
         [TestMethod, TestCategory("ServiceInstantiation")]

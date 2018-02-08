@@ -16,10 +16,12 @@ namespace GameServices
     {
         private readonly string Competition = "PL";
         private readonly IUnitOfWork _db;
+        private readonly IReminderService _reminderService;
 
-        public GameService(IDataContextConnection db)
+        public GameService(IDataContextConnection db, IReminderService reminderService)
         {
             _db = db.Database;
+            _reminderService = reminderService;
         }
 
         public void Initialise()
@@ -162,7 +164,7 @@ namespace GameServices
             return score;
         }
 
-        public void UpdateApiData(Action gameWeekUpdatedAction)
+        public void UpdateApiData(string reminderEmailUrl)
         {
             var gameweekAdded = false;
 
@@ -249,7 +251,7 @@ namespace GameServices
 
             if(gameweekAdded)
             {
-                gameWeekUpdatedAction();
+                _reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
                      
         }

@@ -13,7 +13,7 @@ namespace GameServices
 
         #region AdminMethods
         void Initialise();
-        void UpdateApiData(Action gameWeekUpdatedAction);
+        void UpdateApiData(string reminderEmailUrl);
         void UpdateResults();
         #endregion
 

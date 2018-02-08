@@ -56,9 +56,11 @@
     <Compile Include="IGameService.cs" />
     <Compile Include="ILeagueService.cs" />
     <Compile Include="IPlayerService.cs" />
+    <Compile Include="IReminderService.cs" />
     <Compile Include="LeagueService.cs" />
     <Compile Include="PlayerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReminderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAPI\DataAPI.csproj">

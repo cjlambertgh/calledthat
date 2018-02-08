@@ -70,14 +70,8 @@ namespace CalledThat.Controllers
         public JsonResult GameServiceTest()
         {
             var gameweekOpenEmailRecipients = _playerService.GetPlayersEmailsAcceptedAlerts();
-            Action gameweekUpdatedAction = () =>
-            {
-                Parallel.ForEach(gameweekOpenEmailRecipients, (address) =>
-                {
-                    _gameEmailService.SendGameweekOpenEmail(address, Url.Action("Index", "Home", null, Request.Url.Scheme));
-                });
-            };
-            _gameService.UpdateApiData(gameweekUpdatedAction);
+
+            _gameService.UpdateApiData(Url.Action("Index", "Home", null, Request.Url.Scheme));
             _gameService.UpdateResults();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }

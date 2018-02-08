@@ -382,9 +382,9 @@
       <Project>{0dae4310-233c-43b5-8c30-9a9e06710c88}</Project>
       <Name>EmailService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameService\GameService.csproj">
+    <ProjectReference Include="..\GameService\GameServices.csproj">
       <Project>{A9AA049C-1B2A-4AAC-96BC-05EFD802609A}</Project>
-      <Name>GameService</Name>
+      <Name>GameServices</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

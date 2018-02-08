@@ -21,7 +21,7 @@ namespace GameServices
 
         public void SendGameweekPicksNotEnteredReminder()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void SendNewGameweekReminder(string url)

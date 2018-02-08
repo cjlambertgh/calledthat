@@ -66,11 +66,16 @@
     <Compile Include="GameServiceTest.cs" />
     <Compile Include="MockDataContextConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReminderServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{f148b20a-be7f-4090-981c-bb24a2bc0dca}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmailService\EmailService.csproj">
+      <Project>{0DAE4310-233C-43B5-8C30-9A9E06710C88}</Project>
+      <Name>EmailService</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameService\GameServices.csproj">
       <Project>{a9aa049c-1b2a-4aac-96bc-05efd802609a}</Project>

@@ -319,6 +319,11 @@ namespace GameServices
             return _db.Picks.Get(pp => pp.PlayerId == playerId && pp.Fixture.GameWeek.Number == gameweek).ToList();
         }
 
+        public IEnumerable<Pick> GetAllPlayerPicks(int gameweek)
+        {
+            return _db.Picks.Where(p => p.Fixture.GameWeek.Number == gameweek);
+        }
+
         public void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore)
         {
             if (playerId == null) throw new ArgumentNullException(nameof(playerId));

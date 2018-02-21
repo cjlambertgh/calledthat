@@ -24,6 +24,7 @@ namespace GameServices
         void PopulatePickOpenCloseDates(out DateTime openDate, out DateTime closeDate);
 
         IEnumerable<Pick> GetPlayerPicks(Guid playerId, int gameweek);
+        IEnumerable<Pick> GetAllPlayerPicks(int gameweek);
         void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore);
 
         IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = null);

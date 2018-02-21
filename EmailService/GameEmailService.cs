@@ -15,5 +15,11 @@ namespace EmailService
             var mailItem = new GameweekOpen(mailService);
             mailItem.Send(recipient, url);
         }
+
+        public void SendPicksNotEnteredEmail(string recipient, string url)
+        {
+            var mailItem = new PicksNotEntered(mailService);
+            mailItem.Send(recipient, url);
+        }
     }
 }

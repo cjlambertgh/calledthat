@@ -15,10 +15,11 @@ namespace GameServiceTests
     {
         IGameEmailService _gameEmailService = A.Fake<IGameEmailService>();
         IPlayerService _playerService = A.Fake<IPlayerService>();
+        IGameService _gameService = A.Fake<IGameService>();
 
         private ReminderService CreateService()
         {
-            var svc = new ReminderService(_gameEmailService, _playerService);
+            var svc = new ReminderService(_gameEmailService, _playerService, _gameService);
             return svc;
         }
 

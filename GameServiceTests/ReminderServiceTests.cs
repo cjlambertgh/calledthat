@@ -13,11 +13,10 @@ namespace GameServiceTests
     {
         IGameEmailService _gameEmailService = A.Fake<IGameEmailService>();
         IPlayerService _playerService = A.Fake<IPlayerService>();
-        IGameService _gameService = A.Fake<IGameService>();
 
         private ReminderService CreateService()
         {
-            var svc = new ReminderService(_gameEmailService, _playerService, _gameService);
+            var svc = new ReminderService(_gameEmailService, _playerService);
             return svc;
         }
 
@@ -83,30 +82,13 @@ namespace GameServiceTests
         }
 
         [TestMethod]
-        public void PicksNotEntered_GameweekClosed_DoesntSend()
-        {
-            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(false);
-            A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts()).Returns(new List<string>());
-            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
-            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick>());
-            var svc = CreateService();
-
-            svc.SendGameweekPicksNotEnteredReminder("");
-
-            A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
-                .MustNotHaveHappened();
-        }
-
-        [TestMethod]
         public void PicksNotEntered_NoEmailsEnabled_DoesntSend()
         {
-            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
             A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts()).Returns(new List<string>());
-            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
-            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick>());
+            var emailsWithPicks = new List<string>();
             var svc = CreateService();
 
-            svc.SendGameweekPicksNotEnteredReminder("");
+            svc.SendGameweekPicksNotEnteredReminder("", emailsWithPicks);
 
             A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
                 .MustNotHaveHappened();
@@ -117,23 +99,13 @@ namespace GameServiceTests
         {
 
             var email = "a@example.com";
-            var appUser = A.Fake<AppUser>();
-            A.CallTo(() => appUser.Email).Returns(email);
-            var pick = new Pick
-            {
-                Player = new Player
-                {
-                    AppUser = appUser
-                }
-            };
-            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
+            var emailsWithPicks = new List<string> { email };
+
             A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts())
                 .Returns(new List<string> { email });
-            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
-            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick> { pick });
             var svc = CreateService();
 
-            svc.SendGameweekPicksNotEnteredReminder("");
+            svc.SendGameweekPicksNotEnteredReminder("", emailsWithPicks);
 
             A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
                 .MustNotHaveHappened();
@@ -144,24 +116,14 @@ namespace GameServiceTests
         {
             var emailEnabled = "a@example.com";
             var emailMissed = "b@example.com";
+            var emailsWithPicks = new List<string> { emailMissed };
             var url = "www.example.com";
-            var appUser = A.Fake<AppUser>();
-            A.CallTo(() => appUser.Email).Returns(emailMissed);
-            var pick = new Pick
-            {
-                Player = new Player
-                {
-                    AppUser = appUser
-                }
-            };
-            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
+
             A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts())
                 .Returns(new List<string> { emailEnabled });
-            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
-            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick> { pick });
             var svc = CreateService();
 
-            svc.SendGameweekPicksNotEnteredReminder(url);
+            svc.SendGameweekPicksNotEnteredReminder(url, emailsWithPicks);
 
             A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(emailEnabled, url))
                 .MustHaveHappened(Repeated.Exactly.Once);

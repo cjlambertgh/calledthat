@@ -167,6 +167,7 @@ namespace GameServices
         public void UpdateApiData(string reminderEmailUrl)
         {
             var gameweekAdded = false;
+            var gameweekOpen = false;
 
             _db.BeginTransaction();
             try
@@ -192,7 +193,7 @@ namespace GameServices
                 }
 
                 var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
-
+                
                 var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
                 var fixtures = fixtureApi.Get().Where(f => f.MatchDay == currentSeasonComp.CurrentMatchDay);
 
@@ -240,6 +241,8 @@ namespace GameServices
                     gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
                 }
 
+                gameweekOpen = IsGameweekOpen(gameWeek);
+
                 _db.SaveChanges();
                 _db.CommitTransaction();
             }
@@ -254,7 +257,11 @@ namespace GameServices
                 _reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
 
-            _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl);
+            if(gameweekOpen)
+            {
+                _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
+            }
+            
                      
         }
 
@@ -404,10 +411,15 @@ namespace GameServices
             return res;
         }
 
-        private IReadOnlyCollection<Player> GetPlayersWithoutGameweekPredictions()
+        private IEnumerable<string> GetPlayersEmailsWithGameweekPredictions()
         {
+            if (!IsCurrentGameweekOpen())
+            {
+                new List<string>();
+            }
 
-            return null;
+            var picks = GetAllPlayerPicks(GetCurrentGameweek());
+            return picks.Select(p => p.Player.AppUser.Email).Distinct();
         }
     }
 }

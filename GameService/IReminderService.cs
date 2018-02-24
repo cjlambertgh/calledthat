@@ -9,6 +9,6 @@ namespace GameServices
     public interface IReminderService
     {
         void SendNewGameweekReminder(string url);
-        void SendGameweekPicksNotEnteredReminder(string url);
+        void SendGameweekPicksNotEnteredReminder(string url, IEnumerable<string> emailsThatHaveEnteredPicks);
     }
 }

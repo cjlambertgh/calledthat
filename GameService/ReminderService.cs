@@ -12,27 +12,17 @@ namespace GameServices
     {
         private readonly IGameEmailService _gameEmailService;
         private readonly IPlayerService _playerService;
-        private readonly IGameService _gameService;
 
-        public ReminderService(IGameEmailService gameEmailService, IPlayerService playerService,
-            IGameService gameService)
+        public ReminderService(IGameEmailService gameEmailService, IPlayerService playerService)
         {
             _gameEmailService = gameEmailService;
             _playerService = playerService;
-            _gameService = gameService;
         }
 
-        public void SendGameweekPicksNotEnteredReminder(string url)
+        public void SendGameweekPicksNotEnteredReminder(string url, IEnumerable<string> emailsThatHaveEnteredPicks)
         {
-            if(!_gameService.IsCurrentGameweekOpen())
-            {
-                return;
-            }
-
-            var picks = _gameService.GetAllPlayerPicks(_gameService.GetCurrentGameweek());
-            var playerEmailsWithPicks = picks.Select(p => p.Player.AppUser.Email).Distinct();
             var gameweekOpenEmailRecipients = _playerService.GetPlayersEmailsAcceptedAlerts();
-            var mailsForPlayersNotMadePicks = gameweekOpenEmailRecipients.Except(playerEmailsWithPicks);
+            var mailsForPlayersNotMadePicks = gameweekOpenEmailRecipients.Except(emailsThatHaveEnteredPicks);
             Parallel.ForEach(mailsForPlayersNotMadePicks, (address) =>
             {
                 _gameEmailService.SendPicksNotEnteredEmail(address, url);

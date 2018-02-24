@@ -24,6 +24,11 @@ namespace GameServices
 
         public void SendGameweekPicksNotEnteredReminder(string url)
         {
+            if(!_gameService.IsCurrentGameweekOpen())
+            {
+                return;
+            }
+
             var picks = _gameService.GetAllPlayerPicks(_gameService.GetCurrentGameweek());
             var playerEmailsWithPicks = picks.Select(p => p.Player.AppUser.Email).Distinct();
             var gameweekOpenEmailRecipients = _playerService.GetPlayersEmailsAcceptedAlerts();

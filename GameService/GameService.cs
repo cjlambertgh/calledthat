@@ -253,6 +253,8 @@ namespace GameServices
             {
                 _reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
+
+            _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl);
                      
         }
 

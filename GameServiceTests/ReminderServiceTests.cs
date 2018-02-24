@@ -2,11 +2,9 @@
 using FakeItEasy;
 using GameServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Data.Models;
+using Data.DAL.Identity;
 
 namespace GameServiceTests
 {
@@ -83,5 +81,91 @@ namespace GameServiceTests
             A.CallTo(() => _gameEmailService.SendGameweekOpenEmail(null, null))
                 .WithAnyArguments().MustHaveHappened(Repeated.Exactly.Twice);
         }
+
+        [TestMethod]
+        public void PicksNotEntered_GameweekClosed_DoesntSend()
+        {
+            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(false);
+            A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts()).Returns(new List<string>());
+            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
+            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick>());
+            var svc = CreateService();
+
+            svc.SendGameweekPicksNotEnteredReminder("");
+
+            A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
+                .MustNotHaveHappened();
+        }
+
+        [TestMethod]
+        public void PicksNotEntered_NoEmailsEnabled_DoesntSend()
+        {
+            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
+            A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts()).Returns(new List<string>());
+            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
+            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick>());
+            var svc = CreateService();
+
+            svc.SendGameweekPicksNotEnteredReminder("");
+
+            A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
+                .MustNotHaveHappened();
+        }
+
+        [TestMethod]
+        public void PicksNotEntered_OneEmailEnabled_NoMissingPicks_DoesntSend()
+        {
+
+            var email = "a@example.com";
+            var appUser = A.Fake<AppUser>();
+            A.CallTo(() => appUser.Email).Returns(email);
+            var pick = new Pick
+            {
+                Player = new Player
+                {
+                    AppUser = appUser
+                }
+            };
+            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
+            A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts())
+                .Returns(new List<string> { email });
+            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
+            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick> { pick });
+            var svc = CreateService();
+
+            svc.SendGameweekPicksNotEnteredReminder("");
+
+            A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(null, null)).WithAnyArguments()
+                .MustNotHaveHappened();
+        }
+
+        [TestMethod]
+        public void PicksNotEntered_MissingPicks_EmailsEnabled_DoesSend()
+        {
+            var emailEnabled = "a@example.com";
+            var emailMissed = "b@example.com";
+            var url = "www.example.com";
+            var appUser = A.Fake<AppUser>();
+            A.CallTo(() => appUser.Email).Returns(emailMissed);
+            var pick = new Pick
+            {
+                Player = new Player
+                {
+                    AppUser = appUser
+                }
+            };
+            A.CallTo(() => _gameService.IsCurrentGameweekOpen()).Returns(true);
+            A.CallTo(() => _playerService.GetPlayersEmailsAcceptedAlerts())
+                .Returns(new List<string> { emailEnabled });
+            A.CallTo(() => _gameService.GetCurrentGameweek()).Returns(1);
+            A.CallTo(() => _gameService.GetAllPlayerPicks(1)).Returns(new List<Pick> { pick });
+            var svc = CreateService();
+
+            svc.SendGameweekPicksNotEnteredReminder(url);
+
+            A.CallTo(() => _gameEmailService.SendPicksNotEnteredEmail(emailEnabled, url))
+                .MustHaveHappened(Repeated.Exactly.Once);
+        }
+
     }
 }

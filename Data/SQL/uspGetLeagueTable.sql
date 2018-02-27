@@ -20,7 +20,7 @@ GO
 
 
 
-CREATE procedure [dbo].[uspGetLeagueTable] 
+ALTER procedure [dbo].[uspGetLeagueTable] 
 @leagueId varchar(255) 
 as
 SELECT
@@ -49,8 +49,18 @@ FROM
          LEFT JOIN
             PickResult pr 
             ON pic.id = pr.PickId 
+		LEFT JOIN
+               Fixture f 
+               ON pic.FixtureId = f.Id 
+        LEFT JOIN
+            GameWeek g 
+            ON f.GameWeekId = g.Id
+		LEFT JOIN
+            GameWeek gwstart 
+            ON l.GameweekIdScoringStarts = gwstart.Id 
       WHERE
          l.id = @leagueId
+		 and (l.GameweekIdScoringStarts is null or g.Number >= gwstart.Number)
       GROUP BY
          p.id 
    )
@@ -86,7 +96,7 @@ FROM
                ON l.CompetitionId = c.Id 
          WHERE
             l.id = @leagueId 
-			AND g.number =  c.CurrentGameWeekNumber
+			AND g.number =  c.CurrentGameWeekNumber 
          GROUP BY
             p.id ,
 			g.Number
@@ -103,5 +113,3 @@ FROM
 		League l 
 		ON pl.LeagueId = l.id
 	WHERE l.id = @leagueId
-
-

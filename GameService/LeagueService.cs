@@ -64,6 +64,20 @@ namespace GameServices
             return _db.Leagues.FirstOrDefault(l => l.InviteCode == inviteCode);
         }
 
+        public IEnumerable<GameWeek> GetLeagueGameweeks(Guid leagueId)
+        {
+            var league = _db.Leagues.GetById(leagueId);
+            int startWeek = 0;
+            if(league.GameweekIdScoringStarts != null && league.GameweekIdScoringStarts != Guid.Empty)
+            {
+                var gw = _db.GameWeeks.GetById(league.GameweekIdScoringStarts);
+                startWeek = gw.Number;
+            }
+            var currentWeek = league.Competition.CurrentGameWeekNumber;
+            var gameWeeks = _db.GameWeeks.Where(gw => gw.Number >= startWeek && gw.Number <= currentWeek);
+            return gameWeeks;
+        }
+
         public IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId)
         {
             return _db.SqlQuery<LeagueStats>("uspGetLeagueStats @leagueId", new SqlParameter("@leagueId", leagueId));
@@ -72,6 +86,14 @@ namespace GameServices
         public IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId)
         {
             var res = _db.SqlQuery<LeagueTable>("uspGetLeagueTable @leagueId", new SqlParameter("@leagueId", leagueId));
+            return res;
+        }
+
+        public IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId, int week)
+        {
+            var res = _db.SqlQuery<LeagueTable>("uspGetLeagueTableByWeek @leagueId, @week", 
+                new SqlParameter("@leagueId", leagueId),
+                new SqlParameter("@week", week));
             return res;
         }
 

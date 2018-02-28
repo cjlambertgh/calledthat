@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using Data.Models;
 using Data.Models.Procs;
 
 namespace CalledThat.ViewModels.League
@@ -14,6 +16,7 @@ namespace CalledThat.ViewModels.League
         public bool IsLeagueOwner { get; set; }
         public string InviteCode { get; set; }
         public List<LeagueStats> LeagueStats { get; set; } = new List<LeagueStats>();
+        public IList<SelectListItem> Gameweeks { get; set; }
 
         public ViewSingleLeagueViewModel()
         {

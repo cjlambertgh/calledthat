@@ -15,9 +15,11 @@ namespace GameServices
         League GetLeague(Guid leagueId);
         League GetLeagueByInviteCode(string inviteCode);
         IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId);
+        IEnumerable<LeagueTable> GetLeagueTable(Guid leagueId, int week);
         bool IsPlayerALeagueOwner(Guid playerId, League league);
         IEnumerable<LeagueStats> GetLeagueStats(Guid leagueId);
         void RemovePlayerFromLeague(Guid leagueId, Guid playerId);
         void UpdateStartweek(Guid leagueId, Guid gameweekId);
+        IEnumerable<GameWeek> GetLeagueGameweeks(Guid leagueId);
     }
 }

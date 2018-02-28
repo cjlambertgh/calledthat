@@ -1,6 +1,7 @@
 ﻿using AppServices;
 using CalledThat.ViewModels.Game;
 using CalledThat.ViewModels.League;
+using Data.Models.Procs;
 using EmailService;
 using GameServices;
 using System;
@@ -118,18 +119,29 @@ namespace CalledThat.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult View(Guid leagueId)
+        public ActionResult View(Guid leagueId, int? week)
         {
             var league = _leagueService.GetLeague(leagueId);
-            if(league == null)
+            if (league == null)
             {
                 AddError("Error opening league details");
                 RedirectToAction("Index");
             }
 
+            if (week == null) week = -1;
+
             var isOwner = _leagueService.IsPlayerALeagueOwner(CurrentPlayerId, league);
 
-            var leagueRows = _leagueService.GetLeagueTable(leagueId);
+            IEnumerable<LeagueTable> leagueRows;
+
+            if(week == -1)
+            {
+                leagueRows = _leagueService.GetLeagueTable(leagueId);
+            }
+            else
+            {
+                leagueRows = _leagueService.GetLeagueTable(leagueId, (int)week);
+            }            
 
             var leagueStats = _leagueService.GetLeagueStats(leagueId);
 
@@ -147,8 +159,20 @@ namespace CalledThat.Controllers
                     PlayerId = lr.PlayerId,
                     GameWeek = lr.GameweekNumber
                 }).ToList(),
-                LeagueStats = leagueStats.ToList()
+                LeagueStats = leagueStats.ToList(),
+                Gameweeks = _leagueService.GetLeagueGameweeks(league.Id).Select(gw => new SelectListItem
+                {
+                    Text = "Week " + gw.Number.ToString(),
+                    Value = gw.Number.ToString(),
+                    Selected = (gw.Number == week)
+                }).ToList()
             };
+            model.Gameweeks.Add(new SelectListItem
+            {
+                Text = "Overall",
+                Value = "-1",
+                Selected = week == -1
+            });
             return View(model);
         }
 

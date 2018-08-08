@@ -322,8 +322,8 @@ namespace GameServices
                 {
                     gameWeek.Fixtures.Add(new Fixture
                     {
-                        HomeTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeam.Name),
-                        AwayTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeam.Name),
+                        HomeTeam = gameWeek.Competition.Teams.FirstOrDefault(t => t.Name == fix.HomeTeam.Name),
+                        AwayTeam = gameWeek.Competition.Teams.FirstOrDefault(t => t.Name == fix.AwayTeam.Name),
                         KickOffDateTime = fix.UtcDate
                     });
                 }

@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsService", "WindowsSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalledThatService", "CalledThatService\CalledThatService.csproj", "{C9460519-0E38-4B89-AE7C-27119E4B8D80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballDataApiV2", "FootballDataApiV2\FootballDataApiV2.csproj", "{8284D199-0766-4EC2-B0DF-8265E2E123BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,12 @@ Global
 		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.sandbox|Any CPU.ActiveCfg = Release|Any CPU
 		{C9460519-0E38-4B89-AE7C-27119E4B8D80}.sandbox|Any CPU.Build.0 = Release|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.sandbox|Any CPU.ActiveCfg = Debug|Any CPU
+		{8284D199-0766-4EC2-B0DF-8265E2E123BE}.sandbox|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

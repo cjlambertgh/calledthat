@@ -6,6 +6,7 @@ using GameServices;
 using FakeItEasy;
 using Data.Repository;
 using System.Collections.Generic;
+using FootballDataApiV2.Interfaces;
 
 namespace GameServiceTests
 {
@@ -14,15 +15,21 @@ namespace GameServiceTests
     {
         private IDataContextConnection _dataContextConnection;
         private IReminderService _reminderService;
+        private ICompetitionApi _competitionApi;
+        private ITeamApi _teamApi;
+        private IMatchApi _matchApi;
 
         public GameServiceTest()
         {
             _dataContextConnection = A.Fake<IDataContextConnection>();
             _reminderService = A.Fake<IReminderService>();
+            _teamApi = A.Fake<ITeamApi>();
+            _competitionApi = A.Fake<ICompetitionApi>();
+            _matchApi = A.Fake<IMatchApi>();
         }
         private GameService CreateService()
         {
-            return new GameService(_dataContextConnection, _reminderService);
+            return new GameService(_dataContextConnection, _reminderService, _competitionApi, _teamApi, _matchApi);
         }
 
         [TestMethod, TestCategory("ServiceInstantiation")]

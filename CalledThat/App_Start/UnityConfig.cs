@@ -64,6 +64,10 @@ namespace CalledThat.App_Start
             container.RegisterType<IUserStore<AppUser>, UserStore<AppUser>>(new HierarchicalLifetimeManager());
             //container.RegisterType<AccountController>(new InjectionConstructor());
 
+            container.RegisterType<FootballDataApiV2.Interfaces.ICompetitionApi, FootballDataApiV2.Implementations.CompetitionApi>();
+            container.RegisterType<FootballDataApiV2.Interfaces.ITeamApi, FootballDataApiV2.Implementations.TeamApi>();
+            container.RegisterType<FootballDataApiV2.Interfaces.IMatchApi, FootballDataApiV2.Implementations.MatchApi>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -78,6 +78,10 @@
       <Project>{0DAE4310-233C-43B5-8C30-9A9E06710C88}</Project>
       <Name>EmailService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FootballDataApiV2\FootballDataApiV2.csproj">
+      <Project>{8284D199-0766-4EC2-B0DF-8265E2E123BE}</Project>
+      <Name>FootballDataApiV2</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameService\GameServices.csproj">
       <Project>{a9aa049c-1b2a-4aac-96bc-05efd802609a}</Project>
       <Name>GameServices</Name>

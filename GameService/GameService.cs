@@ -17,57 +17,81 @@ namespace GameServices
         private readonly string Competition = "PL";
         private readonly IUnitOfWork _db;
         private readonly IReminderService _reminderService;
+        private readonly FootballDataApiV2.Interfaces.ICompetitionApi _competitionApi;
+        private readonly FootballDataApiV2.Interfaces.ITeamApi _teamApi;
+        private readonly FootballDataApiV2.Interfaces.IMatchApi _matchApi;
 
-        public GameService(IDataContextConnection db, IReminderService reminderService)
+        public GameService(IDataContextConnection db, IReminderService reminderService, 
+            FootballDataApiV2.Interfaces.ICompetitionApi competitionApi,
+            FootballDataApiV2.Interfaces.ITeamApi teamApi,
+            FootballDataApiV2.Interfaces.IMatchApi matchApi)
         {
             _db = db.Database;
             _reminderService = reminderService;
+            _competitionApi = competitionApi;
+            _teamApi = teamApi;
+            _matchApi = matchApi;
         }
+
+        public Season CurrentSeason => _db.Seasons.SingleOrDefault(s => (s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now || s.CurrentSeasonYear == DateTime.Now.Year));
 
         public void Initialise()
         {
-            if (!_db.Competitions.Any())
+            try
             {
-                var api = new CompetitionAPI();
-                var comps = api.Get();
-                var prem = comps.Single(c => c.League == Competition);
-                if (prem != null)
+                var season = _db.Seasons.SingleOrDefault(s => (s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now || s.CurrentSeasonYear == DateTime.Now.Year));
+                var year = DateTime.Now.Year;
+                if (season == null)
                 {
-                    var year = int.Parse(prem.Year);
-                    var season = new Season
+                    season = new Season
                     {
                         CurrentSeasonYear = year,
                         StartDate = new DateTime(year, 8, 1),
                         EndDate = new DateTime(year + 1, 7, 31)
                     };
                     _db.Seasons.Add(season);
-
-                    var competition = new Competition
+                    _db.SaveChanges();
+                }
+                if (!_db.Competitions.Any(c => c.Season.CurrentSeasonYear == year && c.Name == "Premier League"))
+                {
+                    var comps = _competitionApi.Get();
+                    var prem = comps.Single(c => c.Area.Name == "England" && c.Name == "Premier League");
+                    if (prem != null)
                     {
-                        Season = season,
-                        Name = prem.Caption,
-                        CurrentGameWeekNumber = 0,
-                        LeagueApiLink = Competition
-                    };
-                    _db.Competitions.Add(competition);
+                        _db.BeginTransaction();
+                        var competition = new Competition
+                        {
+                            Season = season,
+                            Name = prem.Name,
+                            CurrentGameWeekNumber = 0,
+                            LeagueApiLink = prem.Id.ToString()
+                        };
+                        _db.Competitions.Add(competition);
+
+                        _db.SaveChanges();
+
+                        _teamApi.CompetitionId = Int32.Parse(competition.LeagueApiLink);
+                        var teams = _teamApi.Get();
+                        
+                        teams.ToList().ForEach(t =>
+                        {
+                            _db.Teams.Add(new Team
+                            {
+                                Name = t.Name,
+                                BadgeUrl = null,
+                                Competition = competition
+                            });
+                        });
+
+                    }
 
                     _db.SaveChanges();
-
-                    var teamApi = new TeamAPI(prem.Id);
-                    var teams = teamApi.Get();
-                    teams.ForEach(t =>
-                    {
-                        _db.Teams.Add(new Team
-                        {
-                            Name = t.Name,
-                            BadgeUrl = t.BadgeUrl,
-                            Competition = competition
-                        });
-                    });
-
+                    _db.CommitTransaction();
                 }
-
-                _db.SaveChanges();
+            }
+            catch(Exception)
+            {
+                _db.RollbackTransaction();
             }
 
             
@@ -173,77 +197,100 @@ namespace GameServices
             try
             {
                 var season = _db.Seasons.SingleOrDefault(s => (s.StartDate < DateTime.Now && s.EndDate >= DateTime.Now || s.CurrentSeasonYear == DateTime.Now.Year));
-                var comp = season.Competitions.Single(c => c.LeagueApiLink == Competition);
-
-                var compApi = new CompetitionAPI();
-                var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
-
-                UpdateExistingFixtureResults(currentSeasonComp.Id);                
-
-                comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
-                if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
+                foreach(var comp in season.Competitions)
                 {
-                    comp.GameWeeks.Add(new GameWeek
-                    {
-                        Number = currentSeasonComp.CurrentMatchDay,
-                        Competition = comp
-                    });
+                    var apiCompetition = _competitionApi.Get().SingleOrDefault(c => c.Id.ToString() == comp.LeagueApiLink);
+                    _matchApi.CompetitionId = apiCompetition.Id;
 
-                    gameweekAdded = true;
+                    UpdateExistingFixtureResults(apiCompetition.Id);
+
+                    comp.CurrentGameWeekNumber = apiCompetition.CurrentSeason.CurrentMatchday ?? 1;
+                    _matchApi.MatchDay = comp.CurrentGameWeekNumber;
+                    gameweekAdded = AddGameweekIfNeeded(comp, comp.CurrentGameWeekNumber);
+                    var gameWeek = comp.GameWeeks.First(gw => gw.Number == comp.CurrentGameWeekNumber);
+
+                    AddRequiredFixtures(gameWeek);
+
+                    if (gameweekAdded)
+                    {
+                        gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
+                        gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
+                    }
+
+                    gameweekOpen = IsGameweekOpen(gameWeek);
+
+                    _db.SaveChanges();
                 }
 
-                var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
+                //var compApi = new CompetitionAPI();
+                //var currentSeasonComp = compApi.Get().Single(c => c.Caption == comp.Name);
+
+                //UpdateExistingFixtureResults(currentSeasonComp.Id);                
+
+                //comp.CurrentGameWeekNumber = currentSeasonComp.CurrentMatchDay;
+                //if (!comp.GameWeeks.Any(gw => gw.Number == currentSeasonComp.CurrentMatchDay))
+                //{
+                //    comp.GameWeeks.Add(new GameWeek
+                //    {
+                //        Number = currentSeasonComp.CurrentMatchDay,
+                //        Competition = comp
+                //    });
+
+                //    gameweekAdded = true;
+                //}
+
+                //var gameWeek = comp.GameWeeks.First(gw => gw.Number == currentSeasonComp.CurrentMatchDay);
                 
-                var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
-                var fixtures = fixtureApi.Get().Where(f => f.MatchDay == currentSeasonComp.CurrentMatchDay);
+                //var fixtureApi = new MatchdayFixtureApi(currentSeasonComp.Id, currentSeasonComp.CurrentMatchDay);
+                //var fixtures = fixtureApi.Get().Where(f => f.MatchDay == currentSeasonComp.CurrentMatchDay);
 
-                foreach (var fix in fixtures)
-                {
-                    if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw?.HomeTeam?.Name == fix.HomeTeamName && gw?.AwayTeam?.Name == fix.AwayTeamName))
-                    {
-                        gameWeek.Fixtures.Add(new Fixture
-                        {
-                            HomeTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeamName),
-                            AwayTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeamName),
-                            KickOffDateTime = DateTime.Parse(fix.Date)
-                        });
-                    }
+                //foreach (var fix in fixtures)
+                //{
+                //    if (gameWeek.Fixtures == null || !gameWeek.Fixtures.Any(gw => gw?.HomeTeam?.Name == fix.HomeTeamName && gw?.AwayTeam?.Name == fix.AwayTeamName))
+                //    {
+                //        gameWeek.Fixtures.Add(new Fixture
+                //        {
+                //            HomeTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeamName),
+                //            AwayTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeamName),
+                //            KickOffDateTime = DateTime.Parse(fix.Date)
+                //        });
+                //    }
 
-                    var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName);
+                //    var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeamName && gw.AwayTeam.Name == fix.AwayTeamName);
 
-                    if (FixtureHelper.IsFixtureInFinished(fix))
-                    {
-                        if (!gameweekFixture.Results.Any())
-                        {
-                            if (fix.Result != null && fix.Result.GoalsAwayTeam != null && fix.Result.GoalsHomeTeam != null)
-                            {
-                                var result = new Result
-                                {
-                                    HomeScore = (int)(fix.Result.GoalsHomeTeam),
-                                    AwayScore = (int)(fix.Result.GoalsAwayTeam)
-                                };
+                //    if (FixtureHelper.IsFixtureInFinished(fix))
+                //    {
+                //        if (!gameweekFixture.Results.Any())
+                //        {
+                //            if (fix.Result != null && fix.Result.GoalsAwayTeam != null && fix.Result.GoalsHomeTeam != null)
+                //            {
+                //                var result = new Result
+                //                {
+                //                    HomeScore = (int)(fix.Result.GoalsHomeTeam),
+                //                    AwayScore = (int)(fix.Result.GoalsAwayTeam)
+                //                };
 
-                                gameweekFixture.Results.Add(result);
-                            }
-                            else
-                            {
-                                //TODO: completed fixture but result or scores null!?
-                            }
+                //                gameweekFixture.Results.Add(result);
+                //            }
+                //            else
+                //            {
+                //                //TODO: completed fixture but result or scores null!?
+                //            }
 
-                            //_db.SaveChanges();
-                        }
-                    }
-                }
+                //            //_db.SaveChanges();
+                //        }
+                //    }
+                //}
 
-                if (gameweekAdded)
-                {
-                    gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
-                    gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
-                }
+                //if (gameweekAdded)
+                //{
+                //    gameWeek.PickOpenDateTime = GetPreviousGameweekCloseDateTime(comp, gameWeek);
+                //    gameWeek.PickCloseDateTime = gameWeek.Fixtures.Min(f => f.KickOffDateTime).AddMinutes(-15);
+                //}
 
-                gameweekOpen = IsGameweekOpen(gameWeek);
+                //gameweekOpen = IsGameweekOpen(gameWeek);
 
-                _db.SaveChanges();
+                //_db.SaveChanges();
                 _db.CommitTransaction();
             }
             catch(Exception)
@@ -254,41 +301,99 @@ namespace GameServices
 
             if(gameweekAdded)
             {
-                _reminderService.SendNewGameweekReminder(reminderEmailUrl);
+                //_reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
 
             if(gameweekOpen)
             {
-                _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
+                //_reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
             }
             
                      
         }
 
+        private void AddRequiredFixtures(GameWeek gameWeek)
+        {
+            var fixtures = _matchApi.Get().Where(m => m.Matchday == gameWeek.Number);
+            foreach (var fix in fixtures)
+            {
+                if (gameWeek.Fixtures == null 
+                    || !gameWeek.Fixtures.Any(gw => gw?.HomeTeam?.Name == fix.HomeTeam.Name && gw?.AwayTeam?.Name == fix.AwayTeam.Name))
+                {
+                    gameWeek.Fixtures.Add(new Fixture
+                    {
+                        HomeTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.HomeTeam.Name),
+                        AwayTeam = _db.Teams.FirstOrDefault(t => t.Name == fix.AwayTeam.Name),
+                        KickOffDateTime = fix.UtcDate
+                    });
+                }
+
+                var gameweekFixture = gameWeek.Fixtures.Single(gw => gw.HomeTeam.Name == fix.HomeTeam.Name && gw.AwayTeam.Name == fix.AwayTeam.Name);
+
+                if (fix.IsFixtureInFinished)
+                {
+                    if (!gameweekFixture.Results.Any())
+                    {
+                        if (fix.Score?.FullTime != null && fix.Score?.FullTime?.AwayTeam != null && fix.Score?.FullTime?.HomeTeam != null)
+                        {
+                            var result = new Result
+                            {
+                                HomeScore = (int)(fix.Score.FullTime.HomeTeam),
+                                AwayScore = (int)(fix.Score.FullTime.AwayTeam)
+                            };
+
+                            gameweekFixture.Results.Add(result);
+                        }
+                        else
+                        {
+                            //TODO: completed fixture but result or scores null!?
+                        }
+
+                        //_db.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private bool AddGameweekIfNeeded(Competition comp, int currentMatchday)
+        {
+            if (!comp.GameWeeks.Any(gw => gw.Number == currentMatchday))
+            {
+                comp.GameWeeks.Add(new GameWeek
+                {
+                    Number = currentMatchday,
+                    Competition = comp
+                });
+
+                return true;
+            }
+            return false;
+        }
+
         private void UpdateExistingFixtureResults(int apiCompetitionId)
         {
-            var resultIds = _db.Results.All().Select(res => res.FixtureId);
-            var fixturesToUpdate = _db.Fixtures.Where(fix => !resultIds.Contains(fix.Id)).ToList();
+            var fixturesToUpdate = _db.Fixtures.Where(fi => !fi.Results.Any());
             if(fixturesToUpdate.Any())
             {
                 var gameWeeksRequired = fixturesToUpdate.GroupBy(fix => fix.GameWeekId).Select(g => g.First()).Select(f => f.GameWeek.Number);
                 foreach(var gameWeekNumber in gameWeeksRequired)
                 {
-                    var fixtureApi = new MatchdayFixtureApi(apiCompetitionId, gameWeekNumber);
-                    var apiFixtures = fixtureApi.Get();
+                    _matchApi.MatchDay = gameWeekNumber;
+                    _matchApi.CompetitionId = apiCompetitionId;
+                    var apiFixtures = _matchApi.Get();
                     foreach(var fixture in fixturesToUpdate)
                     {
-                        var apiFixture = apiFixtures.SingleOrDefault(api => fixture.HomeTeam.Name == api.HomeTeamName && fixture.AwayTeam.Name == api.AwayTeamName);
-                        if(apiFixture != null && FixtureHelper.IsFixtureInFinished(apiFixture))
+                        var apiFixture = apiFixtures.SingleOrDefault(api => fixture.HomeTeam.Name == api.HomeTeam.Name && fixture.AwayTeam.Name == api.AwayTeam.Name);
+                        if(apiFixture != null && apiFixture.IsFixtureInFinished)
                         {
-                            if (apiFixture.Result != null
-                                && apiFixture.Result.GoalsHomeTeam != null
-                                && apiFixture.Result.GoalsAwayTeam != null)
+                            if (apiFixture.Score?.FullTime != null
+                                && apiFixture.Score.FullTime.HomeTeam != null
+                                && apiFixture.Score.FullTime.AwayTeam != null)
                                 _db.Results.Add(new Result
                                 {
                                     FixtureId = fixture.Id,
-                                    HomeScore = (int)apiFixture.Result.GoalsHomeTeam,
-                                    AwayScore = (int)apiFixture.Result.GoalsAwayTeam
+                                    HomeScore = (int)apiFixture.Score.FullTime.HomeTeam,
+                                    AwayScore = (int)apiFixture.Score.FullTime.AwayTeam
                                 });
                         }
                     }
@@ -316,7 +421,7 @@ namespace GameServices
 
         public IEnumerable<Fixture> GetGameWeekFixtures()
         {
-            var comp = _db.Competitions.SingleOrDefault(c => c.LeagueApiLink == Competition);
+            var comp = CurrentSeason.Competitions.SingleOrDefault();
             var gameWeek = comp.GameWeeks.Single(gw => gw.Number == comp.CurrentGameWeekNumber);
             return gameWeek.Fixtures.ToList();
         }
@@ -403,7 +508,7 @@ namespace GameServices
 
         public IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = default(int?))
         {
-            var res = _db.SqlQuery<PlayerResults>("uspGetPlayerResults @playerId", new SqlParameter("@playerId", playerId));
+            var res = _db.SqlQuery<PlayerResults>("uspGetPlayerResults @playerId, @seasonId", new SqlParameter("@playerId", playerId), new SqlParameter("@seasonId", CurrentSeason.Id));
             if(gameWeek != null)
             {
                 return res.Where(item => item.GameweekNumber == gameWeek);

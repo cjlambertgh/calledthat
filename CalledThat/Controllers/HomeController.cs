@@ -48,6 +48,17 @@ namespace CalledThat.Controllers
             return Json(teams, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Test2()
+        {
+            //var api = new FootballDataApiV2.Implementations.CompetitionApi();
+            //var api = new FootballDataApiV2.Implementations.TeamApi();
+            var api = new FootballDataApiV2.Implementations.MatchApi();
+            api.CompetitionId = 2021;
+            api.MatchDay = 1;
+            var d = api.Get();
+            return Json(d, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult AdminInit()
         {
             //var admin = new Admin(_db);

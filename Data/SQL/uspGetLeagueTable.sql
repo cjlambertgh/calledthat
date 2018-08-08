@@ -42,22 +42,25 @@ FROM
             ON pl.PlayerId = p.Id 
          JOIN
             League l 
-            ON pl.LeagueId = l.Id 
+            ON pl.LeagueId = @leagueId 
          LEFT JOIN
             Pick pic 
             ON pic.PlayerId = p.Id 
          LEFT JOIN
             PickResult pr 
             ON pic.id = pr.PickId 
-		LEFT JOIN
+		  JOIN
                Fixture f 
-               ON pic.FixtureId = f.Id 
-        LEFT JOIN
-            GameWeek g 
-            ON f.GameWeekId = g.Id
-		LEFT JOIN
+               ON pic.FixtureId = f.Id        
+		 LEFT JOIN
             GameWeek gwstart 
             ON l.GameweekIdScoringStarts = gwstart.Id 
+		 JOIN
+            Competition c 
+            ON l.CompetitionId = c.Id
+		  JOIN
+            GameWeek g 
+            ON f.GameWeekId = g.Id and c.Id = g.CompetitionId 
       WHERE
          l.id = @leagueId
 		 and (l.GameweekIdScoringStarts is null or g.Number >= gwstart.Number)

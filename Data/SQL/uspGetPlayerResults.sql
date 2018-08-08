@@ -19,7 +19,8 @@ GO
 
 
 CREATE procedure [dbo].[uspGetPlayerResults] 
-@playerId varchar(255) 
+@playerId varchar(255),
+@seasonId varchar(255) 
 as
 
 select pl.Name PlayerName, gw.Number GameweekNumber, f.KickOffDateTime, home.name HomeTeam, away.name AwayTeam, 
@@ -33,7 +34,9 @@ join Pick p on f.Id = p.FixtureId
 join PickResult pr on p.id = pr.PickId
 join Player pl on pl.Id = p.PlayerId
 join GameWeek gw on gw.Id = f.GameWeekId
-where pl.Id = @playerId
+join Competition c on gw.CompetitionId = c.Id
+join Season s on c.SeasonId = s.Id
+where pl.Id = @playerId and s.id = @seasonId
 order by gw.Number,f.KickOffDateTime
 
 

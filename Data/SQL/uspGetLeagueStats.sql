@@ -16,7 +16,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-
 CREATE procedure [dbo].[uspGetLeagueStats] 
 @leagueId varchar(255) 
 as
@@ -57,12 +56,13 @@ FROM   player p
               ON pic.playerid = p.id 
        LEFT JOIN fixture f 
               ON pic.fixtureid = f.id 
-       LEFT JOIN gameweek g 
-              ON f.gameweekid = g.id 
+	   JOIN competition c 
+              ON l.competitionid = c.id
+       JOIN gameweek g 
+              ON f.gameweekid = g.id and g.CompetitionId = c.id
        LEFT JOIN pickresult pr 
               ON pic.id = pr.pickid 
-       LEFT JOIN competition c 
-              ON l.competitionid = c.id 
+        
 WHERE  l.id = @leagueId 
 GROUP  BY p.id, 
           p.NAME, 
@@ -85,13 +85,15 @@ FROM   fixture f
        JOIN pickresult pr 
          ON p.id = pr.pickid 
        JOIN player player 
-         ON player.id = p.playerid 
-       JOIN gameweek gw 
-         ON gw.id = f.gameweekid 
+         ON player.id = p.playerid 	    
        JOIN playerleagues pl 
          ON pl.playerid = player.id 
-       JOIN league l 
-         ON pl.leagueid = l.id 
+	   JOIN league l 
+         ON pl.leagueid = l.id
+	   JOIN competition c 
+		 ON l.competitionid = c.id
+       JOIN gameweek gw 
+         ON gw.id = f.gameweekid and gw.CompetitionId = c.Id
 WHERE  l.id = @leagueId 
 
 --Highest gameweek score 
@@ -183,5 +185,3 @@ FROM   (SELECT gameweeknumber,
 SELECT * 
 FROM   @Stats 
 GO
-
-

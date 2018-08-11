@@ -301,12 +301,12 @@ namespace GameServices
 
             if(gameweekAdded)
             {
-                //_reminderService.SendNewGameweekReminder(reminderEmailUrl);
+                _reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
 
-            if(gameweekOpen)
+            if(gameweekOpen && !gameweekAdded)
             {
-                //_reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
+                _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
             }
             
                      
@@ -372,7 +372,7 @@ namespace GameServices
 
         private void UpdateExistingFixtureResults(int apiCompetitionId)
         {
-            var fixturesToUpdate = _db.Fixtures.Where(fi => !fi.Results.Any());
+            var fixturesToUpdate = _db.Fixtures.Where(fi => !fi.Results.Any()).ToList();
             if(fixturesToUpdate.Any())
             {
                 var gameWeeksRequired = fixturesToUpdate.GroupBy(fix => fix.GameWeekId).Select(g => g.First()).Select(f => f.GameWeek.Number);

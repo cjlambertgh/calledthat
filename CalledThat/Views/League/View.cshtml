@@ -223,7 +223,7 @@
 
         $('#ddlViewWeek').on('change', function () {
             var week = $(this).val();
-            window.location.href = '/League/View?leagueid=@Model.LeagueId&week=' + week;
+            window.location.href = '@Url.Action("View", "League", new { leagueid = Model.LeagueId })' + '&week=' + week;
         })
     });
 </script>

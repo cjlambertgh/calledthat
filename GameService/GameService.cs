@@ -435,7 +435,7 @@ namespace GameServices
 
         public IEnumerable<Pick> GetAllPlayerPicks(int gameweek)
         {
-            return _db.Picks.Where(p => p.Fixture.GameWeek.Number == gameweek);
+            return _db.Picks.Where(p => p.Fixture.GameWeek.Number == gameweek).ToList();
         }
 
         public void AddPick(Guid playerId, Guid fixtureId, int homeScore, int awayScore, bool banker, bool doubleScore)
@@ -524,7 +524,7 @@ namespace GameServices
             }
 
             var picks = GetAllPlayerPicks(GetCurrentGameweek());
-            return picks.Select(p => p.Player.AppUser.Email).Distinct();
+            return picks.Select(p => p.Player.AppUser.Email).Distinct().ToList();
         }
     }
 }

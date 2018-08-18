@@ -15,7 +15,7 @@ namespace Data.Models
         public Guid PlayerId { get; set; }
 
         [ForeignKey("PlayerId")]
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
 
         public Guid FixtureId { get; set; }
 

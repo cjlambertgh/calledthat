@@ -499,15 +499,15 @@ namespace GameServices
 
         private static bool IsGameweekOpen(GameWeek gameWeek)
         {
-            return (DateTime.Now > gameWeek.PickOpenDateTime && DateTime.Now < gameWeek.PickCloseDateTime);
+            return (DateTime.UtcNow > gameWeek.PickOpenDateTime && DateTime.UtcNow < gameWeek.PickCloseDateTime);
         }
 
         public void PopulatePickOpenCloseDates(out DateTime openDate, out DateTime closeDate)
         {
             var currentGameweek = GetCurrentGameweek();
             var gameweek = GetGameWeek(GetCurrentGameweek());
-            openDate = gameweek.PickOpenDateTime;
-            closeDate = gameweek.PickCloseDateTime;
+            openDate = gameweek.PickOpenDateTime.ToLocalTime();
+            closeDate = gameweek.PickCloseDateTime.ToLocalTime();
         }
 
         public IEnumerable<PlayerResults> GetPlayerResults(Guid playerId, int? gameWeek = default(int?))

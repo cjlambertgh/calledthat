@@ -301,12 +301,12 @@ namespace GameServices
 
             if(gameweekAdded)
             {
-                _reminderService.SendNewGameweekReminder(reminderEmailUrl);
+                //_reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
 
             if(gameweekOpen && !gameweekAdded)
             {
-                _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
+                //_reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
             }
             
                      
@@ -478,13 +478,12 @@ namespace GameServices
 
         public int GetCurrentGameweek()
         {
-            return _db.Competitions.FirstOrDefault()?.CurrentGameWeekNumber ?? 1;
+            return CurrentSeason.Competitions.FirstOrDefault()?.CurrentGameWeekNumber ?? 1;
         }
 
         public bool IsGameweekOpen(int gameweekNumber)
         {
-            var gameWeek = _db.GameWeeks.SingleOrDefault(gw => gw.Number == gameweekNumber);
-            return IsGameweekOpen(gameWeek);
+            return IsGameweekOpen(GetCurrentGameweek());
         }
 
         public bool IsCurrentGameweekOpen()

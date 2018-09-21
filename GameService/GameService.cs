@@ -481,15 +481,20 @@ namespace GameServices
             return CurrentSeason.Competitions.FirstOrDefault()?.CurrentGameWeekNumber ?? 1;
         }
 
-        public bool IsGameweekOpen(int gameweekNumber)
+        public bool IsCurrentGameweekOpen()
         {
             return IsGameweekOpen(GetCurrentGameweek());
         }
 
-        public bool IsCurrentGameweekOpen()
+        public bool IsGameweekOpen(int gameweekNumber)
         {
-            var gameWeekNumber = GetCurrentGameweek();
-            return IsGameweekOpen(gameWeekNumber);
+            var gameweek = CurrentSeason.Competitions.FirstOrDefault()?.GameWeeks.FirstOrDefault(gw => gw.Number == gameweekNumber);
+            return IsGameweekOpen(gameweek);
+        }
+
+        private GameWeek GetGameWeek(int number)
+        {
+            return CurrentSeason.Competitions.FirstOrDefault()?.GameWeeks.FirstOrDefault(gw => gw.Number == number);
         }
 
         private static bool IsGameweekOpen(GameWeek gameWeek)
@@ -500,7 +505,7 @@ namespace GameServices
         public void PopulatePickOpenCloseDates(out DateTime openDate, out DateTime closeDate)
         {
             var currentGameweek = GetCurrentGameweek();
-            var gameweek = _db.GameWeeks.FirstOrDefault(gw => gw.Number == currentGameweek);
+            var gameweek = GetGameWeek(GetCurrentGameweek());
             openDate = gameweek.PickOpenDateTime;
             closeDate = gameweek.PickCloseDateTime;
         }

@@ -88,15 +88,16 @@ FROM
             LEFT JOIN
                Fixture f 
                ON pic.FixtureId = f.Id 
-            LEFT JOIN
-               GameWeek g 
-               ON f.GameWeekId = g.Id 
+             
             LEFT JOIN
                PickResult pr 
                ON pic.id = pr.PickId 
             LEFT JOIN
                Competition c 
                ON l.CompetitionId = c.Id 
+			LEFT JOIN
+               GameWeek g 
+               ON f.GameWeekId = g.Id  and c.Id = g.CompetitionId
          WHERE
             l.id = @leagueId 
 			AND g.number =  c.CurrentGameWeekNumber 

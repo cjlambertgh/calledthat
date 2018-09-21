@@ -74,7 +74,7 @@ namespace GameServices
                 startWeek = gw.Number;
             }
             var currentWeek = league.Competition.CurrentGameWeekNumber;
-            var gameWeeks = _db.GameWeeks.Where(gw => gw.Number >= startWeek && gw.Number <= currentWeek);
+            var gameWeeks = league.Competition.GameWeeks.Where(gw => gw.Number >= startWeek && gw.Number <= currentWeek);
             return gameWeeks;
         }
 

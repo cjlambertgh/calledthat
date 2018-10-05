@@ -301,12 +301,12 @@ namespace GameServices
 
             if(gameweekAdded)
             {
-                //_reminderService.SendNewGameweekReminder(reminderEmailUrl);
+                _reminderService.SendNewGameweekReminder(reminderEmailUrl);
             }
 
             if(gameweekOpen && !gameweekAdded)
             {
-                //_reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
+                _reminderService.SendGameweekPicksNotEnteredReminder(reminderEmailUrl, GetPlayersEmailsWithGameweekPredictions());
             }
             
                      

@@ -33,10 +33,13 @@ namespace FootballDataApiV2.Models
         public string Email { get; set; }
 
         [JsonProperty("founded")]
-        public long Founded { get; set; }
+        public long? Founded { get; set; }
 
         [JsonProperty("clubColors")]
         public string ClubColors { get; set; }
+
+        [JsonProperty("crestUrl")]
+        public string BadgeUrl { get; set; }
 
         [JsonProperty("venue")]
         public object Venue { get; set; }

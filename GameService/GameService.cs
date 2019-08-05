@@ -78,7 +78,7 @@ namespace GameServices
                             _db.Teams.Add(new Team
                             {
                                 Name = t.Name,
-                                BadgeUrl = null,
+                                BadgeUrl = t.BadgeUrl,
                                 Competition = competition
                             });
                         });
@@ -408,7 +408,7 @@ namespace GameServices
             var previousGameWeek = comp.GameWeeks.FirstOrDefault(gw => gw.Number == currentGameWeek.Number - 1);
             if(previousGameWeek == null)
             {
-                return DateTime.Now;
+                return DateTime.UtcNow;
             }
 
             return previousGameWeek.Fixtures.Max(f => f.KickOffDateTime).AddMinutes(15);
